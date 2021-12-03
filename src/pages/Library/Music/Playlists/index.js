@@ -32,15 +32,15 @@ export default function Playlists() {
           <ImageContainer>
             <Feather name="plus" size={24} color="#eee" />
           </ImageContainer>
-          <ItemText>Criar playlist</ItemText>
+          <ItemText>Créer une playlist</ItemText>
         </Item>
         <Item>
           <ImageContainer>
             <Image source={{ uri: profile && profile.image }} />
           </ImageContainer>
           <TextContainer>
-            <ItemText>Descobertas da semana</ItemText>
-            <ItemSubText>Feita para {profile && profile.name}</ItemSubText>
+            <ItemText>Découvertes de la semaine</ItemText>
+            <ItemSubText>Créée par {profile && profile.name}</ItemSubText>
           </TextContainer>
         </Item>
       </PlayList>

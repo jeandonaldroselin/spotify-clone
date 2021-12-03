@@ -5,10 +5,14 @@ import { Container, Title, Button, ButtonText } from './styles';
 export default function Artists() {
   return (
     <Container>
-      <Title>Os artistas que você seguir vão aparecer aqui</Title>
+      <Title>Les artistes que vous suivez apparaîtront ici</Title>
       <Button>
-        <ButtonText>Escolher Artistas</ButtonText>
+        <ButtonText>Choisissez des artistes</ButtonText>
       </Button>
     </Container>
   );
 }
+
+Artists.navigationOptions = {
+  tabBarLabel: 'Artistes',
+};
