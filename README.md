@@ -83,20 +83,23 @@ yarn
 
 In order to run the application on your device, you need to change the ip config in 2 places.
 
-1. [package.json](https://github.com/StefanoSaffran/spotify-clone/blob/master/package.json)
+1. Add your own server config in package.json
 ```json
-  "server": "json-server --host 192.168.0.185 -p3333 db.json -w"
+  "server:YOUR_USERNAME": "json-server --host 192.168.0.185 -p3333 db.json -w"
 ```
-2. [api.js](https://github.com/StefanoSaffran/spotify-clone/blob/master/src/services/api.js)
-```javascript
-  baseURL: 'http://192.168.0.185:3333',
+2. Create your config file by running
+```bash
+  yarn create:config
 ```
-replace 192.168.0.185 with your machine's ip.
+
+3 . replace 192.168.1.12 with your machine's ip.
+
+
 
 Now with everything on place, run the json-server that has the application data and then run the app.
 ```bash
 # to run the json-server
-yarn server
+yarn server:YOUR_USERNAME
 
 # to run the app
 yarn start
