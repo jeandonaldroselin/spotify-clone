@@ -5,7 +5,7 @@
   },
   "spotifyMainList": [
     {
-      "title": "Nouveautés",
+      "title": "Dernières prédications",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "title": "Récemment Ajoutés",
+      "title": "Les prédications les plus populaires",
       "itens": [
         {
           "image": "https://daily-mix.scdn.co/covers/gift_sets/YDP/pt-br.jpg",
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "title": "Les plus populaires",
+      "title": "Dernières musiques",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
@@ -111,27 +111,27 @@
         {
           "image": "https://i.scdn.co/image/8f403d6f7c4e733f9bd5cc948b675f09fcdea3b8",
           "subtitle": {
-            "title": "Domino's Pizza open 850 stores in Italy | Le...",
-            "description": "Pasteur N.Pedro"
+            "title": "Hillsong",
+            "description": "Oceans"
           }
         }
       ]
     },
     {
-      "title": "Não sai dos seus ouvidos",
+      "title": "Les musiques les plus populaires",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
           "subtitle": {
-            "title": "Syntax - Tasty Web Development Treats",
-            "description": "Wes Bos and Scott Tolinski"
+            "title": "Holding nothing",
+            "description": "William MacDowell"
           }
         },
         {
           "image": "https://i.scdn.co/image/9b225b3d47d9f0a152309ae9ac7050b1370fff4d",
           "subtitle": {
-            "title": "Podcast FalaDev",
-            "description": "Rocketseat"
+            "title": "Oceans",
+            "description": "Hillsong"
           }
         }
       ]
