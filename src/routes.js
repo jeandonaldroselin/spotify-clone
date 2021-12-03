@@ -169,7 +169,7 @@ const Routes = createAppContainer(
               tabBarIcon: ({ tintColor }) => (
                 <FontAwesome name="book" size={24} color={tintColor} />
               ),
-              tabBarLabel: 'Sua Biblioteca',
+              tabBarLabel: 'Bibliothèque',
             },
             defaultNavigationOptions: {
               headerShown: false,
