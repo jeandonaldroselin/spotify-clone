@@ -5,27 +5,27 @@
   },
   "spotifyMainList": [
     {
-      "title": "Tocadas recentemente",
+      "title": "Dernières prédications",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
           "subtitle": {
-            "title": "Syntax - Tasty Web Development Treats",
-            "description": "Wes Bos and Scott Tolinski"
+            "title": "La Bataille pour la qualité",
+            "description": "Pasteur N.Pedro"
           }
         },
         {
           "image": "https://i.scdn.co/image/6767167b89c88dab39aa8ae8690ddb1df80011fc",
           "subtitle": {
-            "title": "React Round Up",
-            "description": "Devchat.tv"
+            "title": "Qu'est ce que l'iniquité",
+            "description": "Pasteur N.Pedro"
           }
         },
         {
           "image": "https://i.scdn.co/image/9b225b3d47d9f0a152309ae9ac7050b1370fff4d",
           "subtitle": {
-            "title": "Podcast FalaDev",
-            "description": "Rocketseat"
+            "title": "L'erreur Est Humaine,...",
+            "description": "Erick Sébastien"
           }
         },
         {
@@ -52,27 +52,27 @@
       ]
     },
     {
-      "title": "Seus podcasts mais escutados",
+      "title": "Les prédications les plus populaires",
       "itens": [
         {
           "image": "https://daily-mix.scdn.co/covers/gift_sets/YDP/pt-br.jpg",
           "subtitle": {
-            "title": "Seus Podcasts do Dia",
-            "description": "Spotify"
+            "title": "Séminaire prophétique",
+            "description": "Pasteur N.Pedro"
           }
         },
         {
           "image": "https://i.scdn.co/image/6767167b89c88dab39aa8ae8690ddb1df80011fc",
           "subtitle": {
-            "title": "React Round Up",
-            "description": "Devchat.tv"
+            "title": "Il Y Aura Des Miracles",
+            "description": "Judy Jacobs"
           }
         },
         {
           "image": "https://i.scdn.co/image/9b225b3d47d9f0a152309ae9ac7050b1370fff4d",
           "subtitle": {
-            "title": "Podcast FalaDev",
-            "description": "Rocketseat"
+            "title": "Dieu Ouvre Le Chemin",
+            "description": "Todd Hoskins"
           }
         },
         {
@@ -92,46 +92,46 @@
       ]
     },
     {
-      "title": "Novos episódios de podcasts",
+      "title": "Dernières musiques",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
           "subtitle": {
-            "title": "Syntax - Tasty Web De...",
-            "description": "Hoje•55min"
+            "title": "La Vie Extraordinaire",
+            "description": "John Bevere"
           }
         },
         {
           "image": "https://i.scdn.co/image/9b225b3d47d9f0a152309ae9ac7050b1370fff4d",
           "subtitle": {
-            "title": "FalaDev #12 - Boas práticas no front-end,...",
-            "description": "Hoje•32min"
+            "title": "Réunion Pour Femmes",
+            "description": "Natalie Pedro"
           }
         },
         {
           "image": "https://i.scdn.co/image/8f403d6f7c4e733f9bd5cc948b675f09fcdea3b8",
           "subtitle": {
-            "title": "Domino's Pizza open 850 stores in Italy | Le...",
-            "description": "Hoje•32min"
+            "title": "Hillsong",
+            "description": "Oceans"
           }
         }
       ]
     },
     {
-      "title": "Não sai dos seus ouvidos",
+      "title": "Les musiques les plus populaires",
       "itens": [
         {
           "image": "https://i.scdn.co/image/28df6337d6538a093fa1092a979a1f0f95f70992",
           "subtitle": {
-            "title": "Syntax - Tasty Web Development Treats",
-            "description": "Wes Bos and Scott Tolinski"
+            "title": "Holding nothing",
+            "description": "William MacDowell"
           }
         },
         {
           "image": "https://i.scdn.co/image/9b225b3d47d9f0a152309ae9ac7050b1370fff4d",
           "subtitle": {
-            "title": "Podcast FalaDev",
-            "description": "Rocketseat"
+            "title": "Oceans",
+            "description": "Hillsong"
           }
         }
       ]
@@ -139,62 +139,62 @@
   ],
   "sessions": [
     {
-      "title": "Podcasts",
+      "title": "Foi, Espérance",
       "image": "https://t.scdn.co/images/ad4d5c268a214f78920517e76e6ed107.jpeg",
       "background" : "rgb(245, 155, 35);"
     },
     {
-      "title": "Feito para você",
+      "title": "Amour",
       "image": "https://t.scdn.co/images/68433b0ee5b5465b8e926c42b84cbcdb.jpeg",
       "background" : "rgb(160, 195, 210);"
     },
     {
-      "title": "Paradas",
+      "title": "Mariage",
       "image": "https://t.scdn.co/images/4b7472015a274eadbc00119f5141e548.jpeg",
       "background" : "rgb(75, 145, 125);"
     },
     {
-      "title": "Novos lançamentos",
+      "title": "Prospérité, Finances",
       "image": "https://t.scdn.co/images/acc7b5d7b1264d0593ec05c020d0a689.jpeg",
       "background" : "rgb(161, 190, 230);"
     },
     {
-      "title": "Descobrir",
+      "title": "Courage, Force, Pérsévérance",
       "image": "https://t.scdn.co/images/d0fb2ab104dc4846bdc56d72b0b0d785.jpeg",
       "background" : "rgb(180, 155, 200);"
     },
     {
-      "title": "Pop",
+      "title": "Guerison, Bonne Santé",
       "image": "https://t.scdn.co/images/d355f48a90b64c25b6e004179a596e51.jpeg",
       "background" : "rgb(195, 240, 200);"
     },
     {
-      "title": "Seu astral",
+      "title": "Restauration",
       "image": "https://t.scdn.co/images/baf681efc57145e180589e027496b101.jpeg",
       "background" : "rgb(80, 155, 245);"
     },
     {
-      "title": "Hip Hop",
+      "title": "Caractère , Ame, Emotions",
       "image": "https://t.scdn.co/images/9676cef74ec147a48607c737c4f93943.jpeg",
       "background" : "rgb(245, 155, 35);"
     },
     {
-      "title": "Rock",
+      "title": "Restauration",
       "image": "https://t.scdn.co/images/31c85ae6fec34a16927ef28a7a88e97b.jpeg",
       "background" : "rgb(235, 30,50);"
     },
     {
-      "title": "Relax",
+      "title": "Famille",
       "image": "https://t.scdn.co/images/2470fe22d03a4375a9501dce8cfb2b8c.jpeg",
       "background" : "rgb(160, 195, 210);"
     },
     {
-      "title": "Eletrônica/ Dance",
+      "title": "Vocation, Appel, Vie professionnel",
       "image": "https://t.scdn.co/images/3c419cbc46e5430795e056298c34702d.jpeg",
       "background" : "rgb(155, 240, 225);"
     },
     {
-      "title": "Wellness",
+      "title": "Joie",
       "image": "https://pl.scdn.co/images/pl/default/a2563c96f096745764ac114485210cef55f8a734",
       "background" : "rgb(180, 155, 200);"
     }

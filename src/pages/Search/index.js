@@ -30,11 +30,11 @@ export default function Search() {
   return (
     <Container>
       <ScrollView>
-        <Title>Buscar</Title>
+        <Title>Recherche</Title>
         <InputContainer>
-          <Input placeholder="Artistas, músicas ou podcasts" />
+          <Input placeholder="Mots-clés, prédicateurs, titres...                     x" />
         </InputContainer>
-        <SubTitle>Navegar por todas as seções</SubTitle>
+        <SubTitle>Rechercher par thèmes</SubTitle>
 
         {/* <SessionList>
           {sessions &&
