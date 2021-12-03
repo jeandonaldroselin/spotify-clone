@@ -85,7 +85,7 @@ In order to run the application on your device, you need to change the ip config
 
 1. Add your own server config in package.json
 ```json
-  "server:YOUR_USERNAME": "json-server --host 192.168.0.185 -p3333 db.json -w"
+  "server:YOUR_USERNAME": "json-server --host 192.168.1.12 -p3333 db.json -w"
 ```
 2. Create your config file by running
 ```bash
