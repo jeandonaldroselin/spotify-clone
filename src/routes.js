@@ -1,0 +1,213 @@
+import React from 'react';
+import { Platform } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+} from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+
+import {
+  Feather,
+  MaterialIcons,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
+
+import Main from '~/pages/Main';
+import Search from '~/pages/Search';
+import Playlists from '~/pages/Library/Music/Playlists';
+import Artists from '~/pages/Library/Music/Artists';
+import Albums from '~/pages/Library/Music/Albums';
+import Episodios from '~/pages/Library/PodCasts/Episodios';
+import Downloads from '~/pages/Library/PodCasts/Downloads';
+import Programs from '~/pages/Library/PodCasts/Programs';
+import Premium from '~/pages/Premium';
+
+const Routes = createAppContainer(
+  createBottomTabNavigator(
+    {
+      Accueil: {
+        screen: createStackNavigator(
+          {
+            Main: {
+              screen: Main,
+            },
+          },
+          {
+            navigationOptions: {
+              tabBarIcon: ({ tintColor }) => (
+                <MaterialIcons name="home" size={24} color={tintColor} />
+              ),
+            },
+            defaultNavigationOptions: {
+              headerShown: false,
+            },
+          }
+        ),
+      },
+      Recherche: {
+        screen: createStackNavigator(
+          {
+            Search,
+          },
+          {
+            navigationOptions: {
+              tabBarIcon: ({ tintColor }) => (
+                <Feather name="search" size={24} color={tintColor} />
+              ),
+            },
+            defaultNavigationOptions: {
+              headerShown: false,
+            },
+          }
+        ),
+      },
+      Bibliothèque: {
+        screen: createStackNavigator(
+          {
+            screen: createMaterialTopTabNavigator(
+              {
+                Musica: createMaterialTopTabNavigator(
+                  {
+                    Playlists,
+                    Artists,
+                    Albums,
+                  },
+                  {
+                    navigationOptions: {
+                      tabBarLabel: 'Cultes',
+                    },
+                    tabBarOptions: {
+                      scrollEnabled: true,
+                      activeTintColor: 'white',
+                      inactiveTintColor: '#999',
+                      upperCaseLabel: false,
+                      labelStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 14,
+                      },
+                      style: {
+                        backgroundColor: '#121212',
+                      },
+                      tabStyle: {
+                        width: 90,
+                      },
+                      indicatorStyle: {
+                        backgroundColor: '#00e868',
+                      },
+                    },
+                  }
+                ),
+                Podcasts: createMaterialTopTabNavigator(
+                  {
+                    Episodios,
+                    Downloads,
+                    Programs,
+                  },
+                  {
+                    navigationOptions: {
+                      tabBarLabel: 'Coffrets',
+                    },
+                    tabBarOptions: {
+                      activeTintColor: 'white',
+                      inactiveTintColor: '#999',
+                      upperCaseLabel: false,
+                      labelStyle: {
+                        fontWeight: 'bold',
+                      },
+                      tabStyle: {
+                        width: 90,
+                        padding: 0,
+                        margin: 0,
+                        textAlign: 'Left',
+                      },
+                      style: {
+                        backgroundColor: '#121212',
+                      },
+                      indicatorStyle: {
+                        backgroundColor: '#00e868',
+                      },
+                    },
+                  }
+                ),
+              },
+              {
+                tabBarOptions: {
+                  scrollEnabled: true,
+                  activeTintColor: 'white',
+                  inactiveTintColor: '#999',
+                  upperCaseLabel: false,
+                  labelStyle: {
+                    fontWeight: 'bold',
+                    fontSize: 29,
+                  },
+                  indicatorStyle: {
+                    backgroundColor: '#121212',
+                  },
+                  tabStyle: {
+                    width: 160,
+                    padding: 0,
+                    margin: 0,
+                    textAlign: 'Left',
+                  },
+                  style: {
+                    backgroundColor: '#121212',
+                    paddingTop: Platform.OS === 'ios' ? 45 : 0,
+                  },
+                },
+              },
+              {
+                navigationOptions: {},
+              }
+            ),
+          },
+          {
+            navigationOptions: {
+              tabBarIcon: ({ tintColor }) => (
+                <FontAwesome name="book" size={24} color={tintColor} />
+              ),
+              tabBarLabel: 'Bibliothèque',
+            },
+            defaultNavigationOptions: {
+              headerShown: false,
+            },
+          }
+        ),
+      },
+      Premium: {
+        screen: createStackNavigator(
+          {
+            Premium,
+          },
+          {
+            navigationOptions: {
+              tabBarIcon: ({ tintColor }) => (
+                <FontAwesome name="spotify" size={24} color={tintColor} />
+              ),
+            },
+            defaultNavigationOptions: {
+              headerShown: false,
+            },
+          }
+        ),
+      },
+    },
+    {
+      navigationOptions: {
+        initialRouteName: 'Bibliothèque',
+      },
+      tabBarOptions: {
+        activeTintColor: 'white',
+        inactiveTintColor: '#999',
+        style: {
+          backgroundColor: '#272829',
+          borderTopColor: '#010101',
+          borderTopWidth: 2,
+        },
+      },
+    }
+  )
+);
+
+export default Routes;
