@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "server": "json-server --host 192.168.1.12 -p3333 db.json -w"
+    "server:jd": "json-server --host 192.168.1.12 -p3333 db.json -w",
+    "server:burdy": "json-server --host 192.168.1.49 -p3333 db.json -w"
   },
   "eslintConfig": {
     "extends": "expo/native"

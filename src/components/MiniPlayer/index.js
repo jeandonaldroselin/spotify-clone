@@ -14,7 +14,7 @@ export default function MiniPlayer() {
           }}
         />
         <NameContainer>
-          <Name>FalaDev #12 - Boas práticas no front-end</Name>
+          <Name>Femmes Devenez Intelligentes ! - Natalie Pedro</Name>
           <MaterialIcons name="devices-other" color="#ccc" size={18} />
         </NameContainer>
       </Left>

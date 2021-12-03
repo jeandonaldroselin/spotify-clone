@@ -28,7 +28,7 @@ import Premium from '~/pages/Premium';
 const Routes = createAppContainer(
   createBottomTabNavigator(
     {
-      Início: {
+      Explorer: {
         screen: createStackNavigator(
           {
             Main: {
@@ -47,7 +47,7 @@ const Routes = createAppContainer(
           }
         ),
       },
-      Busca: {
+      Rechercher: {
         screen: createStackNavigator(
           {
             Search,
