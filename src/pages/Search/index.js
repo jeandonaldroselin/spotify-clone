@@ -18,27 +18,21 @@ import {
 
 export default function Search() {
   const [sessions, setSessions] = useState([]);
-  const [sessionList, setSessionList] = useState([]);
 
   useEffect(() => {
-    async function loadSessionList() {
-      const { sessionsBBData } = await api.get('sessionsBB');
-      setSessionList(sessionsBBData);
-    }
     async function loadSessions() {
       const { data } = await api.get('sessions');
       setSessions(data);
     }
     loadSessions();
-    loadSessionList();
   }, []);
 
   return (
     <Container>
       <ScrollView>
-        <Title>Recherche</Title>
+        <Title>Buscar</Title>
         <InputContainer>
-          <Input placeholder="Artiste, invité ou titre de predication" />
+          <Input placeholder="Artistas, músicas ou podcasts" />
         </InputContainer>
         <SubTitle>Navegar por todas as seções</SubTitle>
 

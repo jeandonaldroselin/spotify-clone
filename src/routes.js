@@ -27,7 +27,7 @@ import Premium from '~/pages/Premium';
 const Routes = createAppContainer(
   createBottomTabNavigator(
     {
-      Accueil: {
+      Início: {
         screen: createStackNavigator(
           {
             Main: {
@@ -46,7 +46,7 @@ const Routes = createAppContainer(
           }
         ),
       },
-      Recherche: {
+      Busca: {
         screen: createStackNavigator(
           {
             Search,
@@ -63,7 +63,7 @@ const Routes = createAppContainer(
           }
         ),
       },
-      Bibliothèque: {
+      Library: {
         screen: createStackNavigator(
           {
             screen: createMaterialTopTabNavigator(
@@ -76,7 +76,7 @@ const Routes = createAppContainer(
                   },
                   {
                     navigationOptions: {
-                      tabBarLabel: 'Cultes',
+                      tabBarLabel: 'Música',
                     },
                     tabBarOptions: {
                       scrollEnabled: true,
@@ -106,9 +106,6 @@ const Routes = createAppContainer(
                     Programs,
                   },
                   {
-                    navigationOptions: {
-                      tabBarLabel: 'Coffrets',
-                    },
                     tabBarOptions: {
                       activeTintColor: 'white',
                       inactiveTintColor: '#999',
@@ -167,7 +164,7 @@ const Routes = createAppContainer(
               tabBarIcon: ({ tintColor }) => (
                 <FontAwesome name="book" size={24} color={tintColor} />
               ),
-              tabBarLabel: 'Bibliothèque',
+              tabBarLabel: 'Sua Biblioteca',
             },
             defaultNavigationOptions: {
               headerShown: false,
@@ -195,7 +192,7 @@ const Routes = createAppContainer(
     },
     {
       navigationOptions: {
-        initialRouteName: 'Bibliothèque',
+        initialRouteName: 'Library',
       },
       tabBarOptions: {
         activeTintColor: 'white',

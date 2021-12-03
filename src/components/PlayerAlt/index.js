@@ -6,7 +6,7 @@ import { onGestureEvent, withSpring } from 'react-native-redash';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 import MiniPlayer from '~/components/MiniPlayer';
-import FullPlayerCustom from '~/components/FullPlayer';
+import FullPlayer from '~/components/FullPlayer';
 
 import { ViewTopPlayer, ViewBottomPlayer } from './styles';
 
@@ -109,7 +109,7 @@ export default function Player() {
           }}
         >
           {offset !== SNAP_BOTTOM && (
-            <FullPlayerCustom
+            <FullPlayer
               onPress={() => true}
               style={{ borderTopLeftRadius: 5, borderTopRightRadius: 5 }}
             />

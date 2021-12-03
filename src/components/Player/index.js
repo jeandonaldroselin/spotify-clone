@@ -6,7 +6,7 @@ import { onGestureEvent, withSpring } from 'react-native-redash';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 import MiniPlayer from '~/components/MiniPlayer';
-import FullPlayerCustom from '~/components/FullPlayerCustom';
+import FullPlayer from '~/components/FullPlayer';
 
 import { ViewTopPlayer } from './styles';
 
@@ -61,7 +61,7 @@ export default function Player() {
             transform: [{ translateY }],
           }}
         >
-          <FullPlayerCustom onPress={() => true} />
+          <FullPlayer onPress={() => true} />
           {/*           <ViewBottomPlayer
             style={{
               opacity: overlayOpacity,
