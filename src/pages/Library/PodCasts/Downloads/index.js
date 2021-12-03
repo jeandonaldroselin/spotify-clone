@@ -6,14 +6,19 @@ import { Container, Title, SubTitle, Button, ButtonText } from './styles';
 export default function Downloads() {
   return (
     <Container>
-      <Title>Nenhum download por enquanto</Title>
+      <Title>Aucun téléchargement pour le moment</Title>
       <SubTitle>
-        Toque em <Feather name="arrow-down-circle" size={15} color="#ccc" /> em
-        um episódio para ouvi-lo sem conexão.
+        Cliquez sur <Feather name="arrow-down-circle" size={15} color="#ccc" /> dans
+        une prédication pour l'écouter hors connexion
       </SubTitle>
       <Button>
-        <ButtonText>Explorar podcasts</ButtonText>
+        <ButtonText>Explorer les prédications</ButtonText>
       </Button>
     </Container>
   );
 }
+
+Downloads.navigationOptions = {
+  tabBarLabel: 'Télécharger',
+};
+

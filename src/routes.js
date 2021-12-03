@@ -22,12 +22,13 @@ import Albums from '~/pages/Library/Music/Albums';
 import Episodios from '~/pages/Library/PodCasts/Episodios';
 import Downloads from '~/pages/Library/PodCasts/Downloads';
 import Programs from '~/pages/Library/PodCasts/Programs';
+import Predications from '~/pages/Library/PodCasts/Predications';
 import Premium from '~/pages/Premium';
 
 const Routes = createAppContainer(
   createBottomTabNavigator(
     {
-      Início: {
+      Explorer: {
         screen: createStackNavigator(
           {
             Main: {
@@ -46,7 +47,7 @@ const Routes = createAppContainer(
           }
         ),
       },
-      Busca: {
+      Rechercher: {
         screen: createStackNavigator(
           {
             Search,
@@ -68,44 +69,17 @@ const Routes = createAppContainer(
           {
             screen: createMaterialTopTabNavigator(
               {
-                Musica: createMaterialTopTabNavigator(
+                Podcasts: createMaterialTopTabNavigator(
                   {
-                    Playlists,
-                    Artists,
-                    Albums,
+                    Predications,
+                    Episodios,
+                    Downloads,
+                    /*Programs,*/
                   },
                   {
                     navigationOptions: {
-                      tabBarLabel: 'Música',
+                      tabBarLabel: 'Prédication',
                     },
-                    tabBarOptions: {
-                      scrollEnabled: true,
-                      activeTintColor: 'white',
-                      inactiveTintColor: '#999',
-                      upperCaseLabel: false,
-                      labelStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 14,
-                      },
-                      style: {
-                        backgroundColor: '#121212',
-                      },
-                      tabStyle: {
-                        width: 90,
-                      },
-                      indicatorStyle: {
-                        backgroundColor: '#00e868',
-                      },
-                    },
-                  }
-                ),
-                Podcasts: createMaterialTopTabNavigator(
-                  {
-                    Episodios,
-                    Downloads,
-                    Programs,
-                  },
-                  {
                     tabBarOptions: {
                       activeTintColor: 'white',
                       inactiveTintColor: '#999',
@@ -128,6 +102,37 @@ const Routes = createAppContainer(
                     },
                   }
                 ),
+                Musica: createMaterialTopTabNavigator(
+                  {
+                    Playlists,
+                    Artists,
+                    Albums,
+                  },
+                  {
+                    navigationOptions: {
+                      tabBarLabel: 'Musique',
+                    },
+                    tabBarOptions: {
+                      scrollEnabled: true,
+                      activeTintColor: 'white',
+                      inactiveTintColor: '#999',
+                      upperCaseLabel: false,
+                      labelStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 14,
+                      },
+                      style: {
+                        backgroundColor: '#121212',
+                      },
+                      tabStyle: {
+                        width: 90,
+                      },
+                      indicatorStyle: {
+                        backgroundColor: '#00e868',
+                      },
+                    },
+                  }
+                ),
               },
               {
                 tabBarOptions: {
@@ -143,7 +148,7 @@ const Routes = createAppContainer(
                     backgroundColor: '#121212',
                   },
                   tabStyle: {
-                    width: 160,
+                    width: 170,
                     padding: 0,
                     margin: 0,
                     textAlign: 'Left',
@@ -172,7 +177,7 @@ const Routes = createAppContainer(
           }
         ),
       },
-      Premium: {
+      /*Premium: {
         screen: createStackNavigator(
           {
             Premium,
@@ -188,7 +193,7 @@ const Routes = createAppContainer(
             },
           }
         ),
-      },
+      },*/
     },
     {
       navigationOptions: {

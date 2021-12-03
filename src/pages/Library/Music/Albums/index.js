@@ -5,11 +5,11 @@ import { Container, Title } from './styles';
 export default function Albums() {
   return (
     <Container>
-      <Title>Os álbuns que você curtir vão aparecer aqui</Title>
+      <Title>Les albums que vous aimez apparaîtront ici</Title>
     </Container>
   );
 }
 
 Albums.navigationOptions = {
-  tabBarLabel: 'Álbuns',
+  tabBarLabel: 'Albums',
 };
