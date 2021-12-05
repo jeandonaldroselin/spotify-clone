@@ -7,6 +7,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 import MiniPlayer from '~/components/MiniPlayer';
 import FullPlayer from '~/components/FullPlayer';
+import FullPlayerB from '~/components/FullPlayerB';
 
 import { ViewTopPlayer } from './styles';
 
@@ -61,7 +62,7 @@ export default function Player() {
             transform: [{ translateY }],
           }}
         >
-          <FullPlayer onPress={() => true} />
+          <FullPlayerB onPress={() => true} />
           {/*           <ViewBottomPlayer
             style={{
               opacity: overlayOpacity,
