@@ -13,38 +13,39 @@ import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 //import RNFetchBlob from 'rn-fetch-blob';
 import PlayButton from './PlayButton';
 import * as FileSystem from 'expo-file-system';
+import { Audio, Video } from 'expo-av';
 
 //let dirs = RNFetchBlob.fs.dirs.DocumentDir;
 const dirs = FileSystem.documentDirectory;
 
 const playlist = [
   {
-    title: 'Emergence of Talents',
+    title: 'death bed',
     path: 'https://sample-music.netlify.app/death%20bed.mp3',
     cover:
       'https://images.unsplash.com/photo-1515552726023-7125c8d07fb3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80',
   },
   {
-    title: 'Shippuden',
-    path: 'https://sample-music.netlify.app/death%20bed.mp3',
+    title: 'bad liar',
+    path: 'https://sample-music.netlify.app/Bad%20Liar.mp3',
     cover:
       'https://images.unsplash.com/photo-1542359649-31e03cd4d909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80',
   },
   {
-    title: 'Rising Dragon',
-    path: 'https://sample-music.netlify.app/death%20bed.mp3',
+    title: 'faded',
+    path: 'https://sample-music.netlify.app/Faded.mp3',
     cover:
       'https://images.unsplash.com/photo-1512036666432-2181c1f26420?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
   },
   {
-    title: 'Risking it all',
-    path: 'https://sample-music.netlify.app/death%20bed.mp3',
+    title: 'hate me',
+    path: 'https://sample-music.netlify.app/Hate%20Me.mp3',
     cover:
       'https://images.unsplash.com/photo-1501761095094-94d36f57edbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80',
   },
   {
-    title: 'Gekiha',
-    path: 'https://sample-music.netlify.app/death%20bed.mp3',
+    title: 'Solo',
+    path: 'https://sample-music.netlify.app/Solo.mp3',
     cover:
       'https://images.unsplash.com/photo-1471400974796-1c823d00a96f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
   },
@@ -59,41 +60,68 @@ export default function FullPlayerB() {
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
 
+
+  const [sound, setSound] = React.useState();
+
+
   const changeTime = async (seconds) => {
+    if(!sound) {
+      return false;
+    }
     // 50 / duration
     let seektime = (seconds / 100) * duration;
     setTimeElapsed(seektime);
-    audioRecorderPlayer.seekToPlayer(seektime);
+    await sound.sound.setPositionAsync(seconds/1000)
   };
+
+  React.useEffect(() => {
+    return sound && sound.sound
+      ? () => {
+        console.log('Unloading Sound');
+        try {
+          sound.sound.unloadAsync();
+        } catch (e) {
+          console.log('an error has occurend when unloading', e);
+        }
+      }
+      : undefined;
+  }, [sound]);
 
   const onStartPress = async (e) => {
     setisAlreadyPlay(true);
     setInprogress(true);
     const path = playlist[current_track].path;
-    audioRecorderPlayer.startPlayer(path);
-    audioRecorderPlayer.setVolume(1.0);
 
-    audioRecorderPlayer.addPlayBackListener(async (e) => {
-      if (e.current_position === e.duration) {
-        audioRecorderPlayer.stopPlayer();
+    const localSound = await Audio.Sound.createAsync({ uri: path });
+
+    localSound.sound.setOnPlaybackStatusUpdate((e) => {
+      if (!e) {
+        return;
       }
-      let percent = Math.round(
-        (Math.floor(e.current_position) / Math.floor(e.duration)) * 100,
+
+      if (e.positionMillis === e.durationMillis) {
+        localSound.sound.stopAsync();
+      }
+      let percent = Math.floor(
+        (Math.floor(e.positionMillis) / Math.floor(e.durationMillis)) * 100,
       );
-      setTimeElapsed(e.current_position);
       setPercent(percent);
-      setDuration(e.duration);
+      setTimeElapsed(e.positionMillis / 1000);
+      setDuration(e.durationMillis / 1000);
     });
+
+    setSound(localSound);
+
+    await Promise.all([localSound.sound.playAsync(), localSound.sound.setVolumeAsync(1.0)]);
   };
 
   const onPausePress = async (e) => {
     setisAlreadyPlay(false);
-    audioRecorderPlayer.pausePlayer();
+    await sound.sound.pauseAsync();
   };
 
   const onStopPress = async (e) => {
-    await audioRecorderPlayer.stopPlayer();
-    await audioRecorderPlayer.removePlayBackListener();
+    await sound.sound.stopAsync();
   };
 
   const onForward = async () => {
@@ -153,19 +181,19 @@ export default function FullPlayerB() {
           trackStyle={styles.track}
           thumbStyle={styles.thumb}
           value={percent}
-          minimumTrackTintColor="#93A8B3"
+          minimumTrackTintColor="#19D648"
           onValueChange={(seconds) => changeTime(seconds)}
         />
         <View style={styles.inprogress}>
           <Text style={[styles.textLight, styles.timeStamp]}>
             {!inprogress
               ? timeElapsed
-              : audioRecorderPlayer.mmssss(Math.floor(timeElapsed))}
+              : audioRecorderPlayer.mmss(Math.floor(timeElapsed))}
           </Text>
           <Text style={[styles.textLight, styles.timeStamp]}>
             {!inprogress
               ? duration
-              : audioRecorderPlayer.mmssss(Math.floor(duration))}
+              : audioRecorderPlayer.mmss(Math.floor(duration))}
           </Text>
         </View>
       </View>
@@ -190,7 +218,7 @@ export default function FullPlayerB() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EAEAEC',
+    backgroundColor: '#000000',
   },
   textLight: {
     color: '#B6B7BF',
@@ -200,7 +228,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: { alignItems: 'center', marginTop: 24 },
   textDark: {
-    color: '#3D425C',
+    color: '#19D648',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -230,7 +258,7 @@ const styles = StyleSheet.create({
   thumb: {
     width: 8,
     height: 8,
-    backgroundColor: '#3D425C',
+    backgroundColor: '#19D648',
   },
   timeStamp: {
     fontSize: 11,
