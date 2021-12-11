@@ -1,0 +1,12 @@
+{
+    "id": 0,
+    "title": "",
+    "subtitle": "",
+    "author": Author,
+    "isFavorite": false,
+    "color": "#000000",
+    "image": "",
+    "description": "",
+    "duration": "5h25 | 45min",
+    "items": Media[]
+}

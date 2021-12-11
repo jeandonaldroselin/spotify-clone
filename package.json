@@ -7,8 +7,10 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "create:config": "cp src/services/config.dist.json src/services/config.json",
+    "create:config:windows": "copy src\\services\\config.dist.json src\\services\\config.json",
     "server:jd": "json-server --host 192.168.1.12 -p3333 db.json -w",
-    "server:burdy": "json-server --host 192.168.1.49 -p3333 db.json -w"
+    "server:burdy": "json-server --host 192.168.1.49 -p3333 db.json -w",
+    "server:sky": "json-server --host 192.168.1.97 -p3333 db.json -w"
   },
   "eslintConfig": {
     "extends": "expo/native"
