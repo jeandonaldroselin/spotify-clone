@@ -1,0 +1,6 @@
+{
+    "items": Author[],
+    "page": 1,
+    "maxPage": 3,
+    "resultPerPage": 20
+}

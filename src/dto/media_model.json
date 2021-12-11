@@ -1,0 +1,19 @@
+{
+    "id": 0,
+    "previewImage": "",
+    "title": "",
+    "type": "audio | video",
+    "section": "predication | music",
+    "durationInSecond": 0,
+    "positionInSecond": 0,
+    "releaseDateTimestamp": 101010000,
+    "releaseDate": "05-12-2001",
+    "playUrl": "",
+    "downloadUrl": "",
+    "isFavorite": false,
+    "description": "",
+    "author": Author,
+    "featuring": Author[],
+    "album": Album,
+    "category": Category[]
+}
