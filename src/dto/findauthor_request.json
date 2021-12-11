@@ -1,7 +1,8 @@
 {
-    "content": "Recherche dans les champs fullName description",
-    "section": ["predication", "music"],
-    "page": 1,
-    "resultPerPage": 20,
-    "sortBy": "id | fullName"
+    "content": "Recherche dans les champs fullName description", <-- Optionnel
+    "section": ["predication", "music"], <-- Obligatoire
+    "page": 1, <-- Obligatoire
+    "resultPerPage": 20, <-- Obligatoire
+    "sortBy": "id | fullName" <-- Optionnel (valeur par defaut releaseDate),
+    "sortDirection": "ASC | DESC" <-- Optionnel (valeur par defaut DESC)
 }

@@ -1,10 +1,11 @@
 {
-    "content": "Recherche dans les champs title subtitle description author(fullName)",
-    "isFavorite": false,
-    "author": 0,
-    "startReleaseDate": "05-12-2015",
-    "endReleaseDate": "05-12-2016",
-    "page": 1,
-    "resultPerPage": 20,
-    "sortBy": "id | title | releaseDate | author"
+    "content": "Recherche dans les champs title subtitle description author(fullName)", <-- Optionnel
+    "isFavorite": false, <-- Optionnel
+    "author": 0, <-- Optionnel
+    "startReleaseDate": "05-12-2015", <-- Obligatoire
+    "endReleaseDate": "05-12-2016", <-- Obligatoire
+    "page": 1, <-- Obligatoire
+    "resultPerPage": 20, <-- Obligatoire
+    "sortBy": "id | title | releaseDate | author" <-- Optionnel (valeur par defaut releaseDate),
+    "sortDirection": "ASC | DESC" <-- Optionnel (valeur par defaut DESC)
 }

@@ -1,4 +1,4 @@
 {
-    "mediaId": 10,
-    "operation": "like | dislike"
+    "mediaId": 10, <-- Obligatoire
+    "operation": "like | dislike" <-- Obligatoire
 }

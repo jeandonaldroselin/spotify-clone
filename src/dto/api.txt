@@ -4,27 +4,28 @@ Ancienne API
     api/themes                        -> api/media/category/find
     `api/search/by-theme/${themeId}`, -> api/media/find
     `api/songs/${audioId}`,           -> api/media/get/{mediaId}
-    `api/interaction/like`,           -> api/media/favorite/update  
+    `api/interaction/like`,           -> api/media/favorite/update
     `api/interaction/favorites`,      -> api/media/find
 
 
 API à finaliser
 
-    1. Réécritures
+    1. Réécritures anciennes API V1
         api/media/find - Permet de rechercher les médias (voir paramètre d'entrés dans findmedia_request.json | voir objet de sortie findmedia_response.json).
         api/media/get/{mediaId} - Permet de recuperer un media. (voir objet de sortie getmedia_response.json)
         api/media/category/find - Permet de rechercher les categories (voir paramètre d'entrés dans findcategory_request.json | voir objet de sortie findcategory_response.json).
         api/media/favorite/update - Permet d'ajouter ou retirer un média aux favoris (voir paramètre d'entrés dans updatefavorite_request.json | voir objet de sortie findmedia_response.json).
 
-    2. Nouvelle demande
+    2. Nouvelle demande V1
         api/media/boxset/find - Permet de rechercher les coffrets (voir paramètre d'entrés dans findboxset_request.json | voir objet de sortie findboxset_response.json).
         api/media/boxset/get/{boxsetId} - Permet de recuperer le détails d'un coffret (voir objet de sortie getboxset_response.json).
 
-        api/media/album/find - Permet de rechercher les albums (voir paramètre d'entrés dans findalbum_request.json | voir objet de sortie findalbum_response.json).
-        api/media/album/get/{albumId} - Permet de recuperer le détails d'un album (voir objet de sortie getalbum_response.json).
-
         api/media/author/find - Permet de rechercher les auteurs (voir paramètre d'entrés dans findauthor_request.json | voir objet de sortie findauthor_response.json).
         api/media/author/get/{authorId} - Permet de recuperer le détails d'un auteur (voir objet de sortie getauthor_response.json).
+
+    3. Nouvelle demande V2
+        api/media/album/find - Permet de rechercher les albums (voir paramètre d'entrés dans findalbum_request.json | voir objet de sortie findalbum_response.json).
+        api/media/album/get/{albumId} - Permet de recuperer le détails d'un album (voir objet de sortie getalbum_response.json).
 
         api/media/playlist/find - Permet de rechercher les playlists (voir paramètre d'entrés dans findplaylist_request.json | voir objet de sortie findplaylist_response.json).
         api/media/playlist/get/{playlistId} - Permet de recuperer le détails d'une playlist (voir objet de sortie getplaylist_response.json).

@@ -1,13 +1,14 @@
 {
-    "content": "Recherche dans les champs title subtitle description category author(fullName)",
-    "section": "predication | music",
-    "type": "audio | video",
-    "isFavorite": false,
-    "category": 9,
-    "author": 8,
-    "startReleaseDate": "05-12-2015",
-    "endReleaseDate": "05-12-2016",
-    "page": 1,
-    "resultPerPage": 20,
-    "sortBy": "id | title | releaseDate"
+    "content": "Recherche dans les champs title subtitle description category author(fullName)" <-- Optionnel,
+    "section": "predication | music",<-- Obligatoire
+    "type": "audio | video",<-- Obligatoire
+    "isFavorite": false,<-- Optionnel
+    "category": 9,<-- Optionnel
+    "author": 8,<-- Optionnel
+    "startReleaseDate": "05-12-2015",<-- Obligatoire
+    "endReleaseDate": "05-12-2016",<-- Obligatoire
+    "page": 1,<-- Obligatoire
+    "resultPerPage": 20,<-- Obligatoire
+    "sortBy": "id | title | releaseDate" <-- Optionnel (valeur par defaut releaseDate),
+    "sortDirection": "ASC | DESC" <-- Optionnel (valeur par defaut DESC)
 }
