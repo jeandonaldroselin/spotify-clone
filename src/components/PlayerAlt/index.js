@@ -7,6 +7,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 import MiniPlayer from '~/components/MiniPlayer';
 import FullPlayerB from '~/components/FullPlayerB';
+import FullPlayer from '~/components/FullPlayer';
 
 import { ViewTopPlayer, ViewBottomPlayer } from './styles';
 
@@ -109,7 +110,7 @@ export default function Player() {
           }}
         >
           {offset !== SNAP_BOTTOM && (
-            <FullPlayerB
+            <FullPlayer
               onPress={() => true}
               style={{ borderTopLeftRadius: 5, borderTopRightRadius: 5 }}
             />

@@ -62,7 +62,7 @@ export default function Player() {
             transform: [{ translateY }],
           }}
         >
-          <FullPlayerB onPress={() => true} />
+          <FullPlayer onPress={() => true} />
           {/*           <ViewBottomPlayer
             style={{
               opacity: overlayOpacity,

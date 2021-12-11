@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MaterialIcons } from '@expo/vector-icons';
-import { Container, Left, Image, NameContainer, Name } from './styles';
+import { Container, Left, Right, Image, NameContainer, Name } from './styles';
 
 export default function MiniPlayer() {
   return (
@@ -14,16 +14,24 @@ export default function MiniPlayer() {
           }}
         />
         <NameContainer>
-          <Name>Femmes Devenez Intelligentes ! - Natalie Pedro</Name>
-          <MaterialIcons name="devices-other" color="#ccc" size={18} />
+          <Name>Femmes Devenez Intelligentes !</Name>
+          <Name>Natalie Pedro</Name>
         </NameContainer>
       </Left>
-      <MaterialIcons
-        name="play-circle-outline"
-        color="white"
-        size={26}
-        style={{ paddingRight: 16 }}
-      />
+      <Right>
+        <MaterialIcons
+          name="favorite-outline"
+          color="white"
+          size={26}
+          style={{ width: 30, marginRight: 10 }}
+        />
+        <MaterialIcons
+          name="play-arrow"
+          color="white"
+          size={30}
+          style={{ width: 30, marginRight: 10 }}
+        />
+      </Right>
     </Container>
   );
 }

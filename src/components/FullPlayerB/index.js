@@ -59,10 +59,7 @@ export default function FullPlayerB() {
   const [current_track, setCurrentTrack] = useState(0);
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
-
-
   const [sound, setSound] = React.useState();
-
 
   const changeTime = async (seconds) => {
     if(!sound) {
@@ -74,7 +71,7 @@ export default function FullPlayerB() {
     await sound.sound.setPositionAsync(seconds/1000)
   };
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     return sound && sound.sound
       ? () => {
         console.log('Unloading Sound');
@@ -85,7 +82,7 @@ export default function FullPlayerB() {
         }
       }
       : undefined;
-  }, [sound]);
+  }, [sound]);*/
 
   const onStartPress = async (e) => {
     setisAlreadyPlay(true);
@@ -238,22 +235,18 @@ const styles = StyleSheet.create({
   },
   coverContainer: {
     marginTop: 32,
-    width: 250,
-    height: 250,
-    shadowColor: '#5D3F6A',
-    shadowOffset: { height: 15 },
-    shadowRadius: 8,
-    shadowOpacity: 0.3,
+    width: '100%',
+    maxWidth: 370,
+    height: 350,
   },
   cover: {
-    width: 250,
-    height: 250,
-    borderRadius: 125,
+    width: '100%',
+    height: '100%'
   },
   track: {
     height: 2,
     borderRadius: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
   thumb: {
     width: 8,

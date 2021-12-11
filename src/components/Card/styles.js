@@ -10,7 +10,7 @@ export const PodImage = styled.Image`
   width: 150px;
   height: 150px;
   background-color: gray;
-  border-radius: 6px;
+  border-radius: 0px;
 `;
 
 export const ContainerSubtitle = styled.View`
