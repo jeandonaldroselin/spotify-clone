@@ -1,29 +1,4 @@
-import React, { useState } from "react";
-import {
-  Ionicons,
-  EvilIcons,
-  AntDesign,
-  MaterialIcons,
-  Feather as Icon,
-} from '@expo/vector-icons';
-
-import {
-  Container,
-  Background,
-  InnerContainer,
-  Header,
-  Button,
-  Name,
-  PodImage,
-  PlayerView,
-  PodTitle,
-  PodAuthor,
-  Metadata,
-  Controls,
-  Speed,
-  Footer,
-} from './styles';
-import AudioRecorderPlayer from "react-native-audio-recorder-player";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -34,6 +9,9 @@ import {
 } from 'react-native';
 import Slider from 'react-native-slider';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+//import RNFetchBlob from 'rn-fetch-blob';
+import PlayButton from './PlayButton';
 import * as FileSystem from 'expo-file-system';
 import { Audio, Video } from 'expo-av';
 
@@ -73,7 +51,7 @@ const playlist = [
   },
 ];
 
-export default function FullPlayer({ onPress }) {
+export default function FullPlayerB() {
   const [isAlreadyPlay, setisAlreadyPlay] = useState(false);
   const [duration, setDuration] = useState('00:00:00');
   const [timeElapsed, setTimeElapsed] = useState('00:00:00');
@@ -92,6 +70,19 @@ export default function FullPlayer({ onPress }) {
     setTimeElapsed(seektime);
     await sound.sound.setPositionAsync(seconds/1000)
   };
+
+  /*React.useEffect(() => {
+    return sound && sound.sound
+      ? () => {
+        console.log('Unloading Sound');
+        try {
+          sound.sound.unloadAsync();
+        } catch (e) {
+          console.log('an error has occurend when unloading', e);
+        }
+      }
+      : undefined;
+  }, [sound]);*/
 
   const onStartPress = async (e) => {
     setisAlreadyPlay(true);
@@ -159,80 +150,65 @@ export default function FullPlayer({ onPress }) {
   };
 
   return (
-    <Container>
-      <Background>
-        <InnerContainer>
-          <Header>
-            <Button {...{ onPress }}>
-              <Icon name="chevron-down" color="white" size={24} />
-            </Button>
-            <Name>Podcast FalaDev</Name>
-            <Button {...{ onPress }}>
-              <Icon name="more-horizontal" color="white" size={24} />
-            </Button>
-          </Header>
-          <PodImage source={require('~/../assets/fala-dev.jpeg')} />
-          <Metadata>
-            <PlayerView>
-              <PodTitle>{playlist[current_track].title}</PodTitle>
-              <PodAuthor>Podcast FalaDev</PodAuthor>
-            </PlayerView>
-          </Metadata>
-          {/*
-          <Slider>
-            <Circle>●</Circle>
-          </Slider>
-          */}
+    <SafeAreaView style={styles.container}>
+      <View style={{ alignItems: 'center' }}>
+        <View style={styles.titleContainer}>
+          <Text style={[styles.textLight, { fontSize: 12 }]}>PLAYLIST</Text>
+          <Text style={styles.text}>Instaplayer</Text>
+        </View>
+        <View style={styles.coverContainer}>
+          <Image
+            source={{
+              uri: playlist[current_track].cover,
+            }}
+            style={styles.cover}
+          />
+        </View>
 
-          <View style={styles.seekbar}>
-            <Slider
-              minimumValue={0}
-              maximumValue={100}
-              trackStyle={styles.track}
-              thumbStyle={styles.thumb}
-              value={percent}
-              minimumTrackTintColor="#000000"
-              onValueChange={(seconds) => changeTime(seconds)}
-            />
-            <View style={styles.inprogress}>
-              <Text style={[styles.textLight, styles.timeStamp]}>
-                {!inprogress
-                  ? timeElapsed
-                  : audioRecorderPlayer.mmss(Math.floor(timeElapsed))}
-              </Text>
-              <Text style={[styles.textLight, styles.timeStamp]}>
-                {!inprogress
-                  ? duration
-                  : audioRecorderPlayer.mmss(Math.floor(duration))}
-              </Text>
-            </View>
-          </View>
-          <Controls>
-            <Speed>1x</Speed>
-            <AntDesign
-              name="stepbackward"
-              color="rgba(255, 255, 255, 0.5)"
-              size={28}
-            />
-            <AntDesign onPress={() => !isAlreadyPlay ? onStartPress() : onPausePress()} name={!isAlreadyPlay ? 'play' : 'pause'} color="white" size={54} />
-            <AntDesign
-              name="stepforward"
-              color="rgba(255, 255, 255, 0.5)"
-              size={28}
-            />
-            <Ionicons
-              name="ios-moon"
-              color="rgba(255, 255, 255, 0.5)"
-              size={24}
-            />
-          </Controls>
-          <Footer>
-            <MaterialIcons name="devices-other" color="#ccc" size={24} />
-            <EvilIcons name="share-apple" color="white" size={24} />
-          </Footer>
-        </InnerContainer>
-      </Background>
-    </Container>
+        <View style={styles.trackname}>
+          <Text style={[styles.textDark, { fontSize: 20, fontWeight: '500' }]}>
+            {playlist[current_track].title}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.seekbar}>
+        <Slider
+          minimumValue={0}
+          maximumValue={100}
+          trackStyle={styles.track}
+          thumbStyle={styles.thumb}
+          value={percent}
+          minimumTrackTintColor="#19D648"
+          onValueChange={(seconds) => changeTime(seconds)}
+        />
+        <View style={styles.inprogress}>
+          <Text style={[styles.textLight, styles.timeStamp]}>
+            {!inprogress
+              ? timeElapsed
+              : audioRecorderPlayer.mmss(Math.floor(timeElapsed))}
+          </Text>
+          <Text style={[styles.textLight, styles.timeStamp]}>
+            {!inprogress
+              ? duration
+              : audioRecorderPlayer.mmss(Math.floor(duration))}
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => onBackward()}>
+          <FontAwesome name="backward" size={32} color="#93A8B3" />
+        </TouchableOpacity>
+        {!isAlreadyPlay ? (
+          <PlayButton function={() => onStartPress()} state="play" />
+        ) : (
+          <PlayButton function={() => onPausePress()} state="pause" />
+        )}
+        <TouchableOpacity onPress={() => onForward()}>
+          <FontAwesome name="forward" size={32} color="#93A8B3" />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -270,12 +246,12 @@ const styles = StyleSheet.create({
   track: {
     height: 2,
     borderRadius: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
   thumb: {
     width: 8,
     height: 8,
-    backgroundColor: '#000000',
+    backgroundColor: '#19D648',
   },
   timeStamp: {
     fontSize: 11,

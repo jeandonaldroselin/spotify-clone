@@ -6,6 +6,7 @@ import { onGestureEvent, withSpring } from 'react-native-redash';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
 import MiniPlayer from '~/components/MiniPlayer';
+import FullPlayerB from '~/components/FullPlayerB';
 import FullPlayer from '~/components/FullPlayer';
 
 import { ViewTopPlayer, ViewBottomPlayer } from './styles';

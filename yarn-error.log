@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/lib/node_modules/node/bin/node /usr/local/bin/yarn create:config
+  /usr/local/lib/node_modules/node/bin/node /usr/local/bin/yarn server
 
 PATH: 
-  /Users/jdr/.rvm/gems/ruby-2.4.0/bin:/Users/jdr/.rvm/gems/ruby-2.4.0@global/bin:/Users/jdr/.rvm/rubies/ruby-2.4.0/bin:/Users/jdr/.sdkman/candidates/gradle/current/bin:/Applications/apache-maven-3.6.1/bin:/usr/local/Cellar/android-sdk/tools:/usr/local/Cellar/android-sdk/build-tools:/usr/local/bin:/usr/local/Cellar/mysql@5.7/5.7.23/bin/mysql:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/Users/jdr/Library/Android/sdk/emulator:/Users/jdr/Library/Android/sdk/tools:/Users/jdr/Library/Android/sdk/tools/bin:/Users/jdr/Library/Android/sdk/platform-tools:/opt/gradle/gradle-5.4.1/bin:/Users/jdr/.rvm/bin:/Users/jdr/.rvm/bin
+  /Users/jdr/.rvm/gems/ruby-2.4.0/bin:/Users/jdr/.rvm/gems/ruby-2.4.0@global/bin:/Users/jdr/.rvm/rubies/ruby-2.4.0/bin:/Users/jdr/.sdkman/candidates/gradle/current/bin:/Applications/apache-maven-3.6.1/bin:/usr/local/Cellar/android-sdk/tools:/usr/local/Cellar/android-sdk/build-tools:/usr/local/bin:/usr/local/Cellar/mysql@5.7/5.7.23/bin/mysql:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/opt/php@7.2/sbin:/usr/local/opt/php@7.2/bin:/Users/jdr/Library/Android/sdk/emulator:/Users/jdr/Library/Android/sdk/tools:/Users/jdr/Library/Android/sdk/tools/bin:/Users/jdr/Library/Android/sdk/platform-tools:/opt/gradle/gradle-5.4.1/bin:/Users/jdr/.rvm/bin
 
 Yarn version: 
   1.5.1
@@ -22,7 +22,8 @@ npm manifest:
       "ios": "expo start --ios",
       "web": "expo start --web",
       "eject": "expo eject",
-      "create:config": "cp config.dist.json config.json",
+      "create:config": "cp src/services/config.dist.json src/services/config.json",
+      "create:config:windows": "copy src\\services\\config.dist.json src\\services\\config.json",
       "server:jd": "json-server --host 192.168.1.12 -p3333 db.json -w",
       "server:burdy": "json-server --host 192.168.1.49 -p3333 db.json -w"
     },
@@ -30,14 +31,18 @@ npm manifest:
       "extends": "expo/native"
     },
     "dependencies": {
-      "@expo/vector-icons": "^12.0.0",
+      "@expo/vector-icons": "^12.0.5",
       "@react-native-community/masked-view": "0.1.10",
+      "@react-native-community/slider": "^3.0.3",
       "axios": "^0.21.1",
       "expo": "^40.0.0",
+      "expo-av": "~8.7.0",
+      "expo-file-system": "~9.3.0",
       "expo-linear-gradient": "~8.4.0",
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
+      "react-native-audio-recorder-player": "^3.3.0",
       "react-native-gesture-handler": "~1.8.0",
       "react-native-iphone-x-helper": "^1.2.1",
       "react-native-linear-gradient": "^2.5.6",
@@ -45,11 +50,15 @@ npm manifest:
       "react-native-redash": "^9.6.0",
       "react-native-safe-area-context": "3.1.9",
       "react-native-screens": "~2.15.2",
+      "react-native-slider": "^0.11.0",
+      "react-native-swift": "^1.2.3",
+      "react-native-track-player": "^1.2.7",
       "react-native-vector-icons": "^6.6.0",
       "react-native-web": "~0.13.12",
       "react-navigation": "^4.1.0",
       "react-navigation-stack": "^2.0.16",
       "react-navigation-tabs": "^2.7.0",
+      "rn-fetch-blob": "^0.12.0",
       "styled-components": "^5.0.0"
     },
     "devDependencies": {
@@ -1706,7 +1715,7 @@ Lockfile:
     dependencies:
       cross-spawn "^6.0.5"
   
-  "@expo/vector-icons@^12.0.0":
+  "@expo/vector-icons@^12.0.0", "@expo/vector-icons@^12.0.5":
     version "12.0.5"
     resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-12.0.5.tgz#bc508ad05fb7e9a3e008704977cfec6c18aa7728"
     dependencies:
@@ -2071,6 +2080,13 @@ Lockfile:
       "@babel/runtime" "^7.7.2"
       regenerator-runtime "^0.13.3"
   
+  "@raydeck/xcode@^2.2.0":
+    version "2.2.1"
+    resolved "https://registry.yarnpkg.com/@raydeck/xcode/-/xcode-2.2.1.tgz#fd94c3b1908ad15ad9a82fde298b87bf08238289"
+    dependencies:
+      simple-plist "^0.2.1"
+      uuid "3.0.1"
+  
   "@react-native-community/cli-debugger-ui@^4.13.1":
     version "4.13.1"
     resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.13.1.tgz#07de6d4dab80ec49231de1f1fbf658b4ad39b32c"
@@ -2186,6 +2202,10 @@ Lockfile:
   "@react-native-community/masked-view@0.1.10":
     version "0.1.10"
     resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
+  
+  "@react-native-community/slider@^3.0.3":
+    version "3.0.3"
+    resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-3.0.3.tgz#830167fd757ba70ac638747ba3169b2dbae60330"
   
   "@react-navigation/core@^3.5.2":
     version "3.5.2"
@@ -2765,6 +2785,14 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   
+  base-64@0.1.0:
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+  
+  base64-js@1.1.2:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.1.2.tgz#d6400cac1c4c660976d90d07a04351d89395f5e8"
+  
   base64-js@^1.1.2, base64-js@^1.2.3:
     version "1.3.1"
     resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
@@ -2797,7 +2825,7 @@ Lockfile:
     dependencies:
       tweetnacl "^0.14.3"
   
-  big-integer@1.6.x:
+  big-integer@1.6.x, big-integer@^1.6.7:
     version "1.6.51"
     resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.51.tgz#0df92a5d9880560d3ff2d5fd20245c889d130686"
   
@@ -2847,6 +2875,12 @@ Lockfile:
       type-fest "^0.3.0"
       widest-line "^2.0.0"
   
+  bplist-creator@0.0.7:
+    version "0.0.7"
+    resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.0.7.tgz#37df1536092824b87c42f957b01344117372ae45"
+    dependencies:
+      stream-buffers "~2.2.0"
+  
   bplist-creator@0.0.8:
     version "0.0.8"
     resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.0.8.tgz#56b2a6e79e9aec3fc33bf831d09347d73794e79c"
@@ -2858,6 +2892,12 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.1.0.tgz#018a2d1b587f769e379ef5519103730f8963ba1e"
     dependencies:
       stream-buffers "2.2.x"
+  
+  bplist-parser@0.1.1:
+    version "0.1.1"
+    resolved "https://registry.yarnpkg.com/bplist-parser/-/bplist-parser-0.1.1.tgz#d60d5dcc20cba6dc7e1f299b35d3e1f95dafbae6"
+    dependencies:
+      big-integer "^1.6.7"
   
   bplist-parser@0.2.0:
     version "0.2.0"
@@ -3548,6 +3588,10 @@ Lockfile:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.2.tgz#0c548bef048f4d1f2a97249002236060daa3fd84"
   
+  dooboolab-welcome@^1.3.2:
+    version "1.3.2"
+    resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.3.2.tgz#4928595312f0429b4ea1b485ba8767bae6acdab7"
+  
   dot-prop@^4.1.0:
     version "4.2.1"
     resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.1.tgz#45884194a71fc2cda71cbb4bceb3a4dd2f433ba4"
@@ -3961,6 +4005,13 @@ Lockfile:
       md5-file "^3.2.3"
       path-browserify "^1.0.0"
       url-parse "^1.4.4"
+  
+  expo-av@~8.7.0:
+    version "8.7.0"
+    resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-8.7.0.tgz#01030256dc75cebd5d02060393ba0ad36c10a7f8"
+    dependencies:
+      lodash "^4.17.15"
+      nullthrows "^1.1.0"
   
   expo-constants@~9.3.3:
     version "9.3.5"
@@ -4495,6 +4546,17 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.0.tgz#5f4c1d1e748d30cd73ad2944b3577a81b081e8c2"
     dependencies:
       is-glob "^4.0.1"
+  
+  glob@7.0.6:
+    version "7.0.6"
+    resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
+    dependencies:
+      fs.realpath "^1.0.0"
+      inflight "^1.0.4"
+      inherits "2"
+      minimatch "^3.0.2"
+      once "^1.3.0"
+      path-is-absolute "^1.0.0"
   
   glob@7.1.6, glob@^7.1.2, glob@^7.1.3:
     version "7.1.6"
@@ -5829,7 +5891,7 @@ Lockfile:
     dependencies:
       dom-walk "^0.1.0"
   
-  minimatch@^3.0.4:
+  minimatch@^3.0.2, minimatch@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
     dependencies:
@@ -6391,6 +6453,14 @@ Lockfile:
     dependencies:
       semver-compare "^1.0.0"
   
+  plist@2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/plist/-/plist-2.0.1.tgz#0a32ca9481b1c364e92e18dc55c876de9d01da8b"
+    dependencies:
+      base64-js "1.1.2"
+      xmlbuilder "8.2.2"
+      xmldom "0.1.x"
+  
   plist@^3.0.1:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/plist/-/plist-3.0.1.tgz#a9b931d17c304e8912ef0ba3bdd6182baf2e1f8c"
@@ -6513,7 +6583,7 @@ Lockfile:
     dependencies:
       asap "~2.0.6"
   
-  prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+  prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     dependencies:
@@ -6629,6 +6699,12 @@ Lockfile:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   
+  react-native-audio-recorder-player@^3.3.0:
+    version "3.3.0"
+    resolved "https://registry.yarnpkg.com/react-native-audio-recorder-player/-/react-native-audio-recorder-player-3.3.0.tgz#82bb689719766bc61a2c290a750fbbb4adec1ea0"
+    dependencies:
+      dooboolab-welcome "^1.3.2"
+  
   react-native-gesture-handler@~1.8.0:
     version "1.8.0"
     resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"
@@ -6675,9 +6751,26 @@ Lockfile:
     version "2.15.2"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.2.tgz#a449700e895b462937211ec72ed6f09652758f06"
   
+  react-native-slider@^0.11.0:
+    version "0.11.0"
+    resolved "https://registry.yarnpkg.com/react-native-slider/-/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"
+    dependencies:
+      prop-types "^15.5.6"
+  
+  react-native-swift@^1.2.3:
+    version "1.2.3"
+    resolved "https://registry.yarnpkg.com/react-native-swift/-/react-native-swift-1.2.3.tgz#c4ae9c2b8c48c1535ea7fb3d9234d5f206ee47cf"
+    dependencies:
+      "@raydeck/xcode" "^2.2.0"
+      glob "^7.1.2"
+  
   react-native-tab-view@^2.11.0:
     version "2.12.0"
     resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.12.0.tgz#357c8632fd16a622ab16e6965779171bb00a85d0"
+  
+  react-native-track-player@^1.2.7:
+    version "1.2.7"
+    resolved "https://registry.yarnpkg.com/react-native-track-player/-/react-native-track-player-1.2.7.tgz#a721662fc32383cf2979a48b33db091140e88962"
   
   react-native-vector-icons@^6.6.0:
     version "6.6.0"
@@ -7027,6 +7120,13 @@ Lockfile:
     version "2.2.8"
     resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   
+  rn-fetch-blob@^0.12.0:
+    version "0.12.0"
+    resolved "https://registry.yarnpkg.com/rn-fetch-blob/-/rn-fetch-blob-0.12.0.tgz#ec610d2f9b3f1065556b58ab9c106eeb256f3cba"
+    dependencies:
+      base-64 "0.1.0"
+      glob "7.0.6"
+  
   rsvp@^4.8.4:
     version "4.8.5"
     resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
@@ -7208,6 +7308,14 @@ Lockfile:
   signal-exit@^3.0.0, signal-exit@^3.0.2:
     version "3.0.2"
     resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+  
+  simple-plist@^0.2.1:
+    version "0.2.1"
+    resolved "https://registry.yarnpkg.com/simple-plist/-/simple-plist-0.2.1.tgz#71766db352326928cf3a807242ba762322636723"
+    dependencies:
+      bplist-creator "0.0.7"
+      bplist-parser "0.1.1"
+      plist "2.0.1"
   
   simple-plist@^1.0.0:
     version "1.1.0"
@@ -7916,6 +8024,10 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   
+  uuid@3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
+  
   uuid@^3.3.2, uuid@^3.4.0:
     version "3.4.0"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
@@ -8091,6 +8203,10 @@ Lockfile:
       sax ">=0.6.0"
       xmlbuilder "~11.0.0"
   
+  xmlbuilder@8.2.2:
+    version "8.2.2"
+    resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
+  
   xmlbuilder@^14.0.0:
     version "14.0.0"
     resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-14.0.0.tgz#876b5aec4f05ffd5feb97b0a871c855d16fbeb8c"
@@ -8229,16 +8345,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c cp config.dist.json config.json
-  Directory: /Users/jdr/Documents/Projects/Departement/spotify-clone
-  Output:
-  
-      at ProcessTermError.MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/local/lib/node_modules/yarn/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:30281:17)
-      at ChildProcess.emit (events.js:210:5)
-      at maybeClose (internal/child_process.js:1021:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:283:5)
+  Error: Command "server" not found. Did you mean "semver"?
+      at new MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:87307:17
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:98:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:116:14
+      at new Promise (<anonymous>)
+      at new F (/usr/local/lib/node_modules/yarn/lib/cli.js:23451:28)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:95:12
+      at runCommand (/usr/local/lib/node_modules/yarn/lib/cli.js:87312:22)
+      at Object.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:87412:14)

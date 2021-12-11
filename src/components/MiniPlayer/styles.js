@@ -15,6 +15,11 @@ export const Left = styled.View`
   align-items: center;
 `;
 
+export const Right = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const Image = styled.Image`
   height: 48px;
   width: 48px;
