@@ -23,6 +23,7 @@ import Episodios from '~/pages/Library/PodCasts/Episodios';
 import Downloads from '~/pages/Library/PodCasts/Downloads';
 import Programs from '~/pages/Library/PodCasts/Programs';
 import Predications from '~/pages/Library/PodCasts/Predications';
+import Predicator from '~/pages/Library/PodCasts/Predicator';
 import Premium from '~/pages/Premium';
 
 const Routes = createAppContainer(
@@ -73,8 +74,9 @@ const Routes = createAppContainer(
                   {
                     Predications,
                     Episodios,
+                    Predicator/*,
                     Downloads,
-                    /*Programs,*/
+                    Programs,*/
                   },
                   {
                     navigationOptions: {

@@ -87,13 +87,20 @@ In order to run the application on your device, you need to change the ip config
 ```json
   "server:YOUR_USERNAME": "json-server --host 192.168.1.12 -p3333 db.json -w"
 ```
-2. Create your config file by running
+2. Create your config file by running this command
+-If you are on linux or macos
 ```bash
   yarn create:config
 ```
+-If you are on windows
+```bash
+  yarn create:config:windows
+```
 
-3 . replace 192.168.1.12 with your machine's ip.
-
+3 . replace 192.168.1.12 with your machine's ip in src/services/config.json and add a new script in the npm scripts like this
+`````json`
+"server:YOUR_NAME": "json-server --host YOUR_IP -p3333 db.json -w"
+``
 
 
 Now with everything on place, run the json-server that has the application data and then run the app.
