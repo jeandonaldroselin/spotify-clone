@@ -1,6 +1,6 @@
 {
-    "items": Album[],
-    "page": 1,
-    "maxPage": 3,
-    "resultPerPage": 20
+    "status": "ok",
+    "data": {
+        "item": Album
+    }
 }
