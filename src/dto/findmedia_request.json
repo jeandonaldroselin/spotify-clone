@@ -1,0 +1,13 @@
+{
+    "content": "Recherche dans les champs title subtitle description category author(fullName)",
+    "section": "predication | music",
+    "type": "audio | video",
+    "isFavorite": false,
+    "category": 9,
+    "author": 8,
+    "startReleaseDate": "05-12-2015",
+    "endReleaseDate": "05-12-2016",
+    "page": 1,
+    "resultPerPage": 20,
+    "sortBy": "id | title | releaseDate"
+}
