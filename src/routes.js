@@ -25,6 +25,8 @@ import Programs from '~/pages/Library/PodCasts/Programs';
 import Predications from '~/pages/Library/PodCasts/Predications';
 import Predicator from '~/pages/Library/PodCasts/Predicator';
 import Premium from '~/pages/Premium';
+import Account from '~/pages/Account';
+
 
 const Routes = createAppContainer(
   createBottomTabNavigator(
@@ -172,6 +174,23 @@ const Routes = createAppContainer(
                 <FontAwesome name="book" size={24} color={tintColor} />
               ),
               tabBarLabel: 'Bibliothèque',
+            },
+            defaultNavigationOptions: {
+              headerShown: false,
+            },
+          }
+        ),
+      },
+      ['Mon compte']: {
+        screen: createStackNavigator(
+          {
+            Account,
+          },
+          {
+            navigationOptions: {
+              tabBarIcon: ({ tintColor }) => (
+                <Feather name="user" size={24} color={tintColor} />
+              ),
             },
             defaultNavigationOptions: {
               headerShown: false,
