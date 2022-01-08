@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import api from '../../services/api';
 import { InputContainer } from '../Search/styles';
@@ -13,8 +13,18 @@ import {
   Link,
   LogoImage
 } from './styles';
+import { Linking } from 'react-native';
 
-export default function Login() {
+export default function Login({navigation}) {
+  const passwordForgotLink = 'https://www.editions-charisma.fr/mot-de-passe-oublie';
+  const createAccountLink = 'https://www.editions-charisma.fr/authentification?create_account=1';
+  const [showPassword, setShowPassword] = useState(false);
+
+  const onConnectButtonPress = () => {
+    // TODO login logic
+
+    navigation.navigate('App');
+  }
 
   return (
     <>
@@ -27,13 +37,13 @@ export default function Login() {
             <Input placeholder="Email..." />
           </InputContainer>
           <InputContainer>
-            <Input placeholder="Mot de passe..." rightIconName="eye" />
-            <PasswordForgetLink>Mot de passe oublié ?</PasswordForgetLink>
+            <Input placeholder="Mot de passe..." rightIconName="eye" secureTextEntry={!showPassword} onRightIconPress={() => setShowPassword(!showPassword)}/>
+            <PasswordForgetLink onPress={() => Linking.openURL(passwordForgotLink)}>Mot de passe oublié ?</PasswordForgetLink>
           </InputContainer>
-          <Button>
+          <Button onPress={onConnectButtonPress}>
             <ButtonText>Se connecter</ButtonText>
           </Button>
-          <Link>Pas encore membre ? Créer un compte</Link>
+          <Link onPress={() => Linking.openURL(createAccountLink)}>Pas encore membre ? Créer un compte</Link>
         </Container>
       </Background>
     </>
