@@ -58,3 +58,11 @@ export const LogoImage = styled.Image`
   align-self: center;
   margin-top:50
 `;
+
+export const ErrorMessage = styled.Text`
+  background-color: red;
+  color: white;
+  border-radius: 3px;
+  margin: 0 20px;
+  padding:5px;
+`;

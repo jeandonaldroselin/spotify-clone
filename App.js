@@ -1,7 +1,7 @@
-import React from 'react';
-import { StatusBar, YellowBox } from 'react-native';
+import React, { useState } from 'react';
+import { YellowBox } from 'react-native';
 import Routes from '~/routes';
-import Player from '~/components/Player';
+import { AuthenticationContext } from '~/context/authentication.context';
 
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket',
@@ -9,11 +9,10 @@ YellowBox.ignoreWarnings([
 ]);
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   return (
-    <>
-      <StatusBar barStyle="light-content" backgroundColor="#111" />
+    <AuthenticationContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       <Routes />
-      <Player />
-    </>
+    </AuthenticationContext.Provider>
   );
 }
