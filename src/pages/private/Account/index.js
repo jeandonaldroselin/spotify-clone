@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import api from '../../services/api';
-
+import api from '../../../services/api'
 import Item from '~/components/Item';
 import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 
@@ -11,7 +10,7 @@ import {
   PlayList,
   TextAvatar,
   Avatar
-} from './styles';
+} from './styles'
 
 export default function Account() {
   const [sessions, setSessions] = useState([]);

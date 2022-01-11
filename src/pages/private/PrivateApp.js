@@ -25,7 +25,7 @@ import Downloads from '~/pages/private/Library/PodCasts/Downloads';
 import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
-import Premium from '~/pages/private/Premium';
+import Account from '~/pages/private/Account';
 import { createAppContainer } from 'react-navigation';
 
 const PrivateStack = createBottomTabNavigator(
@@ -180,6 +180,23 @@ const PrivateStack = createBottomTabNavigator(
                 }
             ),
         },
+        ['Mon compte']: {
+            screen: createStackNavigator(
+              {
+                Account,
+              },
+              {
+                navigationOptions: {
+                  tabBarIcon: ({ tintColor }) => (
+                    <Feather name="user" size={24} color={tintColor} />
+                  ),
+                },
+                defaultNavigationOptions: {
+                  headerShown: false,
+                },
+              }
+            ),
+          },
         /*Premium: {
           screen: createStackNavigator(
             {
