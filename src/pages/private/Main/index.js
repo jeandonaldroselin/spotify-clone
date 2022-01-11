@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import PodcastsSlide from '~/components/PodcastsSlide';
 
-import api from '../../services/api';
+import api from '../../../services/api';
 
 import { Container, ContainerScrollView } from './styles';
 
