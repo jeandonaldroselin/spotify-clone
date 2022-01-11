@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import api from '../../../services/api';
 
@@ -15,14 +15,29 @@ import {
   SessionImage,
   SessionTitle,
 } from './styles';
+import { AuthenticationContext } from '~/context/authentication.context';
 
 export default function Search() {
   const [sessions, setSessions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const { accessToken } = useContext(AuthenticationContext);
 
   useEffect(() => {
     async function loadSessions() {
-      const { data } = await api.get('sessions');
-      setSessions(data);
+
+      const headers = {
+        "Authorization": "Bearer " + accessToken
+      };
+
+      let body = {
+        "page": 1,
+        "resultPerPage": 20,
+        "sortBy": "releaseDate",
+        "sortDirection": "DESC"
+      };
+      console.info('accessToken: ', accessToken)
+      const { data } = await api.get('/media/category/find', { headers, body: JSON.stringify(body) });
+      setCategories(data);
     }
     loadSessions();
   }, []);

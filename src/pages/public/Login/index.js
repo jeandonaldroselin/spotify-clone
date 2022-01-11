@@ -37,16 +37,11 @@ export default function Login({ navigation }) {
     setIsEmailRequired(isEmailEmpty);
     setIsPasswordRequired(isPasswordEmpty);
     if (isValidForm) {
-      const headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      };
-
       let body = {
         "email": emailText,
         "password": passwordText
       };
-      api.post('/login', JSON.stringify(body), { headers }).then(response => {
+      api.post('/login', JSON.stringify(body)).then(response => {
         setAccessToken(response.data.accessToken);
         setRefreshToken(response.data.refreshToken);
         setIsAuthenticated(true);
