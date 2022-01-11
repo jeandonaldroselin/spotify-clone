@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
   const passwordForgotLink = 'https://www.editions-charisma.fr/mot-de-passe-oublie';
   const createAccountLink = 'https://www.editions-charisma.fr/authentification?create_account=1';
   const [showPassword, setShowPassword] = useState(false);
-  const { setIsAuthenticated } = useContext(AuthenticationContext);
+  const { setIsAuthenticated, setAccessToken, setRefreshToken } = useContext(AuthenticationContext);
 
   const [emailText, setEmailText] = useState("");
   const [passwordText, setPasswordText] = useState("");
@@ -37,9 +37,23 @@ export default function Login({ navigation }) {
     setIsEmailRequired(isEmailEmpty);
     setIsPasswordRequired(isPasswordEmpty);
     if (isValidForm) {
-      // TODO login logic
-      setIsAuthenticated(true);
-      navigation.navigate('App');
+      const headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      };
+
+      let body = {
+        "email": emailText,
+        "password": passwordText
+      };
+      api.post('/login', JSON.stringify(body), { headers }).then(response => {
+        setAccessToken(response.data.accessToken);
+        setRefreshToken(response.data.refreshToken);
+        setIsAuthenticated(true);
+        navigation.navigate('App');
+      }).catch(e => {
+        console.error(e);
+      })
     }
   }
 

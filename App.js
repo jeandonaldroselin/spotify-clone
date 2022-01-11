@@ -10,8 +10,10 @@ YellowBox.ignoreWarnings([
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
   return (
-    <AuthenticationContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthenticationContext.Provider value={{ isAuthenticated, setIsAuthenticated, accessToken, setAccessToken, refreshToken, setRefreshToken }}>
       <Routes />
     </AuthenticationContext.Provider>
   );
