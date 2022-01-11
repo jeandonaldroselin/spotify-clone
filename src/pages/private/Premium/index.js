@@ -4,7 +4,7 @@ import { Animated, Dimensions } from 'react-native';
 import PremiumCard from '~/components/PremiumCard';
 import Dots from '~/components/Dots';
 
-import api from '../../services/api';
+import api from '../../../services/api';
 
 import {
   Container,
