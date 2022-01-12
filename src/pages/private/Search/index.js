@@ -51,11 +51,10 @@ export default function Search() {
         "endReleaseDate": (new Date()).toISOString().split('T')[0],
         "page": 1,
         "resultPerPage": 10,
-        "sortBy": "releaseDate",
+        "sortBy": "title",
         "sortDirection": "DESC"
       }
       api.get('/media/find', { headers, body: JSON.stringify(body) }).then((response) => {
-        console.log(response)
         setSearchAudios(response.data.item);
         setIsSearching(true);
       }).catch((e) => {
@@ -64,6 +63,16 @@ export default function Search() {
     } else {
       setIsSearching(false);
     }
+  }
+
+  const onCategoryPress = (categoryId) => {
+    //TODO appeler la bonne api pour recup les audios de la category 
+    api.get('/media/find', { headers, body: JSON.stringify(body) }).then((response) => {
+      setSearchAudios(response.data.item);
+      setIsSearching(true);
+    }).catch((e) => {
+      console.error(e);
+    })
   }
 
   return (
@@ -80,7 +89,7 @@ export default function Search() {
               data={categories}
               keyExtractor={item => String(item.id)}
               renderItem={({ item }) => (
-                <Session background={item.color}>
+                <Session background={item.color} onPress={onCategoryPress(item.id)}>
                   <SessionImage source={{ uri: item.image }} />
                   <SessionTitle>{item.name}</SessionTitle>
                 </Session>)} />
