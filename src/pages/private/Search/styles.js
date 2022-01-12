@@ -63,3 +63,40 @@ export const SessionTitle = styled.Text`
   font-weight: bold;
   max-width: 100px;
 `;
+
+export const SearchItemList = styled.FlatList.attrs({
+  numColumns: 1,
+  showsVerticalScrollIndicator: false
+})`
+  padding: 10px;
+`;
+
+export const SearchItem = styled.TouchableOpacity`
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+  display:flex;
+  flex-direction:row;
+`;
+
+export const SearchItemImage = styled.Image`
+  width: 40px;
+  height: 40px;
+`;
+
+export const SearchItemTitle = styled.Text.attrs({
+  numberOfLines: 1
+})`
+  margin-left: 10px;
+  color: white;
+  font-weight: bold;
+  width: 85%;
+`;
+
+export const SearchItemSubTitle = styled.Text.attrs({
+  numberOfLines: 1
+})`
+  margin-left: 10px;
+  color: white;
+  width: 85%;
+`;

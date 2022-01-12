@@ -45,6 +45,7 @@ export default function Login({ navigation }) {
         setAccessToken(response.data.accessToken);
         setRefreshToken(response.data.refreshToken);
         setIsAuthenticated(true);
+        console.info('accessToken: ', response.data.accessToken)
         navigation.navigate('App');
       }).catch(e => {
         console.error(e);
