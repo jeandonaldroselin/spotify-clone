@@ -2,7 +2,7 @@ import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
 import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AsyncStorage } from 'react-native';
 import {
     createBottomTabNavigator,
     createMaterialTopTabNavigator,
@@ -27,6 +27,8 @@ import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
 import Account from '~/pages/private/Account';
+import ChangePassword from '~/pages/private/ChangePassword';
+
 import { createAppContainer } from 'react-navigation';
 import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
@@ -189,7 +191,7 @@ const PrivateStack = createBottomTabNavigator(
         ['Mon compte']: {
             screen: createStackNavigator(
                 {
-                    Account,
+                    ChangePassword,
                 },
                 {
                     navigationOptions: {

@@ -11,6 +11,7 @@ import {
   TextAvatar,
   Avatar
 } from './styles'
+import { Linking } from 'react-native';
 
 export default function Account() {
   const [sessions, setSessions] = useState([]);
@@ -46,12 +47,11 @@ export default function Account() {
           <Item name='Nom' value='Goureige'/>
           <Item name='Adresse email' value='burdy.gou@gmail.com'/>
           <Item name='Mot de passe' value='Modifier mot de passe'/>
-          <Item name="Player" value={null}/>
-          <Item name='Assistance' value='assistance@gmail.com'/>
-          <Item name='Consulter la Politique de confidentialité' value={null}/>
-          <Item name="Consulter les Conditions Générales d'Utilisation" value={null}/>
-          <Item name="Noter l'application Editions Charisma" value={null}/>
-          <Item name="Déconnexion" value={null}/>
+          <Item name='Assistance' url='https://www.editions-charisma.fr/coordonnees' />
+          <Item url="https://www.editions-charisma.fr/content/10-conditions-generales-de-vente" name='Consulter la Politique de confidentialité' />
+          <Item url="https://www.editions-charisma.fr/content/10-conditions-generales-de-vente" name="Consulter les Conditions Générales d'Utilisation" />
+          {/* <Item name="Noter l'application Editions Charisma" /> */}
+          <Item name="Déconnexion" />
 
     </PlayList>
   </Container>

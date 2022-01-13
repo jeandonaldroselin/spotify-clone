@@ -6,7 +6,7 @@ export const Container = styled.TouchableOpacity`
   justify-content: flex-start;
   padding: 1px 15px 5px;
   width: 100%;
-  margin: 15px 0;
+  margin: 20px 0;
 `;
 
 
