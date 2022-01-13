@@ -90,7 +90,10 @@ export const SearchItemTitle = styled.Text.attrs({
   margin-left: 10px;
   color: white;
   font-weight: bold;
-  width: 85%;
+`;
+
+export const SearchItemDetails = styled.View`
+  width: 85%
 `;
 
 export const SearchItemSubTitle = styled.Text.attrs({

@@ -19,6 +19,7 @@ import {
   SearchItemImage,
   SearchItemTitle,
   SearchItemSubTitle,
+  SearchItemDetails,
 } from './styles';
 import { AuthenticationContext } from '~/context/authentication.context';
 import { View } from 'react-native';
@@ -33,45 +34,59 @@ export default function Search() {
   };
 
   useEffect(() => {
-    async function loadSessions() {
-
-      const { data } = await api.get('/themes', { headers });
-      setCategories(data);
+    function loadSessions() {
+      let body = {
+        "page": 1,
+        "resultPerPage": 20,
+        "sortBy": "fullname"
+      };
+      api.post('/media/category/find', JSON.stringify(body), { headers }).then((response) => {
+        const data = response.data.data?.item || response.data.item;
+        setCategories(data);
+      }).catch(e => console.error(e));
     }
     loadSessions();
   }, []);
 
   const onInputSearchField = (inputValue) => {
     if (inputValue.length >= 3) {
-      let body = {
-        "content": inputValue.toLowerCase(),
-        "section": "predication",
-        "type": "audio",
-        "startReleaseDate": "1900-01-15",
-        "endReleaseDate": (new Date()).toISOString().split('T')[0],
-        "page": 1,
-        "resultPerPage": 10,
-        "sortBy": "title",
-        "sortDirection": "DESC"
-      }
-      api.get('/media/find', { headers, body: JSON.stringify(body) }).then((response) => {
-        setSearchAudios(response.data.item);
-        setIsSearching(true);
-      }).catch((e) => {
-        console.error(e);
-      })
+      searchMedia(inputValue);
     } else {
       setIsSearching(false);
     }
   }
 
   const onCategoryPress = (categoryId) => {
-    //TODO appeler la bonne api pour recup les audios de la category 
-    api.get('/media/find', { headers, body: JSON.stringify(body) }).then((response) => {
-      setSearchAudios(response.data.item);
+    searchMedia(null, categoryId);
+  }
+
+  const onMediaPress = () => {
+
+  }
+
+  const searchMedia = (content, categoryId) => {
+    let body = {
+      "section": "predication",
+      "type": "audio",
+      "startReleaseDate": "1950-01-15",
+      "endReleaseDate": (new Date()).toISOString().split('T')[0],
+      "page": 1,
+      "resultPerPage": 10,
+      "sortBy": "title"
+    }
+    if (!!content) {
+      body.content = content.toLowerCase();
+    }
+    if (!!categoryId) {
+      body.category = categoryId;
+    }
+    api.post('/media/find', JSON.stringify(body), { headers }).then((response) => {
+      const data = response.data.data?.item || response.data.item;
+      setSearchAudios(data);
       setIsSearching(true);
     }).catch((e) => {
       console.error(e);
+      setIsSearching(false);
     })
   }
 
@@ -80,7 +95,7 @@ export default function Search() {
       <ScrollView>
         <Title>Recherche</Title>
         <InputContainer>
-          <Input placeholder="Mots-clés, prédicateurs, titres...                     x" onChangeText={onInputSearchField} />
+          <Input placeholder="Mots-clés, prédicateurs, titres...                     x" onChangeText={(value) => onInputSearchField(value)} />
         </InputContainer>
         {!isSearching &&
           <>
@@ -89,8 +104,8 @@ export default function Search() {
               data={categories}
               keyExtractor={item => String(item.id)}
               renderItem={({ item }) => (
-                <Session background={item.color} onPress={onCategoryPress(item.id)}>
-                  <SessionImage source={{ uri: item.image }} />
+                <Session background={item.color} onPress={() => onCategoryPress(item.id)}>
+                  <SessionImage source={item.image === "" ? null : { uri: item.image }} />
                   <SessionTitle>{item.name}</SessionTitle>
                 </Session>)} />
 
@@ -102,11 +117,11 @@ export default function Search() {
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 <SearchItem>
-                  <SearchItemImage source={{ uri: item.previewImage }}></SearchItemImage>
-                  <View>
+                  <SearchItemImage source={item.previewImage === "" ? null : { uri: item.previewImage }}></SearchItemImage>
+                  <SearchItemDetails>
                     <SearchItemTitle>{item.title}</SearchItemTitle>
                     <SearchItemSubTitle>{item.author.fullName}</SearchItemSubTitle>
-                  </View>
+                  </SearchItemDetails>
                 </SearchItem>)} />
 
           </>}
