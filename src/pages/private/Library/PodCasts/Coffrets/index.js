@@ -1,14 +1,23 @@
 import React, { useState, useEffect, Fragment } from 'react';
 
 import api from '~/services/api';
-
-import { Container, ChaptersList, Title } from './styles';
+import DailyChapters from '~/components/DailyChapters';
 import Chapter from '~/components/DailyChapters/Chapter';
 
+import { Container, ChaptersList, Title } from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BackHandler } from 'react-native';
+
 export default function Episodios() {
+  const [currentCoffret, setCurrentCoffret] = useState(null);
   const [coffrets, setCoffrets] = useState([]);
 
   useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress",
+      () => {
+        setCurrentCoffret(null);
+        return true;
+    });
     function loadCoffrets() {
       let body = {
         "startReleaseDate": "1950-01-15",
@@ -19,29 +28,40 @@ export default function Episodios() {
       }
       api.post('/media/boxset/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
-        console.log(data)
         setCoffrets(data);
       })
     }
     loadCoffrets();
+    return () => backHandler.remove();
   }, []);
+
+  const onCoffretPress = (coffret) => {
+    setCurrentCoffret(coffret);
+  }
 
   return (
     <Container>
       <ChaptersList>
-        {coffrets &&
+        {!currentCoffret && coffrets &&
           coffrets.map(coffret => (
-            <Fragment key={coffret.id}>
-              <Chapter
-                chapter={{
-                  time: coffret.duration,
-                  title: coffret.title,
-                  image: coffret.image,
-                  author: coffret.author,
-                  description: coffret.description,
-                }} />
-            </Fragment>
+            <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
+              <Fragment >
+                <Chapter
+                  chapter={{
+                    time: coffret.duration,
+                    title: coffret.title,
+                    image: coffret.image,
+                    author: coffret.author,
+                    description: coffret.description,
+                  }} />
+              </Fragment>
+            </TouchableOpacity>
           ))}
+        {currentCoffret &&
+          <Fragment key={currentCoffret.id}>
+            <Title>{currentCoffret.title}</Title>
+            <DailyChapters dailyChapters={currentCoffret} />
+          </Fragment>}
       </ChaptersList>
     </Container>
   );
