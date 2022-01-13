@@ -22,7 +22,7 @@ import {
   SearchItemDetails,
 } from './styles';
 import { AuthenticationContext } from '~/context/authentication.context';
-import { View } from 'react-native';
+import { Alert, BackHandler, View } from 'react-native';
 import { PlayerContext } from '~/context/player.context';
 
 export default function Search() {
@@ -36,6 +36,12 @@ export default function Search() {
   };
 
   useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress",
+      () => {
+        setIsSearching(false);
+        return true;
+    });
+
     function loadSessions() {
       let body = {
         "page": 1,
@@ -48,6 +54,7 @@ export default function Search() {
       }).catch(e => console.error(e));
     }
     loadSessions();
+    return () => backHandler.remove();
   }, []);
 
   const onInputSearchField = (inputValue) => {
