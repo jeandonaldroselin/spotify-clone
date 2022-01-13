@@ -29,11 +29,7 @@ export default function Search() {
   const [categories, setCategories] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchAudios, setSearchAudios] = useState([]);
-  const { accessToken } = useContext(AuthenticationContext);
   const { setCurrentMedia } = useContext(PlayerContext);
-  const headers = {
-    "Authorization": "Bearer " + accessToken
-  };
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",
@@ -48,7 +44,7 @@ export default function Search() {
         "resultPerPage": 20,
         "sortBy": "fullname"
       };
-      api.post('/media/category/find', JSON.stringify(body), { headers }).then((response) => {
+      api.post('/media/category/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
         setCategories(data);
       }).catch(e => console.error(e));
@@ -89,7 +85,7 @@ export default function Search() {
     if (!!categoryId) {
       body.category = categoryId;
     }
-    api.post('/media/find', JSON.stringify(body), { headers }).then((response) => {
+    api.post('/media/find', JSON.stringify(body)).then((response) => {
       const data = response.data.data?.item || response.data.item;
       setSearchAudios(data);
       setIsSearching(true);

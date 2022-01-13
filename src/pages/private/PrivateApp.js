@@ -1,7 +1,8 @@
 import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     createBottomTabNavigator,
     createMaterialTopTabNavigator,
@@ -20,7 +21,7 @@ import Search from '~/pages/private/Search';
 import Playlists from '~/pages/private/Library/Music/Playlists';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
-import Episodios from '~/pages/private/Library/PodCasts/Episodios';
+import Coffrets from '~/pages/private/Library/PodCasts/Coffrets';
 import Downloads from '~/pages/private/Library/PodCasts/Downloads';
 import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
@@ -28,6 +29,9 @@ import Predicator from '~/pages/private/Library/PodCasts/Predicator';
 import Account from '~/pages/private/Account';
 import { createAppContainer } from 'react-navigation';
 import { PlayerContext } from '~/context/player.context';
+import api from '~/services/api';
+import { AuthenticationContext } from '~/context/authentication.context';
+import axios from 'axios';
 
 const PrivateStack = createBottomTabNavigator(
     {
@@ -75,7 +79,7 @@ const PrivateStack = createBottomTabNavigator(
                             Podcasts: createMaterialTopTabNavigator(
                                 {
                                     Predications,
-                                    Episodios,
+                                    Coffrets,
                                     Predicator/*,
                     Downloads,
                     Programs,*/
@@ -236,6 +240,19 @@ const PrivateRoutes = createAppContainer(PrivateStack);
 
 export default function PrivateApp() {
     const [currentMedia, setCurrentMedia] = useState(null);
+    const { accessToken } = useContext(AuthenticationContext);
+
+    useEffect(() => {
+        AsyncStorage.setItem('@accessToken', accessToken);
+        api.interceptors.request.use(config => {
+            if (!config?.headers?.Authorization) {
+                config.headers.Authorization = `Bearer ${accessToken}`;
+            }
+            return { ...config }
+        })
+    }, [])
+
+
     return (
         <PlayerContext.Provider value={{ currentMedia, setCurrentMedia }}>
             <StatusBar barStyle="light-content" backgroundColor="#111" />

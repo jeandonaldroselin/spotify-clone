@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-
 import api from '../../../services/api';
 import { InputContainer } from '../../private/Search/styles';
 import Input from '~/components/Input';

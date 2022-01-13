@@ -30,8 +30,8 @@ export default function Episode({ time, chapter }) {
           }}
         />
         <TitleContainer>
-          <Title>{chapter.name}</Title>
-          <SubTitle>{chapter.owner}</SubTitle>
+          <Title>{chapter.title}</Title>
+          <SubTitle>{chapter.author}</SubTitle>
         </TitleContainer>
         <Icon
           name="dots-horizontal"
@@ -45,7 +45,7 @@ export default function Episode({ time, chapter }) {
         <Left>
           <Ionicons name="ios-play-circle" size={35} color="#ccc" />
           <Time>
-            {time} • {chapter.time}
+            {chapter.time}
           </Time>
         </Left>
         <Right>

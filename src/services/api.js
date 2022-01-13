@@ -6,7 +6,8 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
-  }
+  }, 
+  cancelToken: new axios.CancelToken(function (cancel) {
+  }),
 });
-
 export default api;
