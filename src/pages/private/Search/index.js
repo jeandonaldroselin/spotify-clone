@@ -23,12 +23,14 @@ import {
 } from './styles';
 import { AuthenticationContext } from '~/context/authentication.context';
 import { View } from 'react-native';
+import { PlayerContext } from '~/context/player.context';
 
 export default function Search() {
   const [categories, setCategories] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchAudios, setSearchAudios] = useState([]);
   const { accessToken } = useContext(AuthenticationContext);
+  const { setCurrentMedia } = useContext(PlayerContext);
   const headers = {
     "Authorization": "Bearer " + accessToken
   };
@@ -60,8 +62,8 @@ export default function Search() {
     searchMedia(null, categoryId);
   }
 
-  const onMediaPress = () => {
-
+  const onMediaPress = (media) => {
+    setCurrentMedia(media);
   }
 
   const searchMedia = (content, categoryId) => {
@@ -116,7 +118,7 @@ export default function Search() {
               data={searchAudios}
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
-                <SearchItem>
+                <SearchItem onPress={() => onMediaPress(item)}>
                   <SearchItemImage source={item.previewImage === "" ? null : { uri: item.previewImage }}></SearchItemImage>
                   <SearchItemDetails>
                     <SearchItemTitle>{item.title}</SearchItemTitle>

@@ -1,6 +1,6 @@
 import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
-import React from 'react';
+import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import {
     createBottomTabNavigator,
@@ -27,6 +27,7 @@ import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
 import Account from '~/pages/private/Account';
 import { createAppContainer } from 'react-navigation';
+import { PlayerContext } from '~/context/player.context';
 
 const PrivateStack = createBottomTabNavigator(
     {
@@ -182,21 +183,21 @@ const PrivateStack = createBottomTabNavigator(
         },
         ['Mon compte']: {
             screen: createStackNavigator(
-              {
-                Account,
-              },
-              {
-                navigationOptions: {
-                  tabBarIcon: ({ tintColor }) => (
-                    <Feather name="user" size={24} color={tintColor} />
-                  ),
+                {
+                    Account,
                 },
-                defaultNavigationOptions: {
-                  headerShown: false,
-                },
-              }
+                {
+                    navigationOptions: {
+                        tabBarIcon: ({ tintColor }) => (
+                            <Feather name="user" size={24} color={tintColor} />
+                        ),
+                    },
+                    defaultNavigationOptions: {
+                        headerShown: false,
+                    },
+                }
             ),
-          },
+        },
         /*Premium: {
           screen: createStackNavigator(
             {
@@ -234,11 +235,12 @@ const PrivateStack = createBottomTabNavigator(
 const PrivateRoutes = createAppContainer(PrivateStack);
 
 export default function PrivateApp() {
+    const [currentMedia, setCurrentMedia] = useState(null);
     return (
-        <>
+        <PlayerContext.Provider value={{ currentMedia, setCurrentMedia }}>
             <StatusBar barStyle="light-content" backgroundColor="#111" />
             <PrivateRoutes />
             <Player />
-        </>
+        </PlayerContext.Provider>
     )
 }
