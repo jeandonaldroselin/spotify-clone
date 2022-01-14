@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Feather } from '@expo/vector-icons';
 
 import api from '~/services/api';
 import Program from '~/components/Program';
 
 import { Container, PlayList } from './styles';
+import { PlayerContext } from '~/context/player.context';
 
 export default function Predications() {
   const [newMedias, setNewMedias] = useState([]);
+  const { setCurrentMedia } = useContext(PlayerContext);
 
   useEffect(() => {
     function loadPrograms() {
@@ -30,12 +32,16 @@ export default function Predications() {
     loadPrograms();
   }, []);
 
+  const onMediaPress = (media) => {
+    setCurrentMedia(media);
+  }
+
   return (
     <Container>
       <PlayList>
         {newMedias &&
           newMedias.map((media, index) => (
-            <Program key={index} program={media} />
+            <Program key={index} program={media} onPress={() => onMediaPress(media)}/>
           ))}
       </PlayList>
     </Container>

@@ -9,9 +9,9 @@ import {
   SubTitle,
 } from './styles';
 
-export default function Program({ program }) {
+export default function Program({ program, onPress }) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ImageContainer>
         <Image source={{ uri: program.previewImage }} />
       </ImageContainer>
