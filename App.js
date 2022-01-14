@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { YellowBox } from 'react-native';
+import { LogBox } from 'react-native';
 import Routes from '~/routes';
 import { AuthenticationContext } from '~/context/authentication.context';
 
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   'Unrecognized WebSocket',
   'VirtualizedLists should never be nested', // TODO: Remove when fixed
+  'Expected style'
 ]);
 
 export default function App() {

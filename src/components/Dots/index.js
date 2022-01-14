@@ -9,7 +9,7 @@ export default function Dots({ messages, children, position }) {
       <View style={{ width, height: 150 }}>{children}</View>
       <View style={{ flexDirection: 'row' }}>
         {messages.map((_, i) => {
-          const opacity = position.interpolate({
+          const opacity = position.interpolateNode({
             inputRange: [i - 1, i, i + 1],
             outputRange: [0.3, 1, 0.3],
             extrapolate: 'clamp',

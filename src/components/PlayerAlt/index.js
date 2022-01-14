@@ -69,13 +69,13 @@ export default function Player() {
     } */
   }
 
-  const opacity = translateY.interpolate({
+  const opacity = translateY.interpolateNode({
     inputRange: [SNAP_BOTTOM - MINIMIZED_PLAYER_HEIGHT, SNAP_BOTTOM],
     outputRange: [0, 1],
     extrapolate: Extrapolate.CLAMP,
   });
 
-  const overlayOpacity = translateY.interpolate({
+  const overlayOpacity = translateY.interpolateNode({
     inputRange: [
       SNAP_BOTTOM - MINIMIZED_PLAYER_HEIGHT * 2,
       SNAP_BOTTOM - MINIMIZED_PLAYER_HEIGHT,
@@ -84,7 +84,7 @@ export default function Player() {
     extrapolate: Extrapolate.CLAMP,
   });
 
-  const translateBottomTab = translateY.interpolate({
+  const translateBottomTab = translateY.interpolateNode({
     inputRange: [SNAP_BOTTOM - TABBAR_HEIGHT, SNAP_BOTTOM],
     outputRange: [TABBAR_HEIGHT, 0],
     extrapolate: Extrapolate.CLAMP,
@@ -100,7 +100,7 @@ export default function Player() {
           style={{
             transform: [
               {
-                translateY: translateY.interpolate({
+                translateY: translateY.interpolateNode({
                   inputRange: [-350, SNAP_TOP, SNAP_BOTTOM],
                   outputRange: [-50, SNAP_TOP, SNAP_BOTTOM],
                   extrapolate: 'clamp',
