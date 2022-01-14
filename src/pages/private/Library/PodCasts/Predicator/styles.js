@@ -3,30 +3,28 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   flex: 1;
   background-color: #121212;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px 60px;
+  padding: 10px 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 `;
-export const Title = styled.Text`
+
+export const Predicator = styled.TouchableOpacity`
+  margin-bottom: 30px;
+  width: 130px;
+  height: 130px;
+  flex-direction: column;
+`;
+
+export const PredicatorName = styled.Text`
   color: white;
   font-weight: bold;
-  font-size: 23px;
   text-align: center;
-  margin-bottom: 35px;
 `;
 
-export const Button = styled.TouchableOpacity`
-  border-radius: 25px;
+export const PredicatorImage = styled.Image`
   background-color: #fff;
-  width: 100%;
-  margin-top: 10px;
-`;
-
-export const ButtonText = styled.Text`
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 15px;
-  padding: 15px 0;
-  letter-spacing: 1px;
+  width: 130px;
+  height: 130px;
+  border-radius: 130px;
 `;
