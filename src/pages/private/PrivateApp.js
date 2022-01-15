@@ -27,7 +27,6 @@ import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
 import Account from '~/pages/private/Account';
-import ChangePassword from '~/pages/private/ChangePassword';
 
 import { createAppContainer } from 'react-navigation';
 import { PlayerContext } from '~/context/player.context';
