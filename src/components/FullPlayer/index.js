@@ -67,6 +67,15 @@ export default function FullPlayer({ onPress }) {
     setisAlreadyPlay(true);
     setInprogress(true);
     const path = currentPlaylist[current_track].playUrl;
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: false
+    });
     const localSound = await Audio.Sound.createAsync({ uri: path });
 
     localSound.sound.setOnPlaybackStatusUpdate((e) => {
@@ -144,7 +153,7 @@ export default function FullPlayer({ onPress }) {
           <Metadata>
             <PlayerView>
               <TextTicker duration={10000}
-              style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[current_track].title}</TextTicker>
+                style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[current_track].title}</TextTicker>
               <PodAuthor>{currentPlaylist[current_track].author?.fullName}</PodAuthor>
             </PlayerView>
           </Metadata>
