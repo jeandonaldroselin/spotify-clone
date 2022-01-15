@@ -110,37 +110,37 @@ const PrivateStack = createBottomTabNavigator(
                                     },
                                 }
                             ),
-                            Musica: createMaterialTopTabNavigator(
-                                {
-                                    Playlists,
-                                    Artists,
-                                    Albums,
-                                },
-                                {
-                                    navigationOptions: {
-                                        tabBarLabel: 'Musique',
-                                    },
-                                    tabBarOptions: {
-                                        scrollEnabled: true,
-                                        activeTintColor: 'white',
-                                        inactiveTintColor: '#999',
-                                        upperCaseLabel: false,
-                                        labelStyle: {
-                                            fontWeight: 'bold',
-                                            fontSize: 14,
-                                        },
-                                        style: {
-                                            backgroundColor: '#121212',
-                                        },
-                                        tabStyle: {
-                                            width: 90,
-                                        },
-                                        indicatorStyle: {
-                                            backgroundColor: '#00e868',
-                                        },
-                                    },
-                                }
-                            ),
+                            // Musica: createMaterialTopTabNavigator(
+                            //     {
+                            //         Playlists,
+                            //         Artists,
+                            //         Albums,
+                            //     },
+                            //     {
+                            //         navigationOptions: {
+                            //             tabBarLabel: 'Musique',
+                            //         },
+                            //         tabBarOptions: {
+                            //             scrollEnabled: true,
+                            //             activeTintColor: 'white',
+                            //             inactiveTintColor: '#999',
+                            //             upperCaseLabel: false,
+                            //             labelStyle: {
+                            //                 fontWeight: 'bold',
+                            //                 fontSize: 14,
+                            //             },
+                            //             style: {
+                            //                 backgroundColor: '#121212',
+                            //             },
+                            //             tabStyle: {
+                            //                 width: 90,
+                            //             },
+                            //             indicatorStyle: {
+                            //                 backgroundColor: '#00e868',
+                            //             },
+                            //         },
+                            //     }
+                            // ),
                         },
                         {
                             tabBarOptions: {
@@ -163,7 +163,8 @@ const PrivateStack = createBottomTabNavigator(
                                 },
                                 style: {
                                     backgroundColor: '#121212',
-                                    paddingTop: Platform.OS === 'ios' ? 45 : 0,
+                                    paddingTop: Platform.OS === 'ios' ? 45 : 15,
+                                    paddingLeft: Platform.OS === 'ios' ? 0 : 10
                                 },
                             },
                         },

@@ -18,7 +18,7 @@ export const Title = styled.Text`
   font-size: 29px;
   font-weight: bold;
   color: white;
-  padding: 20px 20px;
+  padding: 20px 10px;
 `;
 
 export const TextAvatar = styled.Text`
