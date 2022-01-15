@@ -5,11 +5,6 @@ export const Container = styled.SafeAreaView`
   background-color: #121212;
 `;
 
-export const ScrollView = styled.ScrollView.attrs({
-  showVerticalScrollIndicator: false,
-  stickyHeaderIndices: [1],
-})``;
-
 export const InputContainer = styled.View`
   background-color: #121212;
   padding: 10px 0;

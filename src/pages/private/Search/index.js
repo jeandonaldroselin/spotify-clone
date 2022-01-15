@@ -6,7 +6,6 @@ import Input from '~/components/Input';
 
 import {
   Container,
-  ScrollView,
   Title,
   SubTitle,
   InputContainer,
@@ -21,8 +20,7 @@ import {
   SearchItemSubTitle,
   SearchItemDetails,
 } from './styles';
-import { AuthenticationContext } from '~/context/authentication.context';
-import { Alert, BackHandler, View } from 'react-native';
+import { BackHandler } from 'react-native';
 import { PlayerContext } from '~/context/player.context';
 
 export default function Search() {
@@ -97,7 +95,6 @@ export default function Search() {
 
   return (
     <Container>
-      <ScrollView>
         <Title>Recherche</Title>
         <InputContainer>
           <Input placeholder="Mots-clés, prédicateurs, titres...                     x" onChangeText={(value) => onInputSearchField(value)} />
@@ -130,7 +127,6 @@ export default function Search() {
                 </SearchItem>)} />
 
           </>}
-      </ScrollView>
     </Container>
   );
 }

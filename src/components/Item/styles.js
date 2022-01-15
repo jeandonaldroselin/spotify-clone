@@ -13,7 +13,7 @@ export const Container = styled.TouchableOpacity`
 export const TextContainer = styled.View`
   justify-content: center;
   width: 100%;
-  height:12px;
+  height:17px;
   
 
 `;
