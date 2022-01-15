@@ -2,7 +2,7 @@ import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
 import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     createBottomTabNavigator,
     createMaterialTopTabNavigator,

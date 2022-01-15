@@ -50,11 +50,11 @@ export default function Account() {
         size='giant'
       />
       <TextAvatar>
-        { user.firstname }
+        { user?.firstname }
       </TextAvatar>
     </View>
     <PlayList>
-          <Item url="https://www.editions-charisma.fr/authentification?back=my-account" name='Adresse email' value={user.email}/>
+          <Item url="https://www.editions-charisma.fr/authentification?back=my-account" name='Adresse email' value={user?.email}/>
           <Item url="https://www.editions-charisma.fr/authentification?back=my-account" name='Mot de passe' value='Modifier mot de passe'/>
           <Item name='Assistance' url='https://www.editions-charisma.fr/coordonnees' />
           <Item url="https://www.editions-charisma.fr/content/10-conditions-generales-de-vente" name='Consulter la Politique de confidentialité' />
