@@ -11,10 +11,9 @@ import {
 } from './styles';
 import { Linking } from 'react-native';
 
-export default function Item({name,value=null,url=null}) {
 
+export default function Item({name,value=null,url=null}) {
   return (
-    
     <Container onPress={() => url ? Linking.openURL(url) : null}>
       <TextContainer>
         <Title>{name}</Title>   
@@ -22,11 +21,7 @@ export default function Item({name,value=null,url=null}) {
             <SubTitle>{value}</SubTitle> :
             null
           }
-        
       </TextContainer>
       </Container>
- 
-    
-
   );
 }

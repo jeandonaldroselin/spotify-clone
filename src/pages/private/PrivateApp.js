@@ -191,7 +191,7 @@ const PrivateStack = createBottomTabNavigator(
         ['Mon compte']: {
             screen: createStackNavigator(
                 {
-                    ChangePassword,
+                    Account,
                 },
                 {
                     navigationOptions: {
