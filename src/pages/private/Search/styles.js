@@ -88,7 +88,7 @@ export const SearchItemTitle = styled.Text.attrs({
 `;
 
 export const SearchItemDetails = styled.View`
-  width: 85%
+  width: 85%;
 `;
 
 export const SearchItemSubTitle = styled.Text.attrs({

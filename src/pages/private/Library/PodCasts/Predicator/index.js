@@ -10,7 +10,7 @@ import { Container, Predicator, PredicatorImage, PredicatorName } from './styles
 export default function Artists() {
   const [currentPredicator, setCurrentPredicator] = useState(null);
   const [predicators, setPredicators] = useState([]);
-  const { setCurrentMedia } = useContext(PlayerContext);
+  const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",
@@ -54,7 +54,7 @@ export default function Artists() {
   }
 
   const onMediaPress = (media) => {
-    setCurrentMedia(media);
+    setCurrentPlaylist([media]);
   }
 
   return (

@@ -27,7 +27,7 @@ export default function Search() {
   const [categories, setCategories] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchAudios, setSearchAudios] = useState([]);
-  const { setCurrentMedia } = useContext(PlayerContext);
+  const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",
@@ -64,7 +64,7 @@ export default function Search() {
   }
 
   const onMediaPress = (media) => {
-    setCurrentMedia(media);
+    setCurrentPlaylist([media]);
   }
 
   const searchMedia = (content, categoryId) => {

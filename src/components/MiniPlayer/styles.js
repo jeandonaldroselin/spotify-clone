@@ -13,11 +13,14 @@ export const Container = styled.View`
 export const Left = styled.View`
   flex-direction: row;
   align-items: center;
+  flex:3;
+  overflow:hidden;
 `;
 
 export const Right = styled.View`
   flex-direction: row;
   align-items: center;
+  flex:1;
 `;
 
 export const Image = styled.Image`
@@ -29,7 +32,9 @@ export const NameContainer = styled.View`
   margin-left: 10px;
 `;
 
-export const Name = styled.Text`
+export const Name = styled.Text.attrs({
+  numberOfLines:1
+})`
   color: white;
   font-size: 11px;
 `;

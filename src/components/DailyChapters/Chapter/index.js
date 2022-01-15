@@ -20,9 +20,9 @@ import {
   IconRight,
 } from './styles';
 
-export default function Episode({ time, chapter }) {
+export default function Episode({ time, chapter, onPress }) {
   return (
-    <Chapter>
+    <Chapter onPress={onPress}>
       <Header>
         <Image
           source={{

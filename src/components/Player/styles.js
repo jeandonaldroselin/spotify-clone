@@ -10,7 +10,7 @@ export const ViewTopPlayer = styled(Animated.View).attrs({})`
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #00b6b7;
+  background-color: #EDA948;
   /*   border-top-right-radius: 15px;
   border-top-left-radius: 15px; */
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Ionicons,
   EvilIcons,
@@ -36,42 +36,11 @@ import Slider from 'react-native-slider';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as FileSystem from 'expo-file-system';
 import { Audio, Video } from 'expo-av';
+import { PlayerContext } from "~/context/player.context";
+import TextTicker from "react-native-text-ticker";
 
 //let dirs = RNFetchBlob.fs.dirs.DocumentDir;
 const dirs = FileSystem.documentDirectory;
-
-const playlist = [
-  {
-    title: 'death bed',
-    path: 'https://sample-music.netlify.app/death%20bed.mp3',
-    cover:
-      'https://images.unsplash.com/photo-1515552726023-7125c8d07fb3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80',
-  },
-  {
-    title: 'bad liar',
-    path: 'https://sample-music.netlify.app/Bad%20Liar.mp3',
-    cover:
-      'https://images.unsplash.com/photo-1542359649-31e03cd4d909?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80',
-  },
-  {
-    title: 'faded',
-    path: 'https://sample-music.netlify.app/Faded.mp3',
-    cover:
-      'https://images.unsplash.com/photo-1512036666432-2181c1f26420?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-  },
-  {
-    title: 'hate me',
-    path: 'https://sample-music.netlify.app/Hate%20Me.mp3',
-    cover:
-      'https://images.unsplash.com/photo-1501761095094-94d36f57edbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80',
-  },
-  {
-    title: 'Solo',
-    path: 'https://sample-music.netlify.app/Solo.mp3',
-    cover:
-      'https://images.unsplash.com/photo-1471400974796-1c823d00a96f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-  },
-];
 
 export default function FullPlayer({ onPress }) {
   const [isAlreadyPlay, setisAlreadyPlay] = useState(false);
@@ -82,22 +51,22 @@ export default function FullPlayer({ onPress }) {
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
   const [sound, setSound] = React.useState();
+  const { currentPlaylist } = useContext(PlayerContext);
 
   const changeTime = async (seconds) => {
-    if(!sound) {
+    if (!sound) {
       return false;
     }
     // 50 / duration
     let seektime = (seconds / 100) * duration;
     setTimeElapsed(seektime);
-    await sound.sound.setPositionAsync(seconds/1000)
+    await sound.sound.setPositionAsync(seconds / 1000)
   };
 
   const onStartPress = async (e) => {
     setisAlreadyPlay(true);
     setInprogress(true);
-    const path = playlist[current_track].path;
-
+    const path = currentPlaylist[current_track].playUrl;
     const localSound = await Audio.Sound.createAsync({ uri: path });
 
     localSound.sound.setOnPlaybackStatusUpdate((e) => {
@@ -131,9 +100,9 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onForward = async () => {
-    let curr_track = playlist[current_track];
-    let current_index = playlist.indexOf(curr_track) + 1;
-    if (current_index === playlist.length) {
+    let curr_track = currentPlaylist[current_track];
+    let current_index = currentPlaylist.indexOf(curr_track) + 1;
+    if (current_index === currentPlaylist.length) {
       setCurrentTrack(1);
     } else {
       setCurrentTrack((current_track) => current_track + 1);
@@ -144,9 +113,9 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onBackward = async () => {
-    let curr_track = playlist[current_track];
+    let curr_track = currentPlaylist[current_track];
 
-    let current_index = playlist.indexOf(curr_track);
+    let current_index = currentPlaylist.indexOf(curr_track);
 
     if (current_index === 0) {
       setCurrentTrack(5);
@@ -166,16 +135,17 @@ export default function FullPlayer({ onPress }) {
             <Button {...{ onPress }}>
               <Icon name="chevron-down" color="white" size={24} />
             </Button>
-            <Name>Podcast FalaDev</Name>
+            <Name>{currentPlaylist[current_track].title}</Name>
             <Button {...{ onPress }}>
               <Icon name="more-horizontal" color="white" size={24} />
             </Button>
           </Header>
-          <PodImage source={require('~/../assets/fala-dev.jpeg')} />
+          <PodImage source={{ uri: currentPlaylist[current_track].previewImage }} />
           <Metadata>
             <PlayerView>
-              <PodTitle>{playlist[current_track].title}</PodTitle>
-              <PodAuthor>Podcast FalaDev</PodAuthor>
+              <TextTicker duration={10000}
+              style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[current_track].title}</TextTicker>
+              <PodAuthor>{currentPlaylist[current_track].author?.fullName}</PodAuthor>
             </PlayerView>
           </Metadata>
           {/*
@@ -226,10 +196,6 @@ export default function FullPlayer({ onPress }) {
               size={24}
             />
           </Controls>
-          <Footer>
-            <MaterialIcons name="devices-other" color="#ccc" size={24} />
-            <EvilIcons name="share-apple" color="white" size={24} />
-          </Footer>
         </InnerContainer>
       </Background>
     </Container>

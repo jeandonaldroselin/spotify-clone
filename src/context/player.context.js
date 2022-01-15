@@ -1,6 +1,8 @@
 import React from "react";
 
 export const PlayerContext = React.createContext({
-    currentMedia: false,
-    setCurrentMedia: (value) => { }
+    currentMediaPlaylistId: -1,
+    setCurrentMediaPlaylistId: (value) => { },
+    currentPlaylist: [],
+    setCurrentPlaylist: (value) => { }
 })

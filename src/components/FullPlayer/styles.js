@@ -10,7 +10,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Background = styled(LinearGradient).attrs({
-  colors: ['#00B6B7', '#016565'],
+  colors: ['#EDA948', '#C17F68'],
 })`
   flex: 1;
   border-top-right-radius: 15px;
@@ -35,6 +35,7 @@ export const Name = styled.Text`
   padding: 16px;
   font-weight: bold;
   font-size: 12px;
+  width:66%
 `;
 
 export const PodImage = styled.Image`

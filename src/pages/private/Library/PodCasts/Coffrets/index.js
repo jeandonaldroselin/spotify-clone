@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useContext } from 'react';
 
 import api from '~/services/api';
 import DailyChapters from '~/components/DailyChapters';
@@ -7,17 +7,19 @@ import Chapter from '~/components/DailyChapters/Chapter';
 import { Container, ChaptersList, Title } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BackHandler } from 'react-native';
+import { PlayerContext } from '~/context/player.context';
 
 export default function Episodios() {
   const [currentCoffret, setCurrentCoffret] = useState(null);
   const [coffrets, setCoffrets] = useState([]);
+  const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",
       () => {
         setCurrentCoffret(null);
         return true;
-    });
+      });
     function loadCoffrets() {
       let body = {
         "startReleaseDate": "1950-01-15",
@@ -39,10 +41,14 @@ export default function Episodios() {
     setCurrentCoffret(coffret);
   }
 
+  const onCoffretItemPress = (media) => {
+    //setCurrentPlaylist(currentCoffret.items, media.track-1);
+  }
+
   return (
     <Container>
       <ChaptersList>
-        {!currentCoffret && coffrets &&
+        {!currentCoffret &&
           coffrets.map(coffret => (
             <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
               <Fragment >
@@ -60,7 +66,7 @@ export default function Episodios() {
         {currentCoffret &&
           <Fragment key={currentCoffret.id}>
             <Title>{currentCoffret.title}</Title>
-            <DailyChapters dailyChapters={currentCoffret} />
+            <DailyChapters dailyChapters={currentCoffret} onPress={onCoffretItemPress} />
           </Fragment>}
       </ChaptersList>
     </Container>

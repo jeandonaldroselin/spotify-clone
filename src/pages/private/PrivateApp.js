@@ -240,7 +240,8 @@ const PrivateStack = createBottomTabNavigator(
 const PrivateRoutes = createAppContainer(PrivateStack);
 
 export default function PrivateApp() {
-    const [currentMedia, setCurrentMedia] = useState(null);
+    const [currentMediaPlaylistId, setCurrentMediaPlaylistId] = useState(-1);
+    const [currentPlaylist, setCurrentPlaylist] = useState(null);
     const { accessToken } = useContext(AuthenticationContext);
 
     useEffect(() => {
@@ -253,12 +254,16 @@ export default function PrivateApp() {
         })
     }, [])
 
+    const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0) => {
+        setCurrentPlaylist(playlist);
+        setCurrentMediaPlaylistId(startMediaId);
+    }
 
     return (
-        <PlayerContext.Provider value={{ currentMedia, setCurrentMedia }}>
+        <PlayerContext.Provider value={{ currentMediaPlaylistId, setCurrentMediaPlaylistId, currentPlaylist, setCurrentPlaylist: setCurrentPlaylistAndMedia }}>
             <StatusBar barStyle="light-content" backgroundColor="#111" />
             <PrivateRoutes />
-            <Player />
+            {currentPlaylist?.length > 0 && <Player />}
         </PlayerContext.Provider>
     )
 }

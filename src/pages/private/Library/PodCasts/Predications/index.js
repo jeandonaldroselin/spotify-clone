@@ -9,7 +9,7 @@ import { PlayerContext } from '~/context/player.context';
 
 export default function Predications() {
   const [newMedias, setNewMedias] = useState([]);
-  const { setCurrentMedia } = useContext(PlayerContext);
+  const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
     function loadPrograms() {
@@ -33,7 +33,7 @@ export default function Predications() {
   }, []);
 
   const onMediaPress = (media) => {
-    setCurrentMedia(media);
+    setCurrentPlaylist([media]);
   }
 
   return (
