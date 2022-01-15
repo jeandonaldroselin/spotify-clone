@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import api from '../../../services/api'
+import api from '../../../services/api';
 import Item from '~/components/Item';
 import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 
@@ -10,23 +10,34 @@ import {
   PlayList,
   TextAvatar,
   Avatar
-} from './styles'
+} from './styles';
+import { Linking } from 'react-native';
 
 export default function Account() {
   const [sessions, setSessions] = useState([]);
   const [assistance, setAssistance] = useState("assistance@editions-charisma.fr");
-  
+  const [ user, setUser ] = useState(null);
+ 
   useEffect(() => {
     async function loadSessions() {
       const { data } = await api.get('sessions');
       setSessions(data);
     }
+    async function getUserInfo() {
+      api.get('/userinfo').then(infoUser => {
+        setUser(infoUser.data);
+        console.log()
+      })
+    }
+  
+    getUserInfo()
+   
     loadSessions();
   }, []);
 
   return (
     <Container>
-       <Title> Compte</Title>
+       <Title>Compte</Title>
        {/* <View style={{ display:'flex', flexDirection:'row', alignItems:'center',justifyContent:'center',paddingLeft:0, margin:15 }}> */}
 
        <View style={{ display:'flex', flexDirection:'row', alignItems:'center',paddingLeft:0, margin:15 }}>
@@ -39,19 +50,16 @@ export default function Account() {
         size='giant'
       />
       <TextAvatar>
-        Mathieu D.
+        { user.firstname }
       </TextAvatar>
     </View>
     <PlayList>
-          <Item name='Nom' value='Goureige'/>
-          <Item name='Adresse email' value='burdy.gou@gmail.com'/>
-          <Item name='Mot de passe' value='Modifier mot de passe'/>
-          <Item name="Player" value={null}/>
-          <Item name='Assistance' value='assistance@gmail.com'/>
-          <Item name='Consulter la Politique de confidentialité' value={null}/>
-          <Item name="Consulter les Conditions Générales d'Utilisation" value={null}/>
-          <Item name="Noter l'application Editions Charisma" value={null}/>
-          <Item name="Déconnexion" value={null}/>
+          <Item url="https://www.editions-charisma.fr/authentification?back=my-account" name='Adresse email' value={user.email}/>
+          <Item url="https://www.editions-charisma.fr/authentification?back=my-account" name='Mot de passe' value='Modifier mot de passe'/>
+          <Item name='Assistance' url='https://www.editions-charisma.fr/coordonnees' />
+          <Item url="https://www.editions-charisma.fr/content/10-conditions-generales-de-vente" name='Consulter la Politique de confidentialité' />
+          <Item url="https://www.editions-charisma.fr/content/10-conditions-generales-de-vente" name="Consulter les Conditions Générales d'Utilisation" />
+          <Item name="Déconnexion" />
 
     </PlayList>
   </Container>

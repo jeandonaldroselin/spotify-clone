@@ -56,7 +56,7 @@ export default function Episodios() {
         {!currentCoffret &&
           coffrets.map(coffret => (
             <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
-              <Fragment >
+              <Fragment>
                 <Chapter
                   chapter={{
                     time: coffret.duration,

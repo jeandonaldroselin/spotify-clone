@@ -36,6 +36,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-slider": "^0.11.0",
+    "react-native-store-review": "^0.2.0",
     "react-native-swift": "^1.2.3",
     "react-native-text-ticker": "^1.14.0",
     "react-native-track-player": "^1.2.7",
