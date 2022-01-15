@@ -8,9 +8,9 @@ import {
   Description,
 } from './styles';
 
-export default function Card({ item }) {
+export default function Card({ item, onPress }) {
   return (
-    <Container>
+    <Container onPress={() => onPress(item)}>
       <PodImage source={{ uri: item.previewImage }} />
       <ContainerSubtitle>
         <Subtitle>{item.title}</Subtitle>

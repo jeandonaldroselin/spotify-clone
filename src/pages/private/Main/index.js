@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import PodcastsSlide from '~/components/PodcastsSlide';
+import { PlayerContext } from '~/context/player.context';
 
 import api from '../../../services/api';
 
@@ -8,6 +9,7 @@ import { Container, ContainerScrollView } from './styles';
 
 export default function Main() {
   const [mainList, setMainList] = useState([]);
+  const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
     async function loadMainList() {
@@ -68,12 +70,16 @@ export default function Main() {
     return { title: 'Prédications récentes', items: response.data.data?.item || response.data.item }
   }
 
+  const onItemPress = (media) => {
+    setCurrentPlaylist([media])
+  }
+
   return (
     <Container>
       <ContainerScrollView>
         {mainList &&
           mainList.map((item, index) => (
-            <PodcastsSlide key={index} list={item} />
+            <PodcastsSlide key={index} list={item} onItemPress={onItemPress} />
           ))}
       </ContainerScrollView>
     </Container>
