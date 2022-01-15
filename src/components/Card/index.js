@@ -11,10 +11,10 @@ import {
 export default function Card({ item }) {
   return (
     <Container>
-      <PodImage source={{ uri: item.image }} />
+      <PodImage source={{ uri: item.previewImage }} />
       <ContainerSubtitle>
-        <Subtitle>{item.subtitle.title}</Subtitle>
-        <Description>{item.subtitle.description}</Description>
+        <Subtitle>{item.title}</Subtitle>
+        <Description>{item.author.fullName}</Description>
       </ContainerSubtitle>
     </Container>
   );

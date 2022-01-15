@@ -178,7 +178,6 @@ export default function FullPlayer({ onPress }) {
             </View>
           </View>
           <Controls>
-            <Speed>1x</Speed>
             <AntDesign
               name="stepbackward"
               color="rgba(255, 255, 255, 0.5)"
@@ -189,11 +188,6 @@ export default function FullPlayer({ onPress }) {
               name="stepforward"
               color="rgba(255, 255, 255, 0.5)"
               size={28}
-            />
-            <Ionicons
-              name="ios-moon"
-              color="rgba(255, 255, 255, 0.5)"
-              size={24}
             />
           </Controls>
         </InnerContainer>

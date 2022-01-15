@@ -38,11 +38,16 @@ export default function Episodios() {
   }, []);
 
   const onCoffretPress = (coffret) => {
+    const items = coffret.items;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      item.previewImage = coffret.image;
+    }
     setCurrentCoffret(coffret);
   }
 
   const onCoffretItemPress = (media) => {
-    //setCurrentPlaylist(currentCoffret.items, media.track-1);
+    setCurrentPlaylist(currentCoffret.items, media.track - 1);
   }
 
   return (
