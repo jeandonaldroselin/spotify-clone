@@ -22,12 +22,12 @@ export default function MiniPlayer() {
         </NameContainer>
       </Left>
       <Right>
-        <MaterialIcons
+        {/* <MaterialIcons
           name="favorite-outline"
           color="white"
           size={26}
           style={{ width: 30, marginRight: 10 }}
-        />
+        /> */}
         <MaterialIcons
           name="play-arrow"
           color="white"

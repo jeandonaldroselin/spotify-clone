@@ -22,11 +22,14 @@ import Playlists from '~/pages/private/Library/Music/Playlists';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
 import Coffrets from '~/pages/private/Library/PodCasts/Coffrets';
+
 import Downloads from '~/pages/private/Library/PodCasts/Downloads';
 import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
 import Account from '~/pages/private/Account';
+import Login from '~/pages/public/Login';
+
 
 import { createAppContainer } from 'react-navigation';
 import { PlayerContext } from '~/context/player.context';
@@ -240,9 +243,10 @@ const PrivateStack = createBottomTabNavigator(
 
 const PrivateRoutes = createAppContainer(PrivateStack);
 
-export default function PrivateApp() {
+export default function PrivateApp(props) {
     const [currentMediaPlaylistId, setCurrentMediaPlaylistId] = useState(-1);
     const [currentPlaylist, setCurrentPlaylist] = useState(null);
+
     const { accessToken } = useContext(AuthenticationContext);
 
     useEffect(() => {
@@ -259,6 +263,7 @@ export default function PrivateApp() {
         setCurrentPlaylist(playlist);
         setCurrentMediaPlaylistId(startMediaId);
     }
+    console.log(props)
 
     return (
         <PlayerContext.Provider value={{ currentMediaPlaylistId, setCurrentMediaPlaylistId, currentPlaylist, setCurrentPlaylist: setCurrentPlaylistAndMedia }}>

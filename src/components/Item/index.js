@@ -12,13 +12,13 @@ import {
 import { Linking } from 'react-native';
 
 
-export default function Item({name,value=null,url=null}) {
+export default function Item({value,caption=null}) {
   return (
-    <Container onPress={() => url ? Linking.openURL(url) : null}>
+    <Container >
       <TextContainer>
-        <Title>{name}</Title>   
-        {value !== null ?
-            <SubTitle>{value}</SubTitle> :
+        <Title>{value}</Title>   
+        {caption !== null ?
+            <SubTitle>{caption}</SubTitle> :
             null
           }
       </TextContainer>
