@@ -7,6 +7,10 @@ import TextTicker from 'react-native-text-ticker';
 
 export default function MiniPlayer() {
   const { currentMediaPlaylistId, currentPlaylist } = useContext(PlayerContext);
+
+  const onPlayPress = () => {
+  }
+
   return (
     <Container>
       <Left>
@@ -33,6 +37,7 @@ export default function MiniPlayer() {
           color="white"
           size={30}
           style={{ width: 30, marginRight: 10 }}
+          onPress={onPlayPress}
         />
       </Right>
     </Container>

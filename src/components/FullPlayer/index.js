@@ -189,14 +189,16 @@ export default function FullPlayer({ onPress }) {
           <Controls>
             <AntDesign
               name="stepbackward"
-              color="rgba(255, 255, 255, 0.5)"
+              color={current_track > 0 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
+              onPress={onBackward}
             />
             <AntDesign onPress={() => !isAlreadyPlay ? onStartPress() : onPausePress()} name={!isAlreadyPlay ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
-              color="rgba(255, 255, 255, 0.5)"
+              color={current_track < currentPlaylist.length -1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
+              onPress={onForward}
             />
           </Controls>
         </InnerContainer>

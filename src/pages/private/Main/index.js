@@ -12,17 +12,27 @@ export default function Main() {
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
-    async function loadMainList() {
-      const favorites = await getFavorites();
-      const recents = await getRecents();
-      const thematicOne = await getThematicPredications('Prière');
-      const thematicTwo = await getThematicPredications('Esprit');
-      setMainList([recents, favorites, thematicOne, thematicTwo]);
+    function loadMainList() {
+      const promises = Promise.all([
+        getFavorites(),
+        getRecents(),
+        getThematicPredications('Prière'),
+        getThematicPredications('Esprit')
+      ]).then(([favorites, recents, thematicOne, thematicTwo])=>{
+        setMainList([
+          convertDataToItems('Prédications récentes', recents.data),
+          convertDataToItems('Vos favoris', favorites.data),
+          convertDataToItems('Prédications : Prière', thematicOne.data), 
+          convertDataToItems('Prédications : Esprit', thematicTwo.data)
+        ]);
+      }).catch(e => {
+        console.error(e)
+      })
     }
     loadMainList();
   }, []);
 
-  const getFavorites = async () => {
+  const getFavorites = () => {
     let body = {
       "section": "predication",
       "type": "audio",
@@ -34,11 +44,14 @@ export default function Main() {
       "sortBy": "releaseDate",
       "sortDirection": "DESC"
     }
-    const response = await api.post('/media/find', JSON.stringify(body));
-    return { title: 'Vos favoris', items: response.data.data?.item || response.data.item }
+    return api.post('/media/find', JSON.stringify(body));
   }
 
-  const getThematicPredications = async (theme) => {
+const convertDataToItems = (title, data) => {
+  return { title, items: data.data?.item || data.item }
+}
+
+  const getThematicPredications = (theme) => {
     let body = {
       "content": theme.toLowerCase(),
       "section": "predication",
@@ -51,11 +64,10 @@ export default function Main() {
       "sortBy": "releaseDate",
       "sortDirection": "DESC"
     }
-    const response = await api.post('/media/find', JSON.stringify(body));
-    return { title: 'Prédications : ' + theme, items: response.data.data?.item || response.data.item }
+    return api.post('/media/find', JSON.stringify(body));
   }
 
-  const getRecents = async () => {
+  const getRecents = () => {
     let body = {
       "section": "predication",
       "type": "audio",
@@ -66,8 +78,7 @@ export default function Main() {
       "sortBy": "releaseDate",
       "sortDirection": "DESC"
     }
-    const response = await api.post('/media/find', JSON.stringify(body));
-    return { title: 'Prédications récentes', items: response.data.data?.item || response.data.item }
+    return api.post('/media/find', JSON.stringify(body));
   }
 
   const onItemPress = (media) => {

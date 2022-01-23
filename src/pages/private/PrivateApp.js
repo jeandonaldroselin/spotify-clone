@@ -263,7 +263,6 @@ export default function PrivateApp(props) {
         setCurrentPlaylist(playlist);
         setCurrentMediaPlaylistId(startMediaId);
     }
-    console.log(props)
 
     return (
         <PlayerContext.Provider value={{ currentMediaPlaylistId, setCurrentMediaPlaylistId, currentPlaylist, setCurrentPlaylist: setCurrentPlaylistAndMedia }}>
