@@ -24,10 +24,5 @@ export const Title = styled.Text`
 export const TextAvatar = styled.Text`
 fontWeight: bold;
 fontSize: 22;
-paddingLeft:8px
-`;
-
-export const Avatar = styled.Image`
-width: 100;
-height: 100;
+paddingLeft:15px
 `;

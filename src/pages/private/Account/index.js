@@ -5,7 +5,7 @@ import Item from '~/components/Item';
 import { View, TouchableOpacity,Image } from 'react-native';
 import { AuthenticationContext } from '~/context/authentication.context';
 import { PlayerContext } from '~/context/player.context';
-
+import {Text} from 'react-native';
 import {
   Container,
   Title,
@@ -42,7 +42,7 @@ export default function Account({navigation}) {
     async function getUserInfo() {
       api.get('/userinfo').then(infoUser => {
         setUser(infoUser.data);
-      })
+      });
     }
   
     getUserInfo();
@@ -56,14 +56,10 @@ export default function Account({navigation}) {
        {/* <View style={{ display:'flex', flexDirection:'row', alignItems:'center',justifyContent:'center',paddingLeft:0, margin:15 }}> */}
 
        <View style={{ display:'flex', flexDirection:'row', alignItems:'center',paddingLeft:0, margin:15 }}>
-      <Avatar
-        source={{
-          uri:
-            'https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-        }}
-        borderRadius={50}
-        size='giant'
-      />
+         <View style={{ borderRadius:50, height:100, width:100, backgroundColor:'#EDA948', alignItems:'center', justifyContent:'center' }}>
+         <Text style={{ fontSize:45, }}>{  user?.firstname[0] } { user?.lastname[0]  }</Text> 
+         </View>
+
       <TextAvatar>
         { user?.firstname }
       </TextAvatar>
