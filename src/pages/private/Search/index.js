@@ -97,7 +97,7 @@ export default function Search() {
     <Container>
         <Title>Recherche</Title>
         <InputContainer>
-          <Input placeholder="Mots-clés, prédicateurs, titres...                     x" onChangeText={(value) => onInputSearchField(value)} />
+          <Input placeholder="Mots-clés, prédicateurs, titres..." onChangeText={(value) => onInputSearchField(value)} />
         </InputContainer>
         {!isSearching &&
           <>
