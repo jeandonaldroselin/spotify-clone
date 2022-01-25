@@ -4,11 +4,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Container, Left, Right, Image, NameContainer, Name } from './styles';
 import { PlayerContext } from '~/context/player.context';
 import TextTicker from 'react-native-text-ticker';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MiniPlayer() {
   const { currentMediaPlaylistId, currentPlaylist } = useContext(PlayerContext);
 
   const onPlayPress = () => {
+    console.log('play')
   }
 
   return (
@@ -32,13 +34,14 @@ export default function MiniPlayer() {
           size={26}
           style={{ width: 30, marginRight: 10 }}
         /> */}
-        <MaterialIcons
-          name="play-arrow"
-          color="white"
-          size={30}
-          style={{ width: 30, marginRight: 10 }}
-          onPress={onPlayPress}
-        />
+        <TouchableOpacity onPress={onPlayPress}>
+          <MaterialIcons
+            name="play-arrow"
+            color="white"
+            size={30}
+            style={{ width: 30, marginRight: 10 }}
+          />
+        </TouchableOpacity>
       </Right>
     </Container>
   );
