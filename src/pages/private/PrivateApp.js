@@ -109,7 +109,7 @@ const PrivateStack = createBottomTabNavigator(
                                             backgroundColor: '#121212',
                                         },
                                         indicatorStyle: {
-                                            backgroundColor: '#ff9600',
+                                            backgroundColor: '#cc690c',
                                         },
                                     },
                                 }

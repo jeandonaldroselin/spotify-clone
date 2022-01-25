@@ -39,7 +39,7 @@ export default function MiniPlayer() {
             name="play-arrow"
             color="white"
             size={30}
-            style={{ width: 30, marginRight: 10 }}
+            style={{ width: 30}}
           />
         </TouchableOpacity>
       </Right>

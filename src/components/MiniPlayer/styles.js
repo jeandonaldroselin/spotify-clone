@@ -21,6 +21,8 @@ export const Right = styled.View`
   flex-direction: row;
   align-items: center;
   flex:1;
+  justify-content: flex-end;
+  margin-right: 30;
 `;
 
 export const Image = styled.Image`
