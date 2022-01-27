@@ -41,7 +41,7 @@ export default function Predications() {
       <PlayList>
         {newMedias &&
           newMedias.map((media, index) => (
-            <Program key={index} program={media} onPress={() => onMediaPress(media)}/>
+            <Program key={index} program={media} onPress={() => onMediaPress(media)} />
           ))}
       </PlayList>
     </Container>

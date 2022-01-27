@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
+    BottomTabBar,
     createBottomTabNavigator,
     createMaterialTopTabNavigator,
 } from 'react-navigation-tabs';
@@ -37,7 +38,7 @@ import api from '~/services/api';
 import { AuthenticationContext } from '~/context/authentication.context';
 import axios from 'axios';
 
-const PrivateStack = createBottomTabNavigator(
+export default PrivateStack = createBottomTabNavigator(
     {
         Explorer: {
             screen: createStackNavigator(
@@ -226,6 +227,9 @@ const PrivateStack = createBottomTabNavigator(
         },*/
     },
     {
+        tabBarComponent: (props) => (
+            <PrivateApp {...props}></PrivateApp>
+        ),
         navigationOptions: {
             initialRouteName: 'Library',
         },
@@ -241,13 +245,9 @@ const PrivateStack = createBottomTabNavigator(
     }
 )
 
-const PrivateRoutes = createAppContainer(PrivateStack);
-
-export default function PrivateApp(props) {
-    const [currentMediaPlaylistId, setCurrentMediaPlaylistId] = useState(-1);
-    const [currentPlaylist, setCurrentPlaylist] = useState(null);
-
+function PrivateApp(props) {
     const { accessToken } = useContext(AuthenticationContext);
+    const { currentPlaylist } = useContext(PlayerContext);
 
     useEffect(() => {
         AsyncStorage.setItem('@accessToken', accessToken);
@@ -259,16 +259,11 @@ export default function PrivateApp(props) {
         })
     }, [])
 
-    const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0) => {
-        setCurrentPlaylist(playlist);
-        setCurrentMediaPlaylistId(startMediaId);
-    }
-
     return (
-        <PlayerContext.Provider value={{ currentMediaPlaylistId, setCurrentMediaPlaylistId, currentPlaylist, setCurrentPlaylist: setCurrentPlaylistAndMedia }}>
+        <>
             <StatusBar barStyle="light-content" backgroundColor="#111" />
-            <PrivateRoutes />
+            <BottomTabBar {...props} />
             {currentPlaylist?.length > 0 && <Player />}
-        </PlayerContext.Provider>
+        </>
     )
 }
