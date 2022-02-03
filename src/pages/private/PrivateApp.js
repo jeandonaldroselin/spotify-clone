@@ -2,7 +2,6 @@ import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
 import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     BottomTabBar,
     createBottomTabNavigator,
@@ -246,18 +245,7 @@ export default PrivateStack = createBottomTabNavigator(
 )
 
 function PrivateApp(props) {
-    const { accessToken } = useContext(AuthenticationContext);
     const { currentPlaylist } = useContext(PlayerContext);
-
-    useEffect(() => {
-        AsyncStorage.setItem('@accessToken', accessToken);
-        api.interceptors.request.use(config => {
-            if (!config?.headers?.Authorization) {
-                config.headers.Authorization = `Bearer ${accessToken}`;
-            }
-            return { ...config }
-        })
-    }, [])
 
     return (
         <>

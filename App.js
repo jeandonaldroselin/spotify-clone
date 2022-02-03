@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LogBox } from 'react-native';
 import Routes from '~/routes';
 import { AuthenticationContext } from '~/context/authentication.context';
 import { PlayerContext } from '~/context/player.context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '~/services/api';
 
 LogBox.ignoreLogs([
   'Unrecognized WebSocket',
   'VirtualizedLists should never be nested', // TODO: Remove when fixed
-  'Expected style'
+  'Expected style',
+  'Please update the following compone'
 ]);
 
 export default function App() {

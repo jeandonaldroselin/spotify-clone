@@ -8,8 +8,8 @@ export default function PodcastsSlide({ list, onItemPress }) {
     <Container>
       <Title>{list.title}</Title>
       <PodcastList>
-        {list.items &&
-          list.items.map((item, index) => <Card key={index} item={item} onPress={onItemPress} />)}
+        {list.medias &&
+          list.medias.map((item, index) => <Card key={index} item={item} onPress={onItemPress} />)}
       </PodcastList>
     </Container>
   );

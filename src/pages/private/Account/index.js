@@ -58,7 +58,7 @@ export default function Account({ navigation }) {
 
       <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: 0, margin: 15 }}>
         <View style={{ borderRadius: 50, height: 100, width: 100, backgroundColor: '#cc690c', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 45, }}>{user?.firstname[0]} {user?.lastname[0]}</Text>
+          {user && <Text style={{ fontSize: 45, }}>{user?.firstname[0]} {user?.lastname[0]}</Text>}
         </View>
 
         <TextAvatar>

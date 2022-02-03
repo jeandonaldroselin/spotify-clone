@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { InputContainer } from '../../private/Search/styles';
 import Input from '~/components/Input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Container,
@@ -41,13 +42,12 @@ export default function Login({ navigation }) {
         "password": passwordText
       };
       api.post('/login', JSON.stringify(body)).then(response => {
-        setAccessToken(response.data.accessToken);
-        setRefreshToken(response.data.refreshToken);
-        setIsAuthenticated(true);
-        console.info('accessToken: ', response.data.accessToken)
-        navigation.navigate('App');
-      }).catch(e => {
-        console.error(e);
+        AsyncStorage.setItem('accessToken', response.data.accessToken, () => {
+          setAccessToken(response.data.accessToken);
+          setRefreshToken(response.data.refreshToken);
+          setIsAuthenticated(true);
+          navigation.navigate('App');
+        });
       })
     }
   }
