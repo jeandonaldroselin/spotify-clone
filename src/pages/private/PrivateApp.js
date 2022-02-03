@@ -109,7 +109,7 @@ export default PrivateStack = createBottomTabNavigator(
                                             backgroundColor: '#121212',
                                         },
                                         indicatorStyle: {
-                                            backgroundColor: '#cc690c',
+                                            backgroundColor: '#eda948',
                                         },
                                     },
                                 }

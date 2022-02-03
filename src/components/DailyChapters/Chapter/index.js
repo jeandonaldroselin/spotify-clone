@@ -43,7 +43,7 @@ export default function Episode({ time, chapter, onPress }) {
       <Description>{chapter.description}</Description>
       <Footer>
         <Left>
-          <Ionicons name="ios-play-circle" size={35} color="#ccc" />
+          <Ionicons name="ios-play-circle" size={35} color="#eda948" />
           <Time>
             {chapter.time}
           </Time>
