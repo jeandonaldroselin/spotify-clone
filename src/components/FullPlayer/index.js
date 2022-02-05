@@ -141,12 +141,9 @@ export default function FullPlayer({ onPress }) {
       <Background>
         <InnerContainer>
           <Header>
-            <Button {...{ onPress }}>
-              <Icon name="chevron-down" color="white" size={24} />
-            </Button>
             <Name>{currentPlaylist[current_track].title}</Name>
             <Button {...{ onPress }}>
-              <Icon name="more-horizontal" color="white" size={24} />
+              <Icon name="chevron-down" color="white" size={24} />
             </Button>
           </Header>
           <PodImage source={{ uri: currentPlaylist[current_track].previewImage }} />
@@ -170,7 +167,7 @@ export default function FullPlayer({ onPress }) {
               trackStyle={styles.track}
               thumbStyle={styles.thumb}
               value={percent}
-              minimumTrackTintColor="#000000"
+              minimumTrackTintColor="#ffffff"
               onValueChange={(seconds) => changeTime(seconds)}
             />
             <View style={styles.inprogress}>
@@ -246,11 +243,12 @@ const styles = StyleSheet.create({
   thumb: {
     width: 8,
     height: 8,
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
   },
   timeStamp: {
     fontSize: 11,
     fontWeight: '500',
+    color: 'white'
   },
   seekbar: { margin: 32 },
   inprogress: {

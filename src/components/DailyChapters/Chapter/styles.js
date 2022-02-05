@@ -51,29 +51,20 @@ export const Description = styled.Text.attrs({
   font-weight: 500;
   font-size: 12px;
   margin: 15px 0;
-  width: 95%;
+  width: 70%;
 `;
 
 export const Footer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-`;
-
-export const Left = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 `;
+
 export const Time = styled.Text`
   color: #999;
   margin-left: 10px;
   font-size: 10px;
   text-transform: uppercase;
-`;
-
-export const Right = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const IconRight = styled.View`

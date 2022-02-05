@@ -35,7 +35,6 @@ export const Name = styled.Text`
   padding: 16px;
   font-weight: bold;
   font-size: 12px;
-  width:66%
 `;
 
 export const PodImage = styled.Image`

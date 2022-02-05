@@ -20,40 +20,26 @@ import {
   IconRight,
 } from './styles';
 
-export default function Episode({ time, chapter, onPress }) {
+export default function Episode({ time, chapter, onPress, onPlayPress }) {
+
   return (
     <Chapter onPress={onPress}>
       <Header>
         <Image
           source={{
-            uri: chapter.image,
+            uri: chapter.image || chapter.previewImage,
           }}
         />
         <TitleContainer>
           <Title>{chapter.title}</Title>
-          <SubTitle>{chapter.author}</SubTitle>
+          <SubTitle>{chapter.author || 'Auteur inconnu'}</SubTitle>
         </TitleContainer>
-        <Icon
-          name="dots-horizontal"
-          color="#ccc"
-          size={24}
-          style={{ flex: 1, marginTop: 20 }}
-        />
       </Header>
-      <Description>{chapter.description}</Description>
       <Footer>
-        <Left>
-          <Ionicons name="ios-play-circle" size={35} color="#eda948" />
-          <Time>
-            {chapter.time}
-          </Time>
-        </Left>
-        <Right>
-          <Feather name="check" size={28} color="#999" />
-          <IconRight>
-            <Feather name="arrow-down-circle" size={28} color="#999" />
-          </IconRight>
-        </Right>
+        <Description>{chapter.description || 'Aucune description...'}</Description>
+        <Time>
+          {chapter.time}
+        </Time>
       </Footer>
     </Chapter>
   );
