@@ -29,6 +29,7 @@ export const SessionList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
   padding: 10px;
+  margin-bottom: 5px;
 `;
 
 export const Session = styled.TouchableOpacity`
