@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -31,7 +32,7 @@ export const SessionList = styled.FlatList.attrs({
 `;
 
 export const Session = styled.TouchableOpacity`
-  width: 160px;
+  width: ${(Dimensions.get('window').width - 64)/2}
   height: 90px;
   background-color: ${props => props.background};
   margin: 10px;
