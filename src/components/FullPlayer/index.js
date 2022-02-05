@@ -47,11 +47,10 @@ export default function FullPlayer({ onPress }) {
   const [duration, setDuration] = useState('00:00:00');
   const [timeElapsed, setTimeElapsed] = useState('00:00:00');
   const [percent, setPercent] = useState(0);
-  const [current_track, setCurrentTrack] = useState(0);
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
   const [sound, setSound] = React.useState();
-  const { currentPlaylist } = useContext(PlayerContext);
+  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId } = useContext(PlayerContext);
 
   const changeTime = async (seconds) => {
     if (!sound) {
@@ -66,7 +65,7 @@ export default function FullPlayer({ onPress }) {
   const onStartPress = async (e) => {
     setisAlreadyPlay(true);
     setInprogress(true);
-    const path = currentPlaylist[current_track].playUrl;
+    const path = currentPlaylist[currentMediaPlaylistId].playUrl;
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: true,
@@ -109,12 +108,12 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onForward = async () => {
-    let curr_track = currentPlaylist[current_track];
+    let curr_track = currentPlaylist[currentMediaPlaylistId];
     let current_index = currentPlaylist.indexOf(curr_track) + 1;
     if (current_index === currentPlaylist.length) {
-      setCurrentTrack(1);
+      setCurrentTrack(0);
     } else {
-      setCurrentTrack((current_track) => current_track + 1);
+      setCurrentTrack(currentMediaPlaylistId + 1);
     }
     onStopPress().then(async () => {
       await onStartPress();
@@ -122,14 +121,14 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onBackward = async () => {
-    let curr_track = currentPlaylist[current_track];
+    let curr_track = currentPlaylist[currentMediaPlaylistId];
 
     let current_index = currentPlaylist.indexOf(curr_track);
 
     if (current_index === 0) {
-      setCurrentTrack(5);
+      setCurrentMediaPlaylistId(currentPlaylist.items.length - 1);
     } else {
-      setCurrentTrack((current_track) => current_track - 1);
+      setCurrentMediaPlaylistId(currentMediaPlaylistId - 1);
     }
     onStopPress().then(async () => {
       await onStartPress();
@@ -141,17 +140,17 @@ export default function FullPlayer({ onPress }) {
       <Background>
         <InnerContainer>
           <Header>
-            <Name>{currentPlaylist[current_track].title}</Name>
+            <Name>{currentPlaylist[currentMediaPlaylistId].title}</Name>
             <Button {...{ onPress }}>
               <Icon name="chevron-down" color="white" size={24} />
             </Button>
           </Header>
-          <PodImage source={{ uri: currentPlaylist[current_track].previewImage }} />
+          <PodImage source={{ uri: currentPlaylist[currentMediaPlaylistId].previewImage }} />
           <Metadata>
             <PlayerView>
               <TextTicker duration={10000}
-                style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[current_track].title}</TextTicker>
-              <PodAuthor>{currentPlaylist[current_track].author?.fullName}</PodAuthor>
+                style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[currentMediaPlaylistId].title}</TextTicker>
+              <PodAuthor>{currentPlaylist[currentMediaPlaylistId].author?.fullName}</PodAuthor>
             </PlayerView>
           </Metadata>
           {/*
@@ -186,14 +185,14 @@ export default function FullPlayer({ onPress }) {
           <Controls>
             <AntDesign
               name="stepbackward"
-              color={current_track > 0 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
+              color={currentMediaPlaylistId > 0 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
               onPress={onBackward}
             />
             <AntDesign onPress={() => !isAlreadyPlay ? onStartPress() : onPausePress()} name={!isAlreadyPlay ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
-              color={current_track < currentPlaylist.length -1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
+              color={currentMediaPlaylistId < currentPlaylist.length -1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
               onPress={onForward}
             />

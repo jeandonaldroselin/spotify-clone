@@ -11,7 +11,7 @@ import FullPlayerB from '~/components/FullPlayerB';
 
 import { ViewTopPlayer } from './styles';
 
-const { Value, Extrapolate } = Animated;
+const { Extrapolate, useValue } = Animated;
 const { height } = Dimensions.get('window');
 const TABBAR_HEIGHT = getBottomSpace() + 50;
 const MINIMIZED_PLAYER_HEIGHT = 50;
@@ -28,10 +28,10 @@ const config = {
 };
 
 export default function Player() {
-  const translationY = new Value(0);
-  const velocityY = new Value(0);
-  const offset = new Value(BOTTOM_ABSOLUTE);
-  const state = new Value(State.UNDETERMINED);
+  const translationY = useValue(0);
+  const velocityY = new useValue(0);
+  const offset = new useValue(BOTTOM_ABSOLUTE);
+  const state = new useValue(State.UNDETERMINED);
 
   const gestureHandler = onGestureEvent({
     translationY,

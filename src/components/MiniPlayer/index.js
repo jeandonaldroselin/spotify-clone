@@ -9,8 +9,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 export default function MiniPlayer() {
   const { currentMediaPlaylistId, currentPlaylist } = useContext(PlayerContext);
 
-  const onPlayPress = () => {
-    console.log('play')
+  const onPlayPress = (e) => {
+    console.log(e);
   }
 
   return (
@@ -34,7 +34,7 @@ export default function MiniPlayer() {
           size={26}
           style={{ width: 30, marginRight: 10 }}
         /> */}
-        <TouchableOpacity onPress={onPlayPress}>
+        <TouchableOpacity onPress={onPlayPress} >
           <MaterialIcons
             name="play-arrow"
             color="white"
