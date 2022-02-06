@@ -30,7 +30,6 @@ export default function Account({ navigation }) {
       setRefreshToken(null);
       setIsAuthenticated(false);
       navigation.navigate('Auth')
-
     })
   }
 
