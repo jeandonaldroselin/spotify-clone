@@ -25,6 +25,7 @@ import { PlayerContext } from '~/context/player.context';
 
 export default function Search() {
   const [categories, setCategories] = useState([]);
+  const [categoriesPlaceholder] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},{id:11},{id:12},{id:13},{id:14}]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchAudios, setSearchAudios] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
@@ -44,7 +45,9 @@ export default function Search() {
       };
       api.post('/media/category/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
-        setCategories(data);
+        setTimeout(function() {
+          setCategories(data);
+        }, 500)
       }).catch(e => console.error(e));
     }
     loadSessions();
@@ -99,19 +102,33 @@ export default function Search() {
         <InputContainer>
           <Input placeholder="Mots-clés, prédicateurs, titres..." onChangeText={(value) => onInputSearchField(value)} />
         </InputContainer>
-        {!isSearching &&
-          <>
-            <SubTitle>Rechercher par thèmes</SubTitle>
-            <SessionList
-              data={categories}
-              keyExtractor={item => String(item.id)}
-              renderItem={({ item }) => (
-                <Session background={item.color} onPress={() => onCategoryPress(item.id)}>
-                  <SessionImage source={item.image === "" ? null : { uri: item.image }} />
-                  <SessionTitle>{item.name}</SessionTitle>
-                </Session>)} />
+      {!isSearching &&
+        <>
+        <SubTitle>Rechercher par thèmes</SubTitle>
+        </>
+      }
+      {(!isSearching && categories.length > 0) &&
+      <>
+        <SessionList
+          data={categories}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Session background={item.color} onPress={() => onCategoryPress(item.id)}>
+              <SessionImage source={item.image === "" ? null : { uri: item.image }} />
+              <SessionTitle>{item.name}</SessionTitle>
+            </Session>)} />
 
-          </>}
+      </>}
+      {(!isSearching && categories.length === 0) &&
+      <>
+        <SessionList
+          data={categoriesPlaceholder}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Session background={'rgba(255,255,255,0.1)'}>
+            </Session>)} />
+      </>}
+
         {isSearching &&
           <>
             <SearchItemList

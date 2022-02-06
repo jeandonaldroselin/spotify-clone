@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, View } from "react-native";
 import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
 import { PlayList } from '../Predications/styles';
 
-import { Container, Predicator, PredicatorImage, PredicatorName } from './styles';
+import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorName } from "./styles";
 
 export default function Artists() {
   const [currentPredicator, setCurrentPredicator] = useState(null);
   const [predicators, setPredicators] = useState([]);
+  const [predicatorsPlaceholder] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function Artists() {
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
         setPredicators(data);
+        console.log('data ppredicator', data);
       })
     }
     loadPredicators();
@@ -59,12 +61,24 @@ export default function Artists() {
 
   return (
     <Container>
-      {!currentPredicator && predicators
+      {!currentPredicator && predicators.length > 0
         && predicators.map(predicator => (
+        <PredicatorBox>
           <Predicator key={predicator.id} onPress={() => onPredicatorPress(predicator)}>
             <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
             <PredicatorName>{predicator.fullName}</PredicatorName>
           </Predicator>
+        </PredicatorBox>
+        ))}
+
+      {!currentPredicator && predicators.length === 0
+        && predicatorsPlaceholder.map(predicator => (
+          <PredicatorBox>
+            <Predicator key={predicator.id}>
+              <PredicatorImage source={{ uri: null }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></PredicatorImage>
+              <View style={{ marginTop: 10, width: 60, height: 11, backgroundColor: 'rgba(255,255,255,0.6)', margin: '20px', alignSelf: 'center' }}></View>
+            </Predicator>
+          </PredicatorBox>
         ))}
 
       {!currentPredicator &&
