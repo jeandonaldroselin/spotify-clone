@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { InputContainer } from '../../private/Search/styles';
 import Input from '~/components/Input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Container,
@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
   const passwordForgotLink = 'https://www.editions-charisma.fr/mot-de-passe-oublie';
   const createAccountLink = 'https://www.editions-charisma.fr/authentification?create_account=1';
   const [showPassword, setShowPassword] = useState(false);
-  const { setIsAuthenticated } = useContext(AuthenticationContext);
+  const { setIsAuthenticated, setAccessToken, setRefreshToken } = useContext(AuthenticationContext);
 
   const [emailText, setEmailText] = useState("");
   const [passwordText, setPasswordText] = useState("");
@@ -37,9 +37,18 @@ export default function Login({ navigation }) {
     setIsEmailRequired(isEmailEmpty);
     setIsPasswordRequired(isPasswordEmpty);
     if (isValidForm) {
-      // TODO login logic
-      setIsAuthenticated(true);
-      navigation.navigate('App');
+      let body = {
+        "email": emailText,
+        "password": passwordText
+      };
+      api.post('/login', JSON.stringify(body)).then(response => {
+        AsyncStorage.setItem('accessToken', response.data.accessToken, () => {
+          setAccessToken(response.data.accessToken);
+          setRefreshToken(response.data.refreshToken);
+          setIsAuthenticated(true);
+          navigation.navigate('App');
+        });
+      })
     }
   }
 

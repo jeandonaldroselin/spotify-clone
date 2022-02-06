@@ -6,18 +6,23 @@ export const Container = styled.View`
   justify-content: space-between;
   align-items: center;
   background-color: #272829;
-  border-top-color: #ccc;
+  border-top-color: #eda948;
   border-top-width: 2px;
 `;
 
 export const Left = styled.View`
   flex-direction: row;
   align-items: center;
+  flex:3;
+  overflow:hidden;
 `;
 
 export const Right = styled.View`
   flex-direction: row;
   align-items: center;
+  flex:1;
+  justify-content: flex-end;
+  margin-right: 30;
 `;
 
 export const Image = styled.Image`
@@ -29,7 +34,9 @@ export const NameContainer = styled.View`
   margin-left: 10px;
 `;
 
-export const Name = styled.Text`
+export const Name = styled.Text.attrs({
+  numberOfLines:1
+})`
   color: white;
   font-size: 11px;
 `;

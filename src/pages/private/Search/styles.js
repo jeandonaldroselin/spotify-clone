@@ -1,14 +1,10 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #121212;
 `;
-
-export const ScrollView = styled.ScrollView.attrs({
-  showVerticalScrollIndicator: false,
-  stickyHeaderIndices: [1],
-})``;
 
 export const InputContainer = styled.View`
   background-color: #121212;
@@ -33,10 +29,11 @@ export const SessionList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
   padding: 10px;
+  margin-bottom: 5px;
 `;
 
 export const Session = styled.TouchableOpacity`
-  width: 160px;
+  width: ${(Dimensions.get('window').width - 64)/2}
   height: 90px;
   background-color: ${props => props.background};
   margin: 10px;
@@ -62,4 +59,44 @@ export const SessionTitle = styled.Text`
   color: white;
   font-weight: bold;
   max-width: 100px;
+`;
+
+export const SearchItemList = styled.FlatList.attrs({
+  numColumns: 1,
+  showsVerticalScrollIndicator: false
+})`
+  padding: 10px;
+`;
+
+export const SearchItem = styled.TouchableOpacity`
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+  display:flex;
+  flex-direction:row;
+`;
+
+export const SearchItemImage = styled.Image`
+  width: 40px;
+  height: 40px;
+`;
+
+export const SearchItemTitle = styled.Text.attrs({
+  numberOfLines: 1
+})`
+  margin-left: 10px;
+  color: white;
+  font-weight: bold;
+`;
+
+export const SearchItemDetails = styled.View`
+  width: 85%;
+`;
+
+export const SearchItemSubTitle = styled.Text.attrs({
+  numberOfLines: 1
+})`
+  margin-left: 10px;
+  color: white;
+  width: 85%;
 `;

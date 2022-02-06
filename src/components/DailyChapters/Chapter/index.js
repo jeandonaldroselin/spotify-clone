@@ -20,9 +20,9 @@ import {
   IconRight,
 } from './styles';
 
-export default function Episode({ time, chapter }) {
+export default function Episode({ time, chapter, onPress }) {
   return (
-    <Chapter>
+    <Chapter onPress={onPress}>
       <Header>
         <Image
           source={{
@@ -30,8 +30,8 @@ export default function Episode({ time, chapter }) {
           }}
         />
         <TitleContainer>
-          <Title>{chapter.name}</Title>
-          <SubTitle>{chapter.owner}</SubTitle>
+          <Title>{chapter.title}</Title>
+          <SubTitle>{chapter.author}</SubTitle>
         </TitleContainer>
         <Icon
           name="dots-horizontal"
@@ -43,9 +43,9 @@ export default function Episode({ time, chapter }) {
       <Description>{chapter.description}</Description>
       <Footer>
         <Left>
-          <Ionicons name="ios-play-circle" size={35} color="#ccc" />
+          <Ionicons name="ios-play-circle" size={35} color="#eda948" />
           <Time>
-            {time} • {chapter.time}
+            {chapter.time}
           </Time>
         </Left>
         <Right>

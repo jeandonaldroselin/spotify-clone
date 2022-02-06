@@ -2,5 +2,9 @@ import React from "react";
 
 export const AuthenticationContext = React.createContext({
     isAuthenticated: false,
-    setIsAuthenticated: (value) => {}
+    accessToken: "",
+    refreshToken: "",
+    setIsAuthenticated: (value) => { },
+    setAccessToken: (value) => { },
+    setRefreshToken: (value) => { }
 })

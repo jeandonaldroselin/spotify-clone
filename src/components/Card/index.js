@@ -7,14 +7,26 @@ import {
   Subtitle,
   Description,
 } from './styles';
+import { View } from "react-native";
+import { Title } from "../PodcastsSlide/styles";
 
-export default function Card({ item }) {
+export default function Card({ item, isPlaceholder, onPress }) {
   return (
-    <Container>
-      <PodImage source={{ uri: item.image }} />
+    <Container onPress={() => onPress(item)}>
+      <PodImage source={{ uri: item.previewImage }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
       <ContainerSubtitle>
-        <Subtitle>{item.subtitle.title}</Subtitle>
-        <Description>{item.subtitle.description}</Description>
+        {
+          isPlaceholder ?
+            <>
+              <Subtitle><View style={{ backgroundColor: 'rgba(255,255,255,0.6)', width: 150, height: 10 }}></View></Subtitle>
+              <Description><View style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: 150, height: 10 }}></View></Description>
+            </>
+            :
+            <>
+              <Subtitle>{item.title}</Subtitle>
+              <Description>{item.author.fullName}</Description>
+            </>
+        }
       </ContainerSubtitle>
     </Container>
   );

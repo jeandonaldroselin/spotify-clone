@@ -1,8 +1,9 @@
 import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import {
+    BottomTabBar,
     createBottomTabNavigator,
     createMaterialTopTabNavigator,
 } from 'react-navigation-tabs';
@@ -20,15 +21,23 @@ import Search from '~/pages/private/Search';
 import Playlists from '~/pages/private/Library/Music/Playlists';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
-import Episodios from '~/pages/private/Library/PodCasts/Episodios';
+import Coffrets from '~/pages/private/Library/PodCasts/Coffrets';
+
 import Downloads from '~/pages/private/Library/PodCasts/Downloads';
 import Programs from '~/pages/private/Library/PodCasts/Programs';
 import Predications from '~/pages/private/Library/PodCasts/Predications';
 import Predicator from '~/pages/private/Library/PodCasts/Predicator';
-import Premium from '~/pages/private/Premium';
-import { createAppContainer } from 'react-navigation';
+import Account from '~/pages/private/Account';
+import Login from '~/pages/public/Login';
 
-const PrivateStack = createBottomTabNavigator(
+
+import { createAppContainer } from 'react-navigation';
+import { PlayerContext } from '~/context/player.context';
+import api from '~/services/api';
+import { AuthenticationContext } from '~/context/authentication.context';
+import axios from 'axios';
+
+export default PrivateStack = createBottomTabNavigator(
     {
         Explorer: {
             screen: createStackNavigator(
@@ -74,7 +83,7 @@ const PrivateStack = createBottomTabNavigator(
                             Podcasts: createMaterialTopTabNavigator(
                                 {
                                     Predications,
-                                    Episodios,
+                                    Coffrets,
                                     Predicator/*,
                     Downloads,
                     Programs,*/
@@ -100,42 +109,42 @@ const PrivateStack = createBottomTabNavigator(
                                             backgroundColor: '#121212',
                                         },
                                         indicatorStyle: {
-                                            backgroundColor: '#00e868',
+                                            backgroundColor: '#eda948',
                                         },
                                     },
                                 }
                             ),
-                            Musica: createMaterialTopTabNavigator(
-                                {
-                                    Playlists,
-                                    Artists,
-                                    Albums,
-                                },
-                                {
-                                    navigationOptions: {
-                                        tabBarLabel: 'Musique',
-                                    },
-                                    tabBarOptions: {
-                                        scrollEnabled: true,
-                                        activeTintColor: 'white',
-                                        inactiveTintColor: '#999',
-                                        upperCaseLabel: false,
-                                        labelStyle: {
-                                            fontWeight: 'bold',
-                                            fontSize: 14,
-                                        },
-                                        style: {
-                                            backgroundColor: '#121212',
-                                        },
-                                        tabStyle: {
-                                            width: 90,
-                                        },
-                                        indicatorStyle: {
-                                            backgroundColor: '#00e868',
-                                        },
-                                    },
-                                }
-                            ),
+                            // Musica: createMaterialTopTabNavigator(
+                            //     {
+                            //         Playlists,
+                            //         Artists,
+                            //         Albums,
+                            //     },
+                            //     {
+                            //         navigationOptions: {
+                            //             tabBarLabel: 'Musique',
+                            //         },
+                            //         tabBarOptions: {
+                            //             scrollEnabled: true,
+                            //             activeTintColor: 'white',
+                            //             inactiveTintColor: '#999',
+                            //             upperCaseLabel: false,
+                            //             labelStyle: {
+                            //                 fontWeight: 'bold',
+                            //                 fontSize: 14,
+                            //             },
+                            //             style: {
+                            //                 backgroundColor: '#121212',
+                            //             },
+                            //             tabStyle: {
+                            //                 width: 90,
+                            //             },
+                            //             indicatorStyle: {
+                            //                 backgroundColor: '#00e868',
+                            //             },
+                            //         },
+                            //     }
+                            // ),
                         },
                         {
                             tabBarOptions: {
@@ -158,7 +167,8 @@ const PrivateStack = createBottomTabNavigator(
                                 },
                                 style: {
                                     backgroundColor: '#121212',
-                                    paddingTop: Platform.OS === 'ios' ? 45 : 0,
+                                    paddingTop: Platform.OS === 'ios' ? 45 : 15,
+                                    paddingLeft: Platform.OS === 'ios' ? 0 : 10
                                 },
                             },
                         },
@@ -173,6 +183,23 @@ const PrivateStack = createBottomTabNavigator(
                             <FontAwesome name="book" size={24} color={tintColor} />
                         ),
                         tabBarLabel: 'Bibliothèque',
+                    },
+                    defaultNavigationOptions: {
+                        headerShown: false,
+                    },
+                }
+            ),
+        },
+        ['Mon compte']: {
+            screen: createStackNavigator(
+                {
+                    Account,
+                },
+                {
+                    navigationOptions: {
+                        tabBarIcon: ({ tintColor }) => (
+                            <Feather name="user" size={24} color={tintColor} />
+                        ),
                     },
                     defaultNavigationOptions: {
                         headerShown: false,
@@ -199,6 +226,9 @@ const PrivateStack = createBottomTabNavigator(
         },*/
     },
     {
+        tabBarComponent: (props) => (
+            <PrivateApp {...props}></PrivateApp>
+        ),
         navigationOptions: {
             initialRouteName: 'Library',
         },
@@ -214,14 +244,14 @@ const PrivateStack = createBottomTabNavigator(
     }
 )
 
-const PrivateRoutes = createAppContainer(PrivateStack);
+function PrivateApp(props) {
+    const { currentPlaylist } = useContext(PlayerContext);
 
-export default function PrivateApp() {
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#111" />
-            <PrivateRoutes />
-            <Player />
+            <BottomTabBar {...props} />
+            {currentPlaylist?.length > 0 && <Player />}
         </>
     )
 }

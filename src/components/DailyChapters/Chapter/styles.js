@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Chapter = styled.View`
+export const Chapter = styled.TouchableOpacity`
   background-color: #272829;
   padding: 10px;
   margin: 15px;

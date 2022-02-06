@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "spotify",
-    "slug": "spotify",
+    "name": "editions-charisma",
+    "slug": "editions-charisma",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -21,6 +21,7 @@
     },
     "assetBundlePatterns": [
       "**/*"
+      
     ],
     "ios": {
       "supportsTablet": true

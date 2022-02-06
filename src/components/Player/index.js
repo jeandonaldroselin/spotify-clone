@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import Animated from 'react-native-reanimated';
+import Animated, { interpolateNode } from 'react-native-reanimated';
 import { onGestureEvent, withSpring } from 'react-native-redash';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
@@ -11,7 +11,7 @@ import FullPlayerB from '~/components/FullPlayerB';
 
 import { ViewTopPlayer } from './styles';
 
-const { Value, interpolate, Extrapolate } = Animated;
+const { Value, Extrapolate } = Animated;
 const { height } = Dimensions.get('window');
 const TABBAR_HEIGHT = getBottomSpace() + 50;
 const MINIMIZED_PLAYER_HEIGHT = 50;
@@ -48,7 +48,7 @@ export default function Player() {
     config,
   });
 
-  const opacity = interpolate(translateY, {
+  const opacity = interpolateNode(translateY, {
     inputRange: [BOTTOM_ABSOLUTE - MINIMIZED_PLAYER_HEIGHT, BOTTOM_ABSOLUTE],
     outputRange: [0, 1],
     extrapolate: Extrapolate.CLAMP,

@@ -9,16 +9,16 @@ import {
   SubTitle,
 } from './styles';
 
-export default function Program({ program }) {
+export default function Program({ program, onPress }) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ImageContainer>
-        <Image source={{ uri: program.image }} />
+        <Image source={{ uri: program.previewImage }} />
       </ImageContainer>
       <TextContainer>
-        <Title>{program.title.name}</Title>
+        <Title>{program.title}</Title>
         <SubTitle>
-          {program.updated_at} - {program.title.description}
+          {program.releaseDate} - {program.author.fullName}
         </SubTitle>
       </TextContainer>
     </Container>
