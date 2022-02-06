@@ -61,22 +61,24 @@ export default function Artists() {
 
   return (
     <Container>
-      {!currentPredicator && predicators.length > 0
+      {!currentPredicator && predicators?.length > 0
         && predicators.map(predicator => (
-        <PredicatorBox>
-          <Predicator key={predicator.id} onPress={() => onPredicatorPress(predicator)}>
+        <PredicatorBox key={predicator.id}>
+          <Predicator onPress={() => onPredicatorPress(predicator)}>
             <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
             <PredicatorName>{predicator.fullName}</PredicatorName>
           </Predicator>
         </PredicatorBox>
         ))}
 
-      {!currentPredicator && predicators.length === 0
+      {!currentPredicator && predicators?.length === 0
         && predicatorsPlaceholder.map(predicator => (
-          <PredicatorBox>
-            <Predicator key={predicator.id}>
+          <PredicatorBox key={predicator.id}>
+            <Predicator>
               <PredicatorImage source={{ uri: null }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></PredicatorImage>
-              <View style={{ marginTop: 10, width: 60, height: 11, backgroundColor: 'rgba(255,255,255,0.6)', margin: '20px', alignSelf: 'center' }}></View>
+              <View style={{ marginTop: 10, width: 60, height: 11, backgroundColor: 'rgba(255,255,255,0.6)', margin: 20, alignSelf: 'center' }}>
+                
+              </View>
             </Predicator>
           </PredicatorBox>
         ))}
