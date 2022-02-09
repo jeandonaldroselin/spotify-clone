@@ -13,12 +13,12 @@ export default function Program({ program, onPress }) {
   return (
     <Container onPress={onPress}>
       <ImageContainer>
-        <Image source={{ uri: program.previewImage }} />
+        <Image source={{ uri: program.previewImage || program.image }} />
       </ImageContainer>
       <TextContainer>
         <Title>{program.title}</Title>
         <SubTitle>
-          {program.releaseDate} - {program.author.fullName}
+          {program.releaseDate} - {program.author?.fullName || "Auteur inconnu"}
         </SubTitle>
       </TextContainer>
     </Container>
