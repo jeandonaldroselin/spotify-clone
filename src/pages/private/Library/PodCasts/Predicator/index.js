@@ -10,7 +10,7 @@ import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorName }
 export default function Artists() {
   const [currentPredicator, setCurrentPredicator] = useState(null);
   const [predicators, setPredicators] = useState([]);
-  const [predicatorsPlaceholder] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}]);
+  const [predicatorsPlaceholder] = useState([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
@@ -63,12 +63,12 @@ export default function Artists() {
     <Container>
       {!currentPredicator && predicators?.length > 0
         && predicators.map(predicator => (
-        <PredicatorBox key={predicator.id}>
-          <Predicator onPress={() => onPredicatorPress(predicator)}>
-            <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
-            <PredicatorName>{predicator.fullName}</PredicatorName>
-          </Predicator>
-        </PredicatorBox>
+          <PredicatorBox key={predicator.id}>
+            <Predicator onPress={() => onPredicatorPress(predicator)}>
+              <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
+              <PredicatorName>{predicator.fullName}</PredicatorName>
+            </Predicator>
+          </PredicatorBox>
         ))}
 
       {!currentPredicator && predicators?.length === 0
@@ -77,7 +77,7 @@ export default function Artists() {
             <Predicator>
               <PredicatorImage source={{ uri: null }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></PredicatorImage>
               <View style={{ marginTop: 10, width: 60, height: 11, backgroundColor: 'rgba(255,255,255,0.6)', margin: 20, alignSelf: 'center' }}>
-                
+
               </View>
             </Predicator>
           </PredicatorBox>

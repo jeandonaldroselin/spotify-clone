@@ -1,32 +1,43 @@
 import styled from 'styled-components/native';
+import { View } from "react-native";
+import React from "react";
 
 export const Container = styled.View`
   flex: 1;
   background-color: #121212;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px 60px;
-`;
-export const Title = styled.Text`
-  color: white;
-  font-weight: bold;
-  font-size: 23px;
-  text-align: center;
-  margin-bottom: 35px;
+  padding: 25px 0px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 `;
 
-export const Button = styled.TouchableOpacity`
-  border-radius: 25px;
-  background-color: #fff;
-  width: 100%;
+export const ArtistBox = styled.TouchableOpacity`
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const Artist = styled.TouchableOpacity`
+  margin-bottom: 50px;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+`;
+
+export const ArtistName = styled.Text`
+  color: white;
+  font-weight: bold;
+  text-align: center;
   margin-top: 10px;
 `;
 
-export const ButtonText = styled.Text`
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 15px;
-  padding: 15px 0;
-  letter-spacing: 1px;
+export const ArtistImage = styled.Image`
+  background-color: #fff;
+  width: 130px;
+  height: 130px;
+  border-radius: 130px;
 `;

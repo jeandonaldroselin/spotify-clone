@@ -114,37 +114,37 @@ export default PrivateStack = createBottomTabNavigator(
                                     },
                                 }
                             ),
-                            // Musica: createMaterialTopTabNavigator(
-                            //     {
-                            //         Playlists,
-                            //         Artists,
-                            //         Albums,
-                            //     },
-                            //     {
-                            //         navigationOptions: {
-                            //             tabBarLabel: 'Musique',
-                            //         },
-                            //         tabBarOptions: {
-                            //             scrollEnabled: true,
-                            //             activeTintColor: 'white',
-                            //             inactiveTintColor: '#999',
-                            //             upperCaseLabel: false,
-                            //             labelStyle: {
-                            //                 fontWeight: 'bold',
-                            //                 fontSize: 14,
-                            //             },
-                            //             style: {
-                            //                 backgroundColor: '#121212',
-                            //             },
-                            //             tabStyle: {
-                            //                 width: 90,
-                            //             },
-                            //             indicatorStyle: {
-                            //                 backgroundColor: '#00e868',
-                            //             },
-                            //         },
-                            //     }
-                            // ),
+                            Music: createMaterialTopTabNavigator(
+                                {
+                                    //Playlists,
+                                    Artists,
+                                    Albums,
+                                },
+                                {
+                                    navigationOptions: {
+                                        tabBarLabel: 'Musique',
+                                    },
+                                    tabBarOptions: {
+                                        scrollEnabled: true,
+                                        activeTintColor: 'white',
+                                        inactiveTintColor: '#999',
+                                        upperCaseLabel: false,
+                                        labelStyle: {
+                                            fontWeight: 'bold',
+                                            fontSize: 14,
+                                        },
+                                        style: {
+                                            backgroundColor: '#121212',
+                                        },
+                                        tabStyle: {
+                                            width: 90,
+                                        },
+                                        indicatorStyle: {
+                                            backgroundColor: '#eda948',
+                                        },
+                                    },
+                                }
+                            ),
                         },
                         {
                             tabBarOptions: {
