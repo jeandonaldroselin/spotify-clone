@@ -16,8 +16,11 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
+
+  //Player
   const [currentMediaPlaylistId, setCurrentMediaPlaylistId] = useState(-1);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0) => {
     setCurrentPlaylist(playlist);
@@ -27,7 +30,14 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthenticationContext.Provider value={{ isAuthenticated, setIsAuthenticated, accessToken, setAccessToken, refreshToken, setRefreshToken }}>
-        <PlayerContext.Provider value={{ currentMediaPlaylistId, setCurrentMediaPlaylistId, currentPlaylist, setCurrentPlaylist: setCurrentPlaylistAndMedia }}>
+        <PlayerContext.Provider value={{
+          currentMediaPlaylistId,
+          setCurrentMediaPlaylistId,
+          currentPlaylist,
+          setCurrentPlaylist: setCurrentPlaylistAndMedia,
+          isPlaying,
+          setIsPlaying
+        }}>
           <Routes />
         </PlayerContext.Provider>
       </AuthenticationContext.Provider>

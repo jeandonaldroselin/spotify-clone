@@ -7,7 +7,7 @@ import TextTicker from 'react-native-text-ticker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MiniPlayer() {
-  const { currentMediaPlaylistId, currentPlaylist } = useContext(PlayerContext);
+  const { currentMediaPlaylistId, currentPlaylist, isPlaying } = useContext(PlayerContext);
 
   const onPlayPress = (e) => {
     console.log(e);
@@ -35,11 +35,12 @@ export default function MiniPlayer() {
           style={{ width: 30, marginRight: 10 }}
         /> */}
         <TouchableOpacity onPress={onPlayPress} >
+
           <MaterialIcons
-            name="play-arrow"
+            name={isPlaying ? 'pause' : 'play-arrow'}
             color="white"
             size={30}
-            style={{ width: 30}}
+            style={{ width: 30 }}
           />
         </TouchableOpacity>
       </Right>

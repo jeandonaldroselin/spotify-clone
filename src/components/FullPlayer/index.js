@@ -50,7 +50,7 @@ export default function FullPlayer({ onPress }) {
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
   const [sound, setSound] = React.useState();
-  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId } = useContext(PlayerContext);
+  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying } = useContext(PlayerContext);
 
   useEffect(async () => {
     if (sound !== undefined) {
@@ -70,6 +70,7 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onStartPress = async (e) => {
+    setIsPlaying(true);
     setIsAlreadyPlay(true);
     setInprogress(true);
     const path = currentPlaylist[currentMediaPlaylistId].playUrl;
@@ -106,11 +107,13 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onPausePress = async (e) => {
+    setIsPlaying(false);
     setIsAlreadyPlay(false);
     await sound.sound.pauseAsync();
   };
 
   const onStopPress = async (e) => {
+    setIsPlaying(false);
     await sound.sound.stopAsync();
   };
 

@@ -5,4 +5,6 @@ export const PlayerContext = React.createContext({
     setCurrentMediaPlaylistId: (value) => { },
     currentPlaylist: [],
     setCurrentPlaylist: (value) => { },
+    isPlaying: false,
+    setIsPlaying: (value) => {}
 })
