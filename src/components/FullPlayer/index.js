@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Ionicons,
   EvilIcons,
@@ -43,7 +43,7 @@ import TextTicker from "react-native-text-ticker";
 const dirs = FileSystem.documentDirectory;
 
 export default function FullPlayer({ onPress }) {
-  const [isAlreadyPlay, setisAlreadyPlay] = useState(false);
+  const [isAlreadyPlay, setIsAlreadyPlay] = useState(false);
   const [duration, setDuration] = useState('00:00:00');
   const [timeElapsed, setTimeElapsed] = useState('00:00:00');
   const [percent, setPercent] = useState(0);
@@ -51,6 +51,13 @@ export default function FullPlayer({ onPress }) {
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
   const [sound, setSound] = React.useState();
   const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId } = useContext(PlayerContext);
+
+  useEffect(async () => {
+    if (sound !== undefined) {
+      await onStopPress();
+    }
+    await onStartPress();
+  }, [currentMediaPlaylistId])
 
   const changeTime = async (seconds) => {
     if (!sound) {
@@ -63,7 +70,7 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onStartPress = async (e) => {
-    setisAlreadyPlay(true);
+    setIsAlreadyPlay(true);
     setInprogress(true);
     const path = currentPlaylist[currentMediaPlaylistId].playUrl;
     await Audio.setAudioModeAsync({
@@ -99,7 +106,7 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onPausePress = async (e) => {
-    setisAlreadyPlay(false);
+    setIsAlreadyPlay(false);
     await sound.sound.pauseAsync();
   };
 
@@ -111,9 +118,9 @@ export default function FullPlayer({ onPress }) {
     let curr_track = currentPlaylist[currentMediaPlaylistId];
     let current_index = currentPlaylist.indexOf(curr_track) + 1;
     if (current_index === currentPlaylist.length) {
-      setCurrentTrack(0);
+      setCurrentMediaPlaylistId(0);
     } else {
-      setCurrentTrack(currentMediaPlaylistId + 1);
+      setCurrentMediaPlaylistId(currentMediaPlaylistId + 1);
     }
     onStopPress().then(async () => {
       await onStartPress();
@@ -192,7 +199,7 @@ export default function FullPlayer({ onPress }) {
             <AntDesign onPress={() => !isAlreadyPlay ? onStartPress() : onPausePress()} name={!isAlreadyPlay ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
-              color={currentMediaPlaylistId < currentPlaylist.length -1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
+              color={currentMediaPlaylistId < currentPlaylist.length - 1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
               onPress={onForward}
             />

@@ -29,7 +29,6 @@ export default function Albums() {
       api.post('/media/album/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
         setNewAlbums(data);
-        console.log(data[0])
       }).catch((e) => {
         console.error(e);
       })
