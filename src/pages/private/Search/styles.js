@@ -43,22 +43,16 @@ export const Session = styled.TouchableOpacity`
 `;
 
 export const SessionImage = styled.Image`
-  width: 65px;
-  height: 65px;
-  position: absolute;
-  right: -18px;
-  top: 25px;
-  transform: rotate(25deg);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position:absolute;
+  width:100%;
+  height:100%;
 `;
 
 export const SessionTitle = styled.Text`
   font-size: 16px;
-  margin-top: 10px;
-  margin-left: 10px;
   color: white;
   font-weight: bold;
-  max-width: 100px;
+  margin: auto;
 `;
 
 export const SearchItemList = styled.FlatList.attrs({
