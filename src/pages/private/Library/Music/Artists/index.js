@@ -3,7 +3,7 @@ import { BackHandler, View } from "react-native";
 import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
-import { PlayList } from '../../PodCasts/Predications/styles';
+import { PlayList } from '../../Predication/Predications/styles';
 
 import { Artist, ArtistBox, ArtistImage, ArtistName, Container } from './styles';
 

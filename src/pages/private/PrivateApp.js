@@ -1,6 +1,6 @@
 import { StatusBar } from 'react-native';
 import Player from '~/components/Player';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Platform } from 'react-native';
 import {
     BottomTabBar,
@@ -12,30 +12,21 @@ import { createStackNavigator } from 'react-navigation-stack';
 import {
     Feather,
     MaterialIcons,
-    FontAwesome,
-    MaterialCommunityIcons,
+    FontAwesome
 } from '@expo/vector-icons';
 
 import Main from '~/pages/private/Main';
 import Search from '~/pages/private/Search';
-import Playlists from '~/pages/private/Library/Music/Playlists';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
-import Coffrets from '~/pages/private/Library/PodCasts/Coffrets';
+import Coffrets from '~/pages/private/Library/Predication/Coffrets';
 
-import Downloads from '~/pages/private/Library/PodCasts/Downloads';
-import Programs from '~/pages/private/Library/PodCasts/Programs';
-import Predications from '~/pages/private/Library/PodCasts/Predications';
-import Predicator from '~/pages/private/Library/PodCasts/Predicator';
+import Predications from '~/pages/private/Library/Predication/Predications';
+import Predicator from '~/pages/private/Library/Predication/Predicator';
 import Account from '~/pages/private/Account';
-import Login from '~/pages/public/Login';
 
 
-import { createAppContainer } from 'react-navigation';
 import { PlayerContext } from '~/context/player.context';
-import api from '~/services/api';
-import { AuthenticationContext } from '~/context/authentication.context';
-import axios from 'axios';
 
 export default PrivateStack = createBottomTabNavigator(
     {
