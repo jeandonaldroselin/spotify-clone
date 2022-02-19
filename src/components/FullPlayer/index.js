@@ -57,7 +57,7 @@ export default function FullPlayer({ onPress }) {
       await onStopPress();
     }
     await onStartPress();
-  }, [currentMediaPlaylistId])
+  }, [currentPlaylist, currentMediaPlaylistId])
 
   const changeTime = async (_percent) => {
     if (!sound) {
@@ -67,11 +67,18 @@ export default function FullPlayer({ onPress }) {
     await sound.sound.setPositionAsync(seektime * 1000)
   };
 
-  const onStartPress = async (e) => {
+  const onStartPress = async () => {
     setIsPlaying(true);
     setIsAlreadyPlay(true);
     setInprogress(true);
     const path = currentPlaylist[currentMediaPlaylistId].playUrl;
+    if (sound?.sound) {
+      const status = await sound.sound.getStatusAsync()
+      if (path.includes(status.uri)) {
+        await sound.sound.playAsync();
+        return;
+      }
+    }
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
       staysActiveInBackground: true,
