@@ -21,6 +21,7 @@ export default function App() {
   const [currentMediaPlaylistId, setCurrentMediaPlaylistId] = useState(-1);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [sound, setSound] = useState(undefined);
 
   const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0) => {
     setCurrentPlaylist(playlist);
@@ -36,7 +37,9 @@ export default function App() {
           currentPlaylist,
           setCurrentPlaylist: setCurrentPlaylistAndMedia,
           isPlaying,
-          setIsPlaying
+          setIsPlaying,
+          sound,
+          setSound
         }}>
           <Routes />
         </PlayerContext.Provider>

@@ -43,14 +43,12 @@ import TextTicker from "react-native-text-ticker";
 const dirs = FileSystem.documentDirectory;
 
 export default function FullPlayer({ onPress }) {
-  const [isAlreadyPlay, setIsAlreadyPlay] = useState(false);
   const [duration, setDuration] = useState('00:00:00');
   const [timeElapsed, setTimeElapsed] = useState('00:00:00');
   const [percent, setPercent] = useState(0);
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
-  const [sound, setSound] = React.useState();
-  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying } = useContext(PlayerContext);
+  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying, isPlaying, setSound, sound } = useContext(PlayerContext);
 
   useEffect(async () => {
     if (sound !== undefined) {
@@ -69,12 +67,11 @@ export default function FullPlayer({ onPress }) {
 
   const onStartPress = async () => {
     setIsPlaying(true);
-    setIsAlreadyPlay(true);
     setInprogress(true);
     const path = currentPlaylist[currentMediaPlaylistId].playUrl;
     if (sound?.sound) {
-      const status = await sound.sound.getStatusAsync()
-      if (path.includes(status.uri)) {
+      const status = await sound.sound.getStatusAsync();
+      if (path.includes(status.uri)) { // Here we know the sound is just paused
         await sound.sound.playAsync();
         return;
       }
@@ -113,7 +110,6 @@ export default function FullPlayer({ onPress }) {
 
   const onPausePress = async (e) => {
     setIsPlaying(false);
-    setIsAlreadyPlay(false);
     await sound.sound.pauseAsync();
   };
 
@@ -204,7 +200,7 @@ export default function FullPlayer({ onPress }) {
               size={28}
               onPress={onBackward}
             />
-            <AntDesign onPress={() => !isAlreadyPlay ? onStartPress() : onPausePress()} name={!isAlreadyPlay ? 'play' : 'pause'} color="white" size={54} />
+            <AntDesign onPress={() => !isPlaying ? onStartPress() : onPausePress()} name={!isPlaying ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
               color={currentMediaPlaylistId < currentPlaylist.length - 1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}

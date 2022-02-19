@@ -7,10 +7,16 @@ import TextTicker from 'react-native-text-ticker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MiniPlayer() {
-  const { currentMediaPlaylistId, currentPlaylist, isPlaying } = useContext(PlayerContext);
+  const { currentMediaPlaylistId, currentPlaylist, setIsPlaying, isPlaying, sound } = useContext(PlayerContext);
 
-  const onPlayPress = (e) => {
-    console.log(e);
+  const onPlayPress = async () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      await sound.sound.pauseAsync();
+    } else {
+      setIsPlaying(true);
+      await sound.sound.playAsync();
+    }
   }
 
   return (
