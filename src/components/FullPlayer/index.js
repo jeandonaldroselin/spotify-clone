@@ -59,14 +59,12 @@ export default function FullPlayer({ onPress }) {
     await onStartPress();
   }, [currentMediaPlaylistId])
 
-  const changeTime = async (seconds) => {
+  const changeTime = async (_percent) => {
     if (!sound) {
       return false;
     }
-    // 50 / duration
-    let seektime = (seconds / 100) * duration;
-    setTimeElapsed(seektime);
-    await sound.sound.setPositionAsync(seconds / 1000)
+    const seektime = (_percent / 100) * duration;
+    await sound.sound.setPositionAsync(seektime * 1000)
   };
 
   const onStartPress = async (e) => {
@@ -94,7 +92,7 @@ export default function FullPlayer({ onPress }) {
         localSound.sound.stopAsync();
       }
       let percent = Math.floor(
-        (Math.floor(e.positionMillis) / Math.floor(e.durationMillis)) * 100,
+        (e.positionMillis / e.durationMillis) * 100,
       );
       setPercent(percent);
       setTimeElapsed(e.positionMillis / 1000);
@@ -177,7 +175,7 @@ export default function FullPlayer({ onPress }) {
               thumbStyle={styles.thumb}
               value={percent}
               minimumTrackTintColor="#ffffff"
-              onValueChange={(seconds) => changeTime(seconds)}
+              onValueChange={(p) => changeTime(p)}
             />
             <View style={styles.inprogress}>
               <Text style={[styles.textLight, styles.timeStamp]}>
