@@ -15,7 +15,7 @@ import {
     FontAwesome
 } from '@expo/vector-icons';
 
-import Main from '~/pages/private/Main';
+import Explorer from '~/pages/private/Explorer';
 import Search from '~/pages/private/Search';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
@@ -34,7 +34,7 @@ export default PrivateStack = createBottomTabNavigator(
             screen: createStackNavigator(
                 {
                     Main: {
-                        screen: Main,
+                        screen: Explorer,
                     },
                 },
                 {

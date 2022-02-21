@@ -28,7 +28,7 @@ const MEDIA_PLACEHOLDER = {
 };
 const EXPLORER_PLACEHOLDER_ROW = { title: 'hhh', medias: [MEDIA_PLACEHOLDER, MEDIA_PLACEHOLDER, MEDIA_PLACEHOLDER, MEDIA_PLACEHOLDER, MEDIA_PLACEHOLDER] };
 
-export default function Main() {
+export default function Explorer() {
   const [mainList, setMainList] = useState([]);
   const [mainListPlaceholder] = useState([
     EXPLORER_PLACEHOLDER_ROW,
