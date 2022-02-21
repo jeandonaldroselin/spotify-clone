@@ -21,7 +21,7 @@ const MEDIA_PLACEHOLDER = {
   downloadUrl: "",
   isFavorite: false,
   description: "",
-  author: { fullName : 'chargement' },
+  author: { fullName: 'chargement' },
   featuring: [],
   album: null,
   category: []
@@ -42,16 +42,16 @@ export default function Explorer() {
   useEffect(() => {
     function loadMainList() {
       api.post('/media/explorer').then((response) => {
-        setTimeout(function() {
-          setMainList(response.data.data)
-        }, 500)
+        setMainList(response.data.data)
       }).catch(e => console.error(e));
     }
     loadMainList();
   }, []);
 
   const onItemPress = (media) => {
-    setCurrentPlaylist([media])
+    if (media.playUrl.length > 0) {
+      setCurrentPlaylist([media]);
+    }
   }
 
   return (
@@ -63,7 +63,7 @@ export default function Explorer() {
           ))}
         {mainList.length === 0 &&
           mainListPlaceholder.map((item, index) => (
-             <PodcastsSlide key={index} list={item} isPlaceholder={true} onItemPress={onItemPress} />
+            <PodcastsSlide key={index} list={item} isPlaceholder={true} onItemPress={onItemPress} />
           ))}
       </ContainerScrollView>
     </Container>

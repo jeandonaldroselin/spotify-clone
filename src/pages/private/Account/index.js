@@ -18,7 +18,6 @@ import { Linking } from 'react-native';
 export default function Account({ navigation }) {
   const { setIsAuthenticated, setAccessToken, setRefreshToken, isAuthenticated, accessToken, refreshToken } = useContext(AuthenticationContext);
 
-  const [sessions, setSessions] = useState([]);
   const [assistance, setAssistance] = useState("assistance@editions-charisma.fr");
   const [user, setUser] = useState(null);
 
@@ -32,11 +31,6 @@ export default function Account({ navigation }) {
   }
 
   useEffect(() => {
-
-    async function loadSessions() {
-      const { data } = await api.get('sessions');
-      setSessions(data);
-    }
     async function getUserInfo() {
       api.get('/userinfo').then(infoUser => {
         setUser(infoUser.data);
@@ -44,8 +38,6 @@ export default function Account({ navigation }) {
     }
 
     getUserInfo();
-
-    loadSessions();
   }, []);
 
   return (
