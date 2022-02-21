@@ -119,6 +119,10 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onForward = async () => {
+    if (currentMediaPlaylistId >= currentPlaylist.length - 1) {
+      return;
+    }
+    
     let curr_track = currentPlaylist[currentMediaPlaylistId];
     let current_index = currentPlaylist.indexOf(curr_track) + 1;
     if (current_index === currentPlaylist.length) {
@@ -132,6 +136,9 @@ export default function FullPlayer({ onPress }) {
   };
 
   const onBackward = async () => {
+    if (currentMediaPlaylistId === 0) {
+      return;
+    }
     let curr_track = currentPlaylist[currentMediaPlaylistId];
 
     let current_index = currentPlaylist.indexOf(curr_track);
