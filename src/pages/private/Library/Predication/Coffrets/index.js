@@ -14,12 +14,9 @@ export default function Episodios() {
   const [coffrets, setCoffrets] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
+  
+  
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",
-      () => {
-        setCurrentCoffret(null);
-        return true;
-      });
     function loadCoffrets() {
       let body = {
         "startReleaseDate": "1950-01-15",
@@ -34,7 +31,6 @@ export default function Episodios() {
       })
     }
     loadCoffrets();
-    return () => backHandler.remove();
   }, []);
 
   const onCoffretPress = (coffret) => {
@@ -46,9 +42,6 @@ export default function Episodios() {
     setCurrentCoffret(coffret);
   }
 
-  const onCoffretItemPress = (media) => {
-    setCurrentPlaylist(currentCoffret.items, media.track - 1);
-  }
 
   return (
     <Container>
@@ -68,11 +61,6 @@ export default function Episodios() {
               </Fragment>
             </TouchableOpacity>
           ))}
-        {currentCoffret &&
-          <Fragment key={currentCoffret.id}>
-            <Title>{currentCoffret.title}</Title>
-            <DailyChapters dailyChapters={currentCoffret} onPress={onCoffretItemPress} />
-          </Fragment>}
       </ChaptersList>
     </Container>
   );

@@ -20,6 +20,7 @@ import Search from '~/pages/private/Search';
 import Artists from '~/pages/private/Library/Music/Artists';
 import Albums from '~/pages/private/Library/Music/Albums';
 import Coffrets from '~/pages/private/Library/Predication/Coffrets';
+import CoffretDetails from '~/pages/private/Library/Predication/Coffrets/CoffretDetails';
 
 import Predications from '~/pages/private/Library/Predication/Predications';
 import Predicator from '~/pages/private/Library/Predication/Predicator';
@@ -75,7 +76,8 @@ export default PrivateStack = createBottomTabNavigator(
                                 {
                                     Predications,
                                     Coffrets,
-                                    Predicator/*,
+                                    Predicator,
+                                 /*   CoffretDetails
                     Downloads,
                     Programs,*/
                                 },
