@@ -6,19 +6,29 @@ import {
     StatusBar,
     View,
 } from 'react-native';
+import { isJwtExpired } from 'jwt-check-expiration';
 
 export default class AuthLoadingScreen extends React.Component {
     componentDidMount() {
-        this._bootstrapAsync();
+        this._bootstrapAsync(useContext(AuthenticationContext));
     }
 
     // Fetch the token from storage then navigate to our appropriate place
-    _bootstrapAsync = async () => {
+    _bootstrapAsync = async (authenticationContext) => {
         const accessToken = await AsyncStorage.getItem('accessToken');
+        const isAccessTokenExpired = isJwtExpired(accessToken);
 
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
-        this.props.navigation.navigate(accessToken ? 'App' : 'Auth');
+        if (isAccessTokenExpired) {
+            authenticationContext.setIsAuthenticated(false);
+            authenticationContext.setAccessToken(null);
+            authenticationContext.setRefreshToken(null);            
+            return this.props.navigation.navigate('Auth');
+        }
+
+        this.props.navigation.navigate('App');
+
     };
 
     // Render any loading content that you like here
