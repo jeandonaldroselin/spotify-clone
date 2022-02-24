@@ -9,6 +9,7 @@ import {
 } from './styles';
 import { View } from "react-native";
 import { Title } from "../PodcastsSlide/styles";
+import SkeletonContent from 'react-native-skeleton-content';
 
 export default function Card({ item, isPlaceholder, onPress }) {
   return (
@@ -16,16 +17,15 @@ export default function Card({ item, isPlaceholder, onPress }) {
       <PodImage source={{ uri: item.previewImage }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
       <ContainerSubtitle>
         {
-          isPlaceholder ?
-            <>
-              <Subtitle><View style={{ backgroundColor: 'rgba(255,255,255,0.6)', width: 150, height: 10 }}></View></Subtitle>
-              <Description><View style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: 150, height: 10 }}></View></Description>
-            </>
-            :
+          <SkeletonContent
+            containerStyle={{ flex: 1 }}
+            isLoading={isPlaceholder}
+          >
             <>
               <Subtitle>{item.title}</Subtitle>
               <Description>{item.author.fullName}</Description>
             </>
+          </SkeletonContent>
         }
       </ContainerSubtitle>
     </Container>
