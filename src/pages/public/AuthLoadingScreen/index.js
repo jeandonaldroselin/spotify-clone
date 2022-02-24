@@ -7,6 +7,7 @@ import {
     View,
 } from 'react-native';
 import { isJwtExpired } from 'jwt-check-expiration';
+import SkeletonContent from 'react-native-skeleton-content';
 
 export default class AuthLoadingScreen extends React.Component {
     componentDidMount() {

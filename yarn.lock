@@ -3501,15 +3501,34 @@
   dependencies:
     "fontfaceobserver" "^2.1.0"
 
+"expo-json-utils@~0.2.0":
+  "integrity" "sha512-wU7gXGtaUlyxFLTp5e3PbnJB90/92r6gEc2BuMHdqE0OxhTQKyKzRszk2szCsdkeI7L4XntvZhCs1Px+gL1gvA=="
+  "resolved" "https://registry.npmjs.org/expo-json-utils/-/expo-json-utils-0.2.1.tgz"
+  "version" "0.2.1"
+
 "expo-keep-awake@~10.0.1":
   "integrity" "sha512-kcBtoDGkm3RRe6BpKDvR7gof/ErajEia38u92pRvNRctdh+p8AFO7GQuiipyg3iMfhcCFVTCIV7h3tuA0g/yDw=="
   "resolved" "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-10.0.1.tgz"
   "version" "10.0.1"
 
+"expo-linear-gradient@~10.0.3":
+  "integrity" "sha512-zKkBhHvTvDywpb0y5BJDHTbxX5/2C60qW/M8uyZXKIZcTUwY7j/9Kcx0YzoNNglq7p6aQ/DWO7sM8LHr93985Q=="
+  "resolved" "https://registry.npmjs.org/expo-linear-gradient/-/expo-linear-gradient-10.0.3.tgz"
+  "version" "10.0.3"
+  dependencies:
+    "expo-modules-core" "~0.4.4"
+
 "expo-linear-gradient@~11.0.0":
   "integrity" "sha512-OVzmsz5y+NxX4XvtQhKAQCdakVaAwFB0ajYlcT50zl1MKU33LrBa8hxSe3qo8CCGSZSfjdfzGvyZ1cf12BXI9Q=="
   "resolved" "https://registry.npmjs.org/expo-linear-gradient/-/expo-linear-gradient-11.0.0.tgz"
   "version" "11.0.0"
+
+"expo-manifests@~0.2.2":
+  "integrity" "sha512-8PrMPyvElKXflYd1ApDHJR9JF0SR996iVEVQgHAMLzVP7OqEAM6dQaFeqrRqVn/DSsxEWkJTpxv8WJ5NWrT4Lg=="
+  "resolved" "https://registry.npmjs.org/expo-manifests/-/expo-manifests-0.2.4.tgz"
+  "version" "0.2.4"
+  dependencies:
+    "expo-json-utils" "~0.2.0"
 
 "expo-modules-autolinking@0.5.5":
   "integrity" "sha512-bILEG0Fg+ZhIhdEaShHzsEN1WC0hUmXJ5Kcd4cd+8rVk1Ead9vRZxA/yLx1cNBDCOwMe0GAMrhF7TKT+A1P+YA=="
@@ -3522,6 +3541,14 @@
     "find-up" "^5.0.0"
     "fs-extra" "^9.1.0"
 
+"expo-modules-core@~0.4.4":
+  "integrity" "sha512-uCZA3QzF0syRaHwYY99iaNhnye4vSQGsJ/y6IAiesXdbeVahWibX4G1KoKNPUyNsKXIM4tqA+4yByUSvJe4AAw=="
+  "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.4.10.tgz"
+  "version" "0.4.10"
+  dependencies:
+    "compare-versions" "^3.4.0"
+    "invariant" "^2.2.4"
+
 "expo-modules-core@0.6.4":
   "integrity" "sha512-I5MvSZHjww4Jfvob/woCbI0ZLZIUBmhoiLeZsMJoWJuWa8QmtxXjI+4eRjaDB7+RxNVhrnVcmRjQPYG/5HepVg=="
   "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.6.4.tgz"
@@ -3529,6 +3556,31 @@
   dependencies:
     "compare-versions" "^3.4.0"
     "invariant" "^2.2.4"
+
+"expo-structured-headers@~2.1.0":
+  "integrity" "sha512-0up4sfHHsiK2YLpTwD/ssUD2oeSGzVUeARnu/itKAJO4zHqjpc+m8N1s7HPSJcdC7fdDpMjzcdrDasT0o+cOAw=="
+  "resolved" "https://registry.npmjs.org/expo-structured-headers/-/expo-structured-headers-2.1.1.tgz"
+  "version" "2.1.1"
+
+"expo-updates-interface@~0.5.0":
+  "integrity" "sha512-RLvC69o1BkhHP6hNaWiIvSiTgXABB9v4HnoietoXKFHlAyxlQCupy6ki164KpZNrOS/PFJ2WWqZOvKfiyDVO+w=="
+  "resolved" "https://registry.npmjs.org/expo-updates-interface/-/expo-updates-interface-0.5.1.tgz"
+  "version" "0.5.1"
+
+"expo-updates@^0.11.6":
+  "integrity" "sha512-nTzEc/z0/QHwu6gJhYSh5TWDSzNLO9bmtP4aQzStfqT8RRoh1bYRomszxjc7e3CsZT8xrG88XKlZ4iKL6zHLoQ=="
+  "resolved" "https://registry.npmjs.org/expo-updates/-/expo-updates-0.11.6.tgz"
+  "version" "0.11.6"
+  dependencies:
+    "@expo/config" "^6.0.6"
+    "@expo/config-plugins" "^4.0.2"
+    "@expo/metro-config" "~0.2.6"
+    "expo-manifests" "~0.2.2"
+    "expo-structured-headers" "~2.1.0"
+    "expo-updates-interface" "~0.5.0"
+    "fbemitter" "^2.1.1"
+    "resolve-from" "^5.0.0"
+    "uuid" "^3.4.0"
 
 "expo@*", "expo@^44.0.0":
   "integrity" "sha512-QNQjUb+Rve1r1wUjs2fSx3JVxAVtcmqWZgS+izCLFovAoX6bZ1UUkQBUkVP9PNfimnZ11EDFG4243E0yxtmuuA=="
@@ -6568,6 +6620,25 @@
     "react-native-screens" "^3.4.0"
     "string-hash-64" "^1.0.3"
 
+"react-native-reanimated@>=2.0.0", "react-native-reanimated@~2.2.0":
+  "integrity" "sha512-Nn648MfEEnTCEiWsl1YmfkojiLyV0NMY0EiRdDRbZNfJVfxBuyqhCxI/4Jd7aBi162qpgf8XK2mByYgvF4zLrQ=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.4.tgz"
+  "version" "2.2.4"
+  dependencies:
+    "@babel/plugin-transform-object-assign" "^7.10.4"
+    "fbjs" "^3.0.0"
+    "mockdate" "^3.0.2"
+    "string-hash-64" "^1.0.3"
+
+"react-native-redash@^16.0.11":
+  "integrity" "sha512-vSjHA6/mBY3IpDYPish3DlG06PKNLkb/b89hw7nsDM3yxAJ7Db+yMnEL3pp2YsoYblDc3s+0+wBRlvxay4X4vQ=="
+  "resolved" "https://registry.npmjs.org/react-native-redash/-/react-native-redash-16.2.3.tgz"
+  "version" "16.2.3"
+  dependencies:
+    "abs-svg-path" "^0.1.1"
+    "normalize-svg-path" "^1.0.1"
+    "parse-svg-path" "^0.1.2"
+
 "react-native-redash@^9.6.0":
   "integrity" "sha512-0Q0YppSQQ7LJlYcSzb2GGYtKvZFVOfzYeJc/cE1smXNisXyanFmFLrWZ1L4OuZyCas+cl3nELYeQi55ys3h6bg=="
   "resolved" "https://registry.npmjs.org/react-native-redash/-/react-native-redash-9.6.0.tgz"
@@ -6597,6 +6668,15 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-skeleton-content@^1.0.24":
+  "integrity" "sha512-fMVWw63tf98q6RXkpZh/RTE9p4jagryZjjyn0SM9mUP2qCX4sYHn9QYLnlOni6UMuScBOoORE/hbBqF65BykPA=="
+  "resolved" "https://registry.npmjs.org/react-native-skeleton-content/-/react-native-skeleton-content-1.0.24.tgz"
+  "version" "1.0.24"
+  dependencies:
+    "expo-linear-gradient" "~10.0.3"
+    "react-native-reanimated" "~2.2.0"
+    "react-native-redash" "^16.0.11"
 
 "react-native-slider@^0.11.0":
   "integrity" "sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w=="
