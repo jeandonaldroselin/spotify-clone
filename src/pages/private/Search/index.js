@@ -20,8 +20,9 @@ import {
   SearchItemSubTitle,
   SearchItemDetails,
 } from './styles';
-import { BackHandler } from 'react-native';
+import { BackHandler, Dimensions } from "react-native";
 import { PlayerContext } from '~/context/player.context';
+import SkeletonLoader from "expo-skeleton-loader";
 
 export default function Search() {
   const [categories, setCategories] = useState([]);
@@ -123,8 +124,12 @@ export default function Search() {
             data={categoriesPlaceholder}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => (
-              <Session background={'rgba(255,255,255,0.1)'}>
-              </Session>)} />
+              <SkeletonLoader >
+                <SkeletonLoader.Container style={[{ flex: 1, flexDirection: "row", width: '100%' }]} >
+                  <SkeletonLoader.Item style={{  width: ((Dimensions.get('window').width - 64)/2),  height: 90, position: 'relative', margin: 10, borderRadius: 4 }}/>
+                </SkeletonLoader.Container>
+              </SkeletonLoader>
+            )} />
         </>}
 
       {isSearching &&

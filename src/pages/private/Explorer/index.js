@@ -3,7 +3,6 @@ import PodcastsSlide from '~/components/PodcastsSlide';
 import { PlayerContext } from '~/context/player.context';
 import api from '../../../services/api';
 import { Container, ContainerScrollView } from './styles';
-import SkeletonContent from 'react-native-skeleton-content';
 
 const MEDIA_PLACEHOLDER = {
   id: 0,
