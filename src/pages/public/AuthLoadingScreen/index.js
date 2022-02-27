@@ -1,5 +1,6 @@
 
 import React from 'react';
+import {useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ActivityIndicator,
@@ -7,24 +8,37 @@ import {
     View,
 } from 'react-native';
 import { isJwtExpired } from 'jwt-check-expiration';
-import SkeletonContent from 'react-native-skeleton-content';
+import { AuthenticationContext } from "../../../context/authentication.context";
 
 export default class AuthLoadingScreen extends React.Component {
+
+    static contextType = AuthenticationContext;
+
     componentDidMount() {
-        this._bootstrapAsync(useContext(AuthenticationContext));
+        this._bootstrapAsync();
     }
 
     // Fetch the token from storage then navigate to our appropriate place
-    _bootstrapAsync = async (authenticationContext) => {
+    _bootstrapAsync = async (/*authenticationContext*/) => {
         const accessToken = await AsyncStorage.getItem('accessToken');
-        const isAccessTokenExpired = isJwtExpired(accessToken);
+        let isAccessTokenExpired = true;
+        if(accessToken) {
+          try {
+            isAccessTokenExpired = await isJwtExpired(accessToken);
+          } catch (e) {
+            console.log('token is invalid', e);
+          }
+        }
 
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
+
+        console.log('this.context', this.context);
+
         if (isAccessTokenExpired) {
-            authenticationContext.setIsAuthenticated(false);
-            authenticationContext.setAccessToken(null);
-            authenticationContext.setRefreshToken(null);            
+            this.context.setIsAuthenticated(false);
+            this.context.setAccessToken(null);
+            this.context.setRefreshToken(null);
             return this.props.navigation.navigate('Auth');
         }
 
