@@ -43,8 +43,8 @@ import TextTicker from "react-native-text-ticker";
 const dirs = FileSystem.documentDirectory;
 
 export default function FullPlayer({ onPress }) {
-  const [duration, setDuration] = useState('00:00:00');
-  const [timeElapsed, setTimeElapsed] = useState('00:00:00');
+  const [duration, setDuration] = useState(0);
+  const [timeElapsed, setTimeElapsed] = useState(0);
   const [percent, setPercent] = useState(0);
   const [inprogress, setInprogress] = useState(false);
   const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
@@ -62,7 +62,7 @@ export default function FullPlayer({ onPress }) {
       return false;
     }
     const seektime = (_percent / 100) * duration;
-    await sound.sound.setPositionAsync(seektime * 1000)
+    await sound.sound.setPositionAsync(seektime)
   };
 
   const onStartPress = async () => {
@@ -99,8 +99,8 @@ export default function FullPlayer({ onPress }) {
         (e.positionMillis / e.durationMillis) * 100,
       );
       setPercent(percent);
-      setTimeElapsed(e.positionMillis / 1000);
-      setDuration(e.durationMillis / 1000);
+      setTimeElapsed(e.positionMillis);
+      setDuration(e.durationMillis);
     });
 
     setSound(localSound);
@@ -153,6 +153,18 @@ export default function FullPlayer({ onPress }) {
     });
   };
 
+  const msToTime = (duration )=> {
+    var seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+  }
+
   return (
     <Container>
       <Background>
@@ -191,12 +203,12 @@ export default function FullPlayer({ onPress }) {
               <Text style={[styles.textLight, styles.timeStamp]}>
                 {!inprogress
                   ? timeElapsed
-                  : audioRecorderPlayer.mmss(Math.floor(timeElapsed))}
+                  : msToTime(Math.floor(timeElapsed))}
               </Text>
               <Text style={[styles.textLight, styles.timeStamp]}>
                 {!inprogress
                   ? duration
-                  : audioRecorderPlayer.mmss(Math.floor(duration))}
+                  : msToTime(Math.floor(duration))}
               </Text>
             </View>
           </View>
