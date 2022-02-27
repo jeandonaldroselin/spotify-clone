@@ -11,13 +11,13 @@ export default function Albums() {
   const [newAlbums, setNewAlbums] = useState([]);
   const [currentAlbum, setCurrentAlbum] = useState(null);
   const { setCurrentPlaylist } = useContext(PlayerContext);
-
+  const backHandler = BackHandler.addEventListener("hardwareBackPress",
+  () => {
+    setCurrentAlbum(null);
+    return true;
+  });
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",
-      () => {
-        setCurrentAlbum(null);
-        return true;
-      });
+
     function loadAlbums() {
       let body = {
         "startReleaseDate": "2015-01-15",
