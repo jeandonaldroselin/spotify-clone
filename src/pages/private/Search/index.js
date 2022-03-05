@@ -44,7 +44,7 @@ export default function Search() {
         "resultPerPage": 20,
         "sortBy": "fullname"
       };
-      api.post('/media/category/find', JSON.stringify(body)).then((response) => {
+      api.post('/media/theme/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
         setCategories(data);
       }).catch(e => console.error(e));
@@ -71,7 +71,7 @@ export default function Search() {
 
   const searchMedia = (content, categoryId) => {
     let body = {
-      "section": "predication",
+      "section": ["predication", "music"],
       "type": "audio",
       "startReleaseDate": "1950-01-15",
       "endReleaseDate": (new Date()).toISOString().split('T')[0],

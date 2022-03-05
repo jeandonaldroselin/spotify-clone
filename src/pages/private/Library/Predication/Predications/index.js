@@ -14,7 +14,7 @@ export default function Predications() {
   useEffect(() => {
     function loadPrograms() {
       let body = {
-        "section": "predication",
+        "section": ["predication"],
         "type": "audio",
         "startReleaseDate": "2015-01-15",
         "endReleaseDate": (new Date()).toISOString().split('T')[0],

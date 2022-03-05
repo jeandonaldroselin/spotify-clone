@@ -29,7 +29,6 @@ export default function Artists() {
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
         const data = response.data.data?.item || response.data.item;
         setPredicators(data);
-        console.log('data ppredicator', data);
       })
     }
     loadPredicators();
@@ -39,7 +38,7 @@ export default function Artists() {
   const onPredicatorPress = (predicator) => {
     let body = {
       "author": predicator.id,
-      "section": "predication",
+      "section": ["predication"],
       "type": "audio",
       "startReleaseDate": "1950-01-15",
       "endReleaseDate": (new Date()).toISOString().split('T')[0],
