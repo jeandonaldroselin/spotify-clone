@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { isJwtExpired } from 'jwt-check-expiration';
 import { AuthenticationContext } from "../../../context/authentication.context";
+import api from '../../../services/api';
 
 export default class AuthLoadingScreen extends React.Component {
 
@@ -21,10 +22,19 @@ export default class AuthLoadingScreen extends React.Component {
     // Fetch the token from storage then navigate to our appropriate place
     _bootstrapAsync = async (/*authenticationContext*/) => {
         const accessToken = await AsyncStorage.getItem('accessToken');
+        const refreshToken = await AsyncStorage.getItem('refreshToken');
         let isAccessTokenExpired = true;
+        let isRefreshTokenExpired = true;
         if(accessToken) {
           try {
             isAccessTokenExpired = await isJwtExpired(accessToken);
+          } catch (e) {
+            console.log('token is invalid', e);
+          }
+        }
+        if(refreshToken) {
+          try {
+            isRefreshTokenExpired = await isJwtExpired(refreshToken);
           } catch (e) {
             console.log('token is invalid', e);
           }
@@ -36,9 +46,22 @@ export default class AuthLoadingScreen extends React.Component {
         console.log('this.context', this.context);
 
         if (isAccessTokenExpired) {
-            this.context.setIsAuthenticated(false);
-            this.context.setAccessToken(null);
-            this.context.setRefreshToken(null);
+            if(isRefreshTokenExpired) {
+                this.context.setIsAuthenticated(false);
+                this.context.setAccessToken(null);
+                this.context.setRefreshToken(null);
+            } else {
+                const refreshResult = await api.post('/api/refresh', JSON.stringify({ refresh_token: refreshToken }));
+                if(refreshResult.hasOwnProperty('accessToken')) {
+                    this.context.setIsAuthenticated(true);
+                    this.context.setAccessToken(refreshResult.accessToken);
+                    this.context.setRefreshToken(refreshResult.refreshToken);
+                } else {
+                    this.context.setIsAuthenticated(false);
+                    this.context.setAccessToken(null);
+                    this.context.setRefreshToken(null);
+                }
+            }
             return this.props.navigation.navigate('Auth');
         }
 

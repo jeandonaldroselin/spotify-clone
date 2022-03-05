@@ -15,7 +15,8 @@ const api = axios.create({
 api.interceptors.request.use(
   async (configRequest) => {
     const accessToken = await AsyncStorage.getItem('accessToken');
-    if(accessToken){
+    const isAuthenticationUrl = configRequest.url.includes('login') || configRequest.url.includes('api/refresh');
+    if(accessToken && isAuthenticationUrl === false){
       console.log(accessToken)
       configRequest.headers.Authorization = `Bearer ${accessToken}`;
     }

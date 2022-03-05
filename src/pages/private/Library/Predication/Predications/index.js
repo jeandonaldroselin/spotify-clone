@@ -9,6 +9,8 @@ import { PlayerContext } from '~/context/player.context';
 
 export default function Predications() {
   const [newMedias, setNewMedias] = useState([]);
+  const [newMediasFake, setNewMediasFake] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
@@ -23,8 +25,11 @@ export default function Predications() {
         "sortBy": "releaseDate"
       }
       api.post('/media/find', JSON.stringify(body)).then((response) => {
-        const data = response.data.data?.item || response.data.item;
-        setNewMedias(data);
+        setTimeout(function(){
+          const data = response.data.data?.item || response.data.item;
+          setNewMedias(data);
+          setLoading(false);
+        }, 1000);
       }).catch((e) => {
         console.error(e);
       })
@@ -38,12 +43,22 @@ export default function Predications() {
 
   return (
     <Container>
-      <PlayList>
+      {
+        !isLoading ?
+        <PlayList>
         {newMedias &&
           newMedias.map((media, index) => (
-            <Program key={index} program={media} onPress={() => onMediaPress(media)} />
+            <Program key={index} program={media} onPress={() => onMediaPress(media)} isPlaceholder={false}/>
           ))}
-      </PlayList>
+        </PlayList>
+        :
+        <PlayList style={{ marginTop: 15 }}>
+        {newMediasFake &&
+          newMediasFake.map((media, index) => (
+            <Program key={index} program={media} isPlaceholder={true}/>
+          ))}
+        </PlayList>
+      }
     </Container>
   );
 }

@@ -4,13 +4,14 @@ import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
 import { PlayList } from '../../Predication/Predications/styles';
-
 import { ArtistList, Artist, ArtistBox, ArtistImage, ArtistName, Container } from './styles';
+import SkeletonLoader from "expo-skeleton-loader";
 
 export default function Artists() {
   const [currentArtist, setCurrentArtist] = useState(null);
   const [artists, setArtists] = useState([]);
-  const [artistsPlaceholder] = useState([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]);
+  const [artistsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",
@@ -26,9 +27,11 @@ export default function Artists() {
         "sortBy": "fullname"
       }
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
-        const data = response.data.data?.item || response.data.item;
-        setArtists(data);
-        console.log('data artists', data);
+        setTimeout(function(){
+          const data = response.data.data?.item || response.data.item;
+          setArtists(data);
+          setLoading(false);
+        }, 2000);
       })
     }
     loadArtists();
@@ -59,6 +62,9 @@ export default function Artists() {
   }
 
   return (
+    <>
+    {
+    !isLoading ?
     <Container>
       <ArtistList>
         {!currentArtist && artists?.length > 0
@@ -93,6 +99,41 @@ export default function Artists() {
         </PlayList>
       }
     </Container>
+    :
+    <SkeletonLoader style={{
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingVertical: 20,
+        paddingHorizontal: 0,
+        backgroundColor: '#121212'
+    }}>
+      {artistsPlaceholder.map(predicator => (
+            <SkeletonLoader.Container style={{
+                display: 'flex',
+                width: '50%',
+                alignItems: 'center',
+                height: 155,
+                marginBottom: 26
+            }}>
+                <SkeletonLoader.Item style={{ 
+                  width: 130,
+                  height: 130,
+                  borderRadius: 130
+                }}/>
+
+                <SkeletonLoader.Item style={{ 
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginTop: 10,
+                  width: 100,
+                  height: 14
+                }}/>
+            </SkeletonLoader.Container>
+      ))}
+    </SkeletonLoader>
+    }
+    </>
   );
 }
 
