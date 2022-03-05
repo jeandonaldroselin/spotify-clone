@@ -4,6 +4,7 @@ import Routes from '~/routes';
 import { AuthenticationContext } from '~/context/authentication.context';
 import { PlayerContext } from '~/context/player.context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import NavigationService from '~/services/NavigationService';
 
 LogBox.ignoreLogs([
   'Unrecognized WebSocket',
@@ -41,7 +42,10 @@ export default function App() {
           sound,
           setSound
         }}>
-          <Routes />
+          <Routes 
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}/>
         </PlayerContext.Provider>
       </AuthenticationContext.Provider>
     </GestureHandlerRootView>
