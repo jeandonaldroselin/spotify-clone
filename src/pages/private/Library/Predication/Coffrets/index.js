@@ -93,7 +93,7 @@ export default function Episodios() {
         backgroundColor: '#121212'
       }}>
         {coffretsPlaceholder.map(item => (
-              <SkeletonLoader.Container style={{
+              <SkeletonLoader.Container key={item} style={{
                   display: 'flex',
                   width: '100%',
                   alignItems: 'center',

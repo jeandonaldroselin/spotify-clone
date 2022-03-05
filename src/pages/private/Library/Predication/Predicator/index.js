@@ -98,7 +98,7 @@ export default function Artists() {
         backgroundColor: '#121212'
     }}>
       {predicatorsPlaceholder.map(predicator => (
-            <SkeletonLoader.Container style={{
+            <SkeletonLoader.Container key={predicator} style={{
                 display: 'flex',
                 width: '50%',
                 alignItems: 'center',
