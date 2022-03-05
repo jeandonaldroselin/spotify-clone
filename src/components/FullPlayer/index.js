@@ -23,7 +23,6 @@ import {
   Speed,
   Footer,
 } from './styles';
-import AudioRecorderPlayer from "react-native-audio-recorder-player";
 import {
   StyleSheet,
   Text,
@@ -32,12 +31,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import Slider from 'react-native-slider';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as FileSystem from 'expo-file-system';
 import { Audio, Video } from 'expo-av';
 import { PlayerContext } from "~/context/player.context";
 import TextTicker from "react-native-text-ticker";
+import Slider from "@react-native-community/slider";
 
 //let dirs = RNFetchBlob.fs.dirs.DocumentDir;
 const dirs = FileSystem.documentDirectory;
@@ -47,7 +46,6 @@ export default function FullPlayer({ onPress }) {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [percent, setPercent] = useState(0);
   const [inprogress, setInprogress] = useState(false);
-  const [audioRecorderPlayer] = useState(new AudioRecorderPlayer());
   const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying, isPlaying, setSound, sound } = useContext(PlayerContext);
 
   useEffect(async () => {
@@ -65,47 +63,59 @@ export default function FullPlayer({ onPress }) {
     await sound.sound.setPositionAsync(seektime)
   };
 
+  const _onPlaybackStatusUpdate = (status) => {
+    if (!status?.positionMillis || !status?.durationMillis) {
+      return;
+    }
+
+    if (status.positionMillis === status.durationMillis) {
+      sound?.sound.stopAsync();
+    }
+    let percent = Math.floor(
+      (status.positionMillis / status.durationMillis) * 100,
+    );
+    
+    setPercent(percent);
+    setTimeElapsed(status.positionMillis);
+    setDuration(status.durationMillis);
+  };
+
   const onStartPress = async () => {
     setIsPlaying(true);
     setInprogress(true);
     const path = currentPlaylist[currentMediaPlaylistId].playUrl;
-    if (sound?.sound) {
-      const status = await sound.sound.getStatusAsync();
-      if (path.includes(status.uri)) { // Here we know the sound is just paused
-        await sound.sound.playAsync();
-        return;
+    try {
+      if (sound?.sound) {
+        const status = await sound.sound.getStatusAsync();
+        if (path.includes(status.uri)) { // Here we know the sound is just paused
+          await sound.sound.playAsync();
+          return;
+        }
       }
+
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        staysActiveInBackground: true,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false
+      });
+
+      if (sound?.sound) {
+        await sound.sound.unloadAsync();
+      }
+      const localSound = await Audio.Sound.createAsync({ uri: path });
+      
+      localSound.sound.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
+      setSound(localSound);
+
+      await Promise.all([localSound.sound.playAsync(), localSound.sound.setVolumeAsync(1.0)]);
     }
-    await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      staysActiveInBackground: true,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-      playThroughEarpieceAndroid: false
-    });
-    const localSound = await Audio.Sound.createAsync({ uri: path });
-
-    localSound.sound.setOnPlaybackStatusUpdate((e) => {
-      if (!e) {
-        return;
-      }
-
-      if (e.positionMillis === e.durationMillis) {
-        localSound.sound.stopAsync();
-      }
-      let percent = Math.floor(
-        (e.positionMillis / e.durationMillis) * 100,
-      );
-      setPercent(percent);
-      setTimeElapsed(e.positionMillis);
-      setDuration(e.durationMillis);
-    });
-
-    setSound(localSound);
-
-    await Promise.all([localSound.sound.playAsync(), localSound.sound.setVolumeAsync(1.0)]);
+    catch (e) {
+      console.error(e)
+    }
   };
 
   const onPausePress = async (e) => {
@@ -122,7 +132,7 @@ export default function FullPlayer({ onPress }) {
     if (currentMediaPlaylistId >= currentPlaylist.length - 1) {
       return;
     }
-    
+
     let curr_track = currentPlaylist[currentMediaPlaylistId];
     let current_index = currentPlaylist.indexOf(curr_track) + 1;
     if (current_index === currentPlaylist.length) {
@@ -153,7 +163,7 @@ export default function FullPlayer({ onPress }) {
     });
   };
 
-  const msToTime = (duration )=> {
+  const msToTime = (duration) => {
     var seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
       hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -183,21 +193,15 @@ export default function FullPlayer({ onPress }) {
               <PodAuthor>{currentPlaylist[currentMediaPlaylistId].author?.fullName}</PodAuthor>
             </PlayerView>
           </Metadata>
-          {/*
-          <Slider>
-            <Circle>●</Circle>
-          </Slider>
-          */}
 
           <View style={styles.seekbar}>
             <Slider
               minimumValue={0}
               maximumValue={100}
-              trackStyle={styles.track}
-              thumbStyle={styles.thumb}
-              value={percent}
+              thumbTintColor="#ffffff"
               minimumTrackTintColor="#ffffff"
-              onValueChange={(p) => changeTime(p)}
+              value={percent}
+              onValueChange={changeTime}
             />
             <View style={styles.inprogress}>
               <Text style={[styles.textLight, styles.timeStamp]}>
@@ -281,7 +285,6 @@ const styles = StyleSheet.create({
   },
   seekbar: { margin: 32 },
   inprogress: {
-    marginTop: -12,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

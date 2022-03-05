@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import Slider from 'react-native-slider';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 //import RNFetchBlob from 'rn-fetch-blob';
@@ -172,15 +171,6 @@ export default function FullPlayerB() {
         </View>
       </View>
       <View style={styles.seekbar}>
-        <Slider
-          minimumValue={0}
-          maximumValue={100}
-          trackStyle={styles.track}
-          thumbStyle={styles.thumb}
-          value={percent}
-          minimumTrackTintColor="#19D648"
-          onValueChange={(seconds) => changeTime(seconds)}
-        />
         <View style={styles.inprogress}>
           <Text style={[styles.textLight, styles.timeStamp]}>
             {!inprogress
