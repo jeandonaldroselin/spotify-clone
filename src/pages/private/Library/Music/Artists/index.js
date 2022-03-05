@@ -5,7 +5,7 @@ import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
 import { PlayList } from '../../Predication/Predications/styles';
 
-import { Artist, ArtistBox, ArtistImage, ArtistName, Container } from './styles';
+import { ArtistList, Artist, ArtistBox, ArtistImage, ArtistName, Container } from './styles';
 
 export default function Artists() {
   const [currentArtist, setCurrentArtist] = useState(null);
@@ -38,7 +38,7 @@ export default function Artists() {
   const onArtistPress = (artist) => {
     let body = {
       "author": artist.id,
-      "section": "music",
+      "section": ["music"],
       "type": "audio",
       "startReleaseDate": "1950-01-15",
       "endReleaseDate": (new Date()).toISOString().split('T')[0],
@@ -60,15 +60,17 @@ export default function Artists() {
 
   return (
     <Container>
-      {!currentArtist && artists?.length > 0
-        && artists.map(artist => (
-          <ArtistBox key={artist.id}>
-            <Artist onPress={() => onArtistPress(artist)}>
-              <ArtistImage source={{ uri: artist.image }}></ArtistImage>
-              <ArtistName>{artist.fullName}</ArtistName>
-            </Artist>
-          </ArtistBox>
-        ))}
+      <ArtistList>
+        {!currentArtist && artists?.length > 0
+          && artists.map(artist => (
+            <ArtistBox key={artist.id}>
+              <Artist onPress={() => onArtistPress(artist)}>
+                <ArtistImage source={{ uri: artist.image }}></ArtistImage>
+                <ArtistName>{artist.fullName}</ArtistName>
+              </Artist>
+            </ArtistBox>
+          ))}
+      </ArtistList>
 
       {!currentArtist && artists?.length === 0
         && artistsPlaceholder.map(artist => (

@@ -3,12 +3,18 @@ import { View } from "react-native";
 import React from "react";
 
 export const Container = styled.View`
-  flex: 1;
   background-color: #121212;
-  padding: 25px 0px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex:1;
+`;
+
+export const PredicatorList = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  }
+})`
+  padding: 20px 0;
 `;
 
 export const PredicatorBox = styled.TouchableOpacity`
@@ -16,12 +22,10 @@ export const PredicatorBox = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 30px;
 `;
 
 export const Predicator = styled.TouchableOpacity`
-  margin-bottom: 50px;
-  width: 130px;
-  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;

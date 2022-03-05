@@ -5,7 +5,7 @@ import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
 import { PlayList } from '../Predications/styles';
 
-import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorName } from "./styles";
+import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorList, PredicatorName } from "./styles";
 
 export default function Artists() {
   const [currentPredicator, setCurrentPredicator] = useState(null);
@@ -60,16 +60,17 @@ export default function Artists() {
 
   return (
     <Container>
-      {!currentPredicator && predicators?.length > 0
-        && predicators.map(predicator => (
-          <PredicatorBox key={predicator.id}>
-            <Predicator onPress={() => onPredicatorPress(predicator)}>
-              <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
-              <PredicatorName>{predicator.fullName}</PredicatorName>
-            </Predicator>
-          </PredicatorBox>
-        ))}
-
+      <PredicatorList>
+        {!currentPredicator && predicators?.length > 0
+          && predicators.map(predicator => (
+            <PredicatorBox key={predicator.id}>
+              <Predicator onPress={() => onPredicatorPress(predicator)}>
+                <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
+                <PredicatorName>{predicator.fullName}</PredicatorName>
+              </Predicator>
+            </PredicatorBox>
+          ))}
+      </PredicatorList>
       {!currentPredicator && predicators?.length === 0
         && predicatorsPlaceholder.map(predicator => (
           <PredicatorBox key={predicator.id}>
