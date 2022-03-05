@@ -10,6 +10,8 @@ import { Container } from './styles';
 export default function Albums() {
   const [newAlbums, setNewAlbums] = useState([]);
   const [currentAlbum, setCurrentAlbum] = useState(null);
+  const [newAlbumsFake, setNewAlbumsFake] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
   () => {
@@ -27,8 +29,11 @@ export default function Albums() {
         "sortBy": "releaseDate"
       }
       api.post('/media/album/find', JSON.stringify(body)).then((response) => {
-        const data = response.data.data?.item || response.data.item;
-        setNewAlbums(data);
+        setTimeout(function(){
+          const data = response.data.data?.item || response.data.item;
+          setNewAlbums(data);
+          setLoading(false);
+        }, 3000);
       }).catch((e) => {
         console.error(e);
       })
@@ -52,16 +57,27 @@ export default function Albums() {
   }
   return (
     <Container>
-      <PlayList>
-        {!currentAlbum && newAlbums &&
-          newAlbums.map((album, index) => (
-            <Program key={index} program={album} onPress={() => onAlbumPress(album)} />
+
+      {
+        !isLoading ?
+        <PlayList>
+          {!currentAlbum && newAlbums &&
+            newAlbums.map((album, index) => (
+              <Program key={index} program={album} onPress={() => onAlbumPress(album)} />
+            ))}
+          {currentAlbum && currentAlbum.items &&
+            currentAlbum.items.map((media, index) => (
+              <Program key={index} program={media} onPress={() => onMediaPress(media)} />
+            ))}
+        </PlayList>
+        :
+        <PlayList style={{ marginTop: 15 }}>
+        {newAlbumsFake &&
+          newAlbumsFake.map((media, index) => (
+            <Program key={index} program={media} isPlaceholder={true}/>
           ))}
-        {currentAlbum && currentAlbum.items &&
-          currentAlbum.items.map((media, index) => (
-            <Program key={index} program={media} onPress={() => onMediaPress(media)} />
-          ))}
-      </PlayList>
+        </PlayList>
+      }
     </Container>
   );
 }

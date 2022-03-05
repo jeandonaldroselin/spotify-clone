@@ -4,13 +4,14 @@ import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import api from '~/services/api';
 import { PlayList } from '../Predications/styles';
-
 import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorList, PredicatorName } from "./styles";
+import SkeletonLoader from "expo-skeleton-loader";
 
 export default function Artists() {
   const [currentPredicator, setCurrentPredicator] = useState(null);
   const [predicators, setPredicators] = useState([]);
-  const [predicatorsPlaceholder] = useState([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]);
+  const [predicatorsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
 
   useEffect(() => {
@@ -27,8 +28,11 @@ export default function Artists() {
         "sortBy": "fullname"
       }
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
-        const data = response.data.data?.item || response.data.item;
-        setPredicators(data);
+        setTimeout(function(){
+          const data = response.data.data?.item || response.data.item;
+          setPredicators(data);
+          setLoading(false);
+        }, 2000);
       })
     }
     loadPredicators();
@@ -59,39 +63,66 @@ export default function Artists() {
   }
 
   return (
-    <Container>
-      <PredicatorList>
-        {!currentPredicator && predicators?.length > 0
-          && predicators.map(predicator => (
-            <PredicatorBox key={predicator.id}>
-              <Predicator onPress={() => onPredicatorPress(predicator)}>
-                <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
-                <PredicatorName>{predicator.fullName}</PredicatorName>
-              </Predicator>
-            </PredicatorBox>
-          ))}
-      </PredicatorList>
-      {!currentPredicator && predicators?.length === 0
-        && predicatorsPlaceholder.map(predicator => (
-          <PredicatorBox key={predicator.id}>
-            <Predicator>
-              <PredicatorImage source={{ uri: null }} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}></PredicatorImage>
-              <View style={{ marginTop: 10, width: 60, height: 11, backgroundColor: 'rgba(255,255,255,0.6)', margin: 20, alignSelf: 'center' }}>
+    <>
+    {
+      !isLoading ?
+      <Container>
+          <PredicatorList>
+            {!currentPredicator && predicators?.length > 0
+              && predicators.map(predicator => (
+                <PredicatorBox key={predicator.id}>
+                  <Predicator onPress={() => onPredicatorPress(predicator)}>
+                    <PredicatorImage source={{ uri: predicator.image }}></PredicatorImage>
+                    <PredicatorName>{predicator.fullName}</PredicatorName>
+                  </Predicator>
+                </PredicatorBox>
+              ))}
+          </PredicatorList>
 
-              </View>
-            </Predicator>
-          </PredicatorBox>
-        ))}
+        {!currentPredicator &&
+          <PlayList>
+            {currentPredicator?.items
+              && currentPredicator.items.map(item => {
+                <Program key={item.id} program={item} onPress={() => onMediaPress(item)} />
+              })}
+          </PlayList>
+        }
+      </Container >
+    :
+    <SkeletonLoader style={{
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingVertical: 20,
+        paddingHorizontal: 0,
+        backgroundColor: '#121212'
+    }}>
+      {predicatorsPlaceholder.map(predicator => (
+            <SkeletonLoader.Container style={{
+                display: 'flex',
+                width: '50%',
+                alignItems: 'center',
+                height: 155,
+                marginBottom: 26
+            }}>
+                <SkeletonLoader.Item style={{ 
+                  width: 130,
+                  height: 130,
+                  borderRadius: 130
+                }}/>
 
-      {!currentPredicator &&
-        <PlayList>
-          {currentPredicator?.items
-            && currentPredicator.items.map(item => {
-              <Program key={item.id} program={item} onPress={() => onMediaPress(item)} />
-            })}
-        </PlayList>
-      }
-    </Container >
+                <SkeletonLoader.Item style={{ 
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginTop: 10,
+                  width: 100,
+                  height: 14
+                }}/>
+            </SkeletonLoader.Container>
+      ))}
+    </SkeletonLoader>
+    }
+    </>
   );
 }
 

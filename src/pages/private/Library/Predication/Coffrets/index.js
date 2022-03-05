@@ -8,11 +8,14 @@ import { Container, ChaptersList, Title } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BackHandler } from 'react-native';
 import { PlayerContext } from '~/context/player.context';
+import SkeletonLoader from "expo-skeleton-loader";
 
 export default function Episodios() {
   const [currentCoffret, setCurrentCoffret] = useState(null);
   const [coffrets, setCoffrets] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
+  const [coffretsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isLoading, setLoading] = useState(true);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
   () => {
     setCurrentCoffret(null);
@@ -29,8 +32,11 @@ export default function Episodios() {
         "sortBy": "releaseDate"
       }
       api.post('/media/boxset/find', JSON.stringify(body)).then((response) => {
-        const data = response.data.data?.item || response.data.item;
-        setCoffrets(data);
+        setTimeout(function() {
+          const data = response.data.data?.item || response.data.item;
+          setCoffrets(data);
+          setLoading(false);
+        }, 2000)
       })
     }
     loadCoffrets();
@@ -51,30 +57,60 @@ export default function Episodios() {
   }
 
   return (
-    <Container>
-      <ChaptersList>
-        {!currentCoffret &&
-          coffrets.map(coffret => (
-            <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
-              <Fragment>
-                <Chapter
-                  chapter={{
-                    time: coffret.duration,
-                    title: coffret.title,
-                    image: coffret.image,
-                    author: coffret.author,
-                    description: coffret.description,
-                  }} />
-              </Fragment>
-            </TouchableOpacity>
-          ))}
-        {currentCoffret &&
-          <Fragment key={currentCoffret.id}>
-            <Title>{currentCoffret.title}</Title>
-            <DailyChapters dailyChapters={currentCoffret} onPress={onCoffretItemPress} />
-          </Fragment>}
-      </ChaptersList>
-    </Container>
+    <>
+    {
+      !isLoading ?
+      <Container>
+          <ChaptersList>
+            {!currentCoffret &&
+              coffrets.map(coffret => (
+                <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
+                  <Fragment>
+                    <Chapter
+                      chapter={{
+                        time: coffret.duration,
+                        title: coffret.title,
+                        image: coffret.image,
+                        author: coffret.author,
+                        description: coffret.description,
+                      }} />
+                  </Fragment>
+                </TouchableOpacity>
+              ))}
+            {currentCoffret &&
+              <Fragment key={currentCoffret.id}>
+                <Title>{currentCoffret.title}</Title>
+                <DailyChapters dailyChapters={currentCoffret} onPress={onCoffretItemPress} />
+              </Fragment>}
+          </ChaptersList>
+      </Container>
+      :
+      <SkeletonLoader style={{
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        paddingTop: 20,
+        paddingHorizontal: 0,
+        backgroundColor: '#121212'
+      }}>
+        {coffretsPlaceholder.map(item => (
+              <SkeletonLoader.Container style={{
+                  display: 'flex',
+                  width: '100%',
+                  alignItems: 'center',
+                  height: 120,
+                  marginBottom: 30
+              }}>
+                  <SkeletonLoader.Item style={{ 
+                    width: 370,
+                    height: 120,
+                    marginBottom: 10,
+                    borderRadius: 3
+                  }}/>
+              </SkeletonLoader.Container>
+        ))}
+      </SkeletonLoader>
+    }
+    </>
   );
 }
 
