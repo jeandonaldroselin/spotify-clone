@@ -3,6 +3,7 @@ import api from '../../../services/api';
 import { InputContainer } from '../../private/Search/styles';
 import Input from '~/components/Input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
 
 import {
   Container,
@@ -42,6 +43,10 @@ export default function Login({ navigation }) {
         "password": passwordText
       };
       api.post('/login', JSON.stringify(body)).then(response => {
+        const currentTimestamp = moment().unix();
+        AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+        AsyncStorage.setItem('refreshExpiresAt', JSON.stringify(response.data.refreshExpiresIn + currentTimestamp));
+        AsyncStorage.setItem('accessExpiresAt', JSON.stringify(response.data.accessExpiresIn + currentTimestamp));
         AsyncStorage.setItem('accessToken', response.data.accessToken, () => {
           setAccessToken(response.data.accessToken);
           setRefreshToken(response.data.refreshToken);
