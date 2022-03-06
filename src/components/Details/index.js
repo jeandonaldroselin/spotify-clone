@@ -6,28 +6,28 @@ import { BackHandler } from 'react-native';
 import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 
-export default function CoffretDetails({navigation}) {
-  const isArray = Array.isArray(navigation.state.params)
-  const coffret = navigation.state.params
+export default function Details({navigation}) {
+  const data = navigation.state.params;
+  const medias = navigation.state.params.items;
+
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",() => {
     navigation.pop();
   });
   const onMediaPress = (media) => {
-    const items = isArray ? coffret[0].items : coffret.items;
     const mediaIndex = items.indexOf(media);
-    setCurrentPlaylist(items, mediaIndex);
-  }
+    setCurrentPlaylist(data.items, media.track - 1);
+  };
 
   return (
   <Container>
   <ImageContainer>
-    <Image source={{ uri: coffret.previewImage || coffret.image }} />
+    <Image source={{ uri: data.previewImage || data.image }} />
   </ImageContainer>
  <TitleContainer>
-    <Title>{coffret.title || coffret.fullName}</Title>
-    <SubTitle>{coffret.author.fullName || 'Auteur inconnu'}</SubTitle>
-    <SubTitle>{coffret.duration }</SubTitle>
+    <Title>{data.title || data.fullNAme}</Title>
+    <SubTitle>{data.author?.fullNAme || data.fullNAme || 'Auteur inconnu'}</SubTitle>
+    <SubTitle>{data.duration }</SubTitle>
   </TitleContainer> 
  <PlayList>
   {medias &&
