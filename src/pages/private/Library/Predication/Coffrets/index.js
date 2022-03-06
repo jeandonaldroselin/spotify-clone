@@ -10,7 +10,7 @@ import { BackHandler } from 'react-native';
 import { PlayerContext } from '~/context/player.context';
 import SkeletonLoader from "expo-skeleton-loader";
 
-export default function Episodios() {
+export default function Episodios({navigation}) {
   const [currentCoffret, setCurrentCoffret] = useState(null);
   const [coffrets, setCoffrets] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
@@ -44,12 +44,12 @@ export default function Episodios() {
   }, []);
 
   const onCoffretPress = (coffret) => {
-    const items = coffret.items;
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
+   coffret.items.map(item => {
       item.previewImage = coffret.image;
-    }
-    setCurrentCoffret(coffret);
+      item.author = coffret.author;
+    });
+    const libraryStackNavigation = navigation.dangerouslyGetParent();
+    libraryStackNavigation.navigate('CoffretDetails', coffret);
   }
 
   const onCoffretItemPress = (media) => {

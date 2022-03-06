@@ -13,13 +13,13 @@ export default function Artists() {
   const [predicatorsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
-
+  const backHandler = BackHandler.addEventListener("hardwareBackPress",
+  () => {
+    setCurrentPredicator(null);
+    return true;
+  });
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",
-      () => {
-        setCurrentPredicator(null);
-        return true;
-      });
+
     function loadPredicators() {
       let body = {
         "section": ["predication"],
@@ -78,15 +78,6 @@ export default function Artists() {
                 </PredicatorBox>
               ))}
           </PredicatorList>
-
-        {!currentPredicator &&
-          <PlayList>
-            {currentPredicator?.items
-              && currentPredicator.items.map(item => {
-                <Program key={item.id} program={item} onPress={() => onMediaPress(item)} />
-              })}
-          </PlayList>
-        }
       </Container >
     :
     <SkeletonLoader style={{

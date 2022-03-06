@@ -7,7 +7,7 @@ import { PlayList } from '../../Predication/Predications/styles';
 
 import { Container } from './styles';
 
-export default function Albums() {
+export default function Albums({navigation}) {
   const [newAlbums, setNewAlbums] = useState([]);
   const [currentAlbum, setCurrentAlbum] = useState(null);
   const [newAlbumsFake, setNewAlbumsFake] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -15,7 +15,6 @@ export default function Albums() {
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
   () => {
-    setCurrentAlbum(null);
     return true;
   });
   useEffect(() => {
@@ -47,13 +46,12 @@ export default function Albums() {
   }
 
   const onAlbumPress = (album) => {
-    const items = album.items;
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
+     album.items.map(item => {
       item.previewImage = album.image;
       item.author = album.author;
-    }
-    setCurrentAlbum(album);
+    });
+    const libraryStackNavigation = navigation.dangerouslyGetParent();
+    libraryStackNavigation.navigate('CoffretDetails', [album]);
   }
   return (
     <Container>
@@ -64,10 +62,6 @@ export default function Albums() {
           {!currentAlbum && newAlbums &&
             newAlbums.map((album, index) => (
               <Program key={index} program={album} onPress={() => onAlbumPress(album)} />
-            ))}
-          {currentAlbum && currentAlbum.items &&
-            currentAlbum.items.map((media, index) => (
-              <Program key={index} program={media} onPress={() => onMediaPress(media)} />
             ))}
         </PlayList>
         :

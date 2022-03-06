@@ -78,8 +78,8 @@ export default PrivateStack = createBottomTabNavigator(
                                     Coffrets,
                                     Predicator,
                                  /*   CoffretDetails
-                    Downloads,
-                    Programs,*/
+                                Downloads,
+                                Programs,*/
                                 },
                                 {
                                     navigationOptions: {
@@ -169,6 +169,8 @@ export default PrivateStack = createBottomTabNavigator(
                             navigationOptions: {},
                         }
                     ),
+                CoffretDetails: {screen: CoffretDetails}
+                
                 },
                 {
                     navigationOptions: {

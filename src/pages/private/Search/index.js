@@ -30,13 +30,13 @@ export default function Search() {
   const [isSearching, setIsSearching] = useState(false);
   const [searchAudios, setSearchAudios] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
-
+  const backHandler = BackHandler.addEventListener("hardwareBackPress",
+  () => {
+    setIsSearching(false);
+    return true;
+  });
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",
-      () => {
-        setIsSearching(false);
-        return true;
-      });
+
 
     function loadSessions() {
       let body = {

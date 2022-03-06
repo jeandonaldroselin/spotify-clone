@@ -13,12 +13,13 @@ export default function Artists() {
   const [artistsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
+  const backHandler = BackHandler.addEventListener("hardwareBackPress",
+  () => {
+    setCurrentArtist(null);
+    return true;
+  });
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",
-      () => {
-        setCurrentArtist(null);
-        return true;
-      });
+
     function loadArtists() {
       let body = {
         "section": ["music"],
