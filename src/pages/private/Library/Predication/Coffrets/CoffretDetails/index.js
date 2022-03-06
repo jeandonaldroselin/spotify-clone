@@ -20,46 +20,26 @@ export default function CoffretDetails({navigation}) {
   }
 
   return (
-    <>
-    {!isArray ? 
   <Container>
   <ImageContainer>
-  <Image source={{ uri: coffret.previewImage || coffret.image }} />
-</ImageContainer>
+    <Image source={{ uri: coffret.previewImage || coffret.image }} />
+  </ImageContainer>
  <TitleContainer>
     <Title>{coffret.title || coffret.fullName}</Title>
     <SubTitle>{coffret.author.fullName || 'Auteur inconnu'}</SubTitle>
     <SubTitle>{coffret.duration }</SubTitle>
   </TitleContainer> 
  <PlayList>
-  {navigation.state.params.items &&
-    navigation.state.params.items.map((media, index) => (
+  {medias &&
+    medias.map((media, index) => (
       <Program key={index} program={media}  onPress={() => onMediaPress(media)} />
     ))} 
 </PlayList>  
 </Container>
-     :
-    <Container>
-    <ImageContainer>
-    <Image source={{ uri: coffret[0]?.previewImage || coffret[0]?.image }} />
-  </ImageContainer>
-   <TitleContainer>
-      <Title>{coffret[0]?.title || coffret[0]?.fullName}</Title>
-      {/* <SubTitle>{coffret[0].author || 'Auteur inconnu'}</SubTitle> */}
-      <SubTitle>{coffret[0]?.duration }</SubTitle>
-    </TitleContainer> 
-   <PlayList>
-    {navigation.state.params[0]?.items &&
-      navigation.state.params[0]?.items.map((media, index) => (
-        <Program key={index} program={media}  onPress={() => onMediaPress(media)} />
-      ))} 
-  </PlayList>  
-</Container>
-    }
+
 
   
 
 
-</>
   );
 }
