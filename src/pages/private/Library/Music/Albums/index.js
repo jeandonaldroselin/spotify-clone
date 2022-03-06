@@ -48,7 +48,7 @@ export default function Albums({navigation}) {
     });
     const libraryStackNavigation = navigation.dangerouslyGetParent();
     console.log('album', album)
-    libraryStackNavigation.navigate('CoffretDetails', album);
+    libraryStackNavigation.navigate('Details', album);
   }
   return (
     <Container>

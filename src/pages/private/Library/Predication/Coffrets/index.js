@@ -49,7 +49,7 @@ export default function Episodios({navigation}) {
       item.author = coffret.author;
     });
     const libraryStackNavigation = navigation.dangerouslyGetParent();
-    libraryStackNavigation.navigate('CoffretDetails', coffret);
+    libraryStackNavigation.navigate('Details', coffret);
   }
 
   const onCoffretItemPress = (media) => {
