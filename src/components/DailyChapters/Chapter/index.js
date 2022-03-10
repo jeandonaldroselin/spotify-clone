@@ -20,8 +20,7 @@ import {
   IconRight,
 } from './styles';
 
-export default function Episode({ time, chapter, onPress, onPlayPress }) {
-
+export default function Episode({ chapter, onPress, onPlayPress }) {
   return (
     <Chapter onPress={onPress}>
       <Header>

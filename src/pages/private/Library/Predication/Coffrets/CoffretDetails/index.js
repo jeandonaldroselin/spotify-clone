@@ -10,7 +10,6 @@ export default function CoffretDetails({navigation}) {
   const isArray = Array.isArray(navigation.state.params)
   const coffret = navigation.state.params
   const { setCurrentPlaylist } = useContext(PlayerContext);
-
   const backHandler = BackHandler.addEventListener("hardwareBackPress",() => {
     navigation.pop();
   });
@@ -28,8 +27,8 @@ export default function CoffretDetails({navigation}) {
   <Image source={{ uri: coffret.previewImage || coffret.image }} />
 </ImageContainer>
  <TitleContainer>
-    <Title>{coffret.title || coffret.fullNAme}</Title>
-    <SubTitle>{coffret.author || 'Auteur inconnu'}</SubTitle>
+    <Title>{coffret.title || coffret.fullName}</Title>
+    <SubTitle>{coffret.author.fullName || 'Auteur inconnu'}</SubTitle>
     <SubTitle>{coffret.duration }</SubTitle>
   </TitleContainer> 
  <PlayList>
@@ -45,7 +44,7 @@ export default function CoffretDetails({navigation}) {
     <Image source={{ uri: coffret[0]?.previewImage || coffret[0]?.image }} />
   </ImageContainer>
    <TitleContainer>
-      <Title>{coffret[0]?.title || coffret[0]?.fullNAme}</Title>
+      <Title>{coffret[0]?.title || coffret[0]?.fullName}</Title>
       {/* <SubTitle>{coffret[0].author || 'Auteur inconnu'}</SubTitle> */}
       <SubTitle>{coffret[0]?.duration }</SubTitle>
     </TitleContainer> 

@@ -7,7 +7,7 @@ export default function DailyChapters({ dailyChapters, onPress }) {
     <>
       {dailyChapters &&
         dailyChapters.items.map((chapter, index) => (
-          <Chapter key={index} time={dailyChapters.title} chapter={chapter} onPress={() => onPress(chapter)}/>
+          <Chapter key={index} chapter={chapter} onPress={() => onPress(chapter)}/>
         ))}
     </>
   );
