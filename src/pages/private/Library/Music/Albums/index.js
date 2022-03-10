@@ -21,7 +21,7 @@ export default function Albums({navigation}) {
 
     function loadAlbums() {
       let body = {
-        "startReleaseDate": "2015-01-15",
+        "startReleaseDate": "1950-01-15",
         "endReleaseDate": (new Date()).toISOString().split('T')[0],
         "page": 1,
         "resultPerPage": 20,
@@ -40,10 +40,6 @@ export default function Albums({navigation}) {
     loadAlbums();
     return () => backHandler.remove();
   }, []);
-
-  const onMediaPress = (media) => {
-    setCurrentPlaylist(currentAlbum.items, currentAlbum.items.indexOf(media));
-  }
 
   const onAlbumPress = (album) => {
      album.items.map(item => {
