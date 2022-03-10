@@ -14,9 +14,9 @@ export default function CoffretDetails({navigation}) {
     navigation.pop();
   });
   const onMediaPress = (media) => {
-    isArray ?
-    setCurrentPlaylist(coffret[0].items, media.track - 1) :
-    setCurrentPlaylist(coffret.items, media.track - 1);
+    const items = isArray ? coffret[0].items : coffret.items;
+    const mediaIndex = items.indexOf(media);
+    setCurrentPlaylist(items, mediaIndex);
   }
 
   return (

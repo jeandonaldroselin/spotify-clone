@@ -133,12 +133,11 @@ export default function FullPlayer({ onPress }) {
       return;
     }
 
-    let curr_track = currentPlaylist[currentMediaPlaylistId];
-    let current_index = currentPlaylist.indexOf(curr_track) + 1;
+    let current_index = currentMediaPlaylistId + 1;
     if (current_index === currentPlaylist.length) {
       setCurrentMediaPlaylistId(0);
     } else {
-      setCurrentMediaPlaylistId(currentMediaPlaylistId + 1);
+      setCurrentMediaPlaylistId(current_index);
     }
     onStopPress().then(async () => {
       await onStartPress();
@@ -149,14 +148,12 @@ export default function FullPlayer({ onPress }) {
     if (currentMediaPlaylistId === 0) {
       return;
     }
-    let curr_track = currentPlaylist[currentMediaPlaylistId];
 
-    let current_index = currentPlaylist.indexOf(curr_track);
-
+    let current_index = currentMediaPlaylistId;
     if (current_index === 0) {
       setCurrentMediaPlaylistId(currentPlaylist.items.length - 1);
     } else {
-      setCurrentMediaPlaylistId(currentMediaPlaylistId - 1);
+      setCurrentMediaPlaylistId(current_index - 1);
     }
     onStopPress().then(async () => {
       await onStartPress();
