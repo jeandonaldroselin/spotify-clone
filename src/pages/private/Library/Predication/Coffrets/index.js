@@ -71,7 +71,7 @@ export default function Episodios({navigation}) {
                         time: coffret.duration,
                         title: coffret.title,
                         image: coffret.image,
-                        author: coffret.author,
+                        author: coffret.author?.fullName,
                         description: coffret.description,
                       }} />
                   </Fragment>
