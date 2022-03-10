@@ -37,7 +37,7 @@ export default function Card({ item, isPlaceholder, onPress }) {
             :
             <>
               <Subtitle>{item.title}</Subtitle>
-              <Description>{item.author}</Description>
+              <Description>{item.author.fullName}</Description>
             </>
         }
       </ContainerSubtitle>
