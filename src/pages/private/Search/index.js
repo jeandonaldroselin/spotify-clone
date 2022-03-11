@@ -39,7 +39,7 @@ export default function Search() {
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
   () => {
-    this.goBackToList();
+    goBackToList();
     return true;
   });
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function Search() {
     <Container>
       <Title>Recherche</Title>
       <InputContainer>
-        <Input placeholder="Mots-clés, prédicateurs, titres..." onChangeText={(value) => onInputSearchField(value)} />
+        <Input leftIconName={'search'} placeholder="Mots-clés, prédicateurs, titres..." onChangeText={(value) => onInputSearchField(value)} />
       </InputContainer>
       {!isSearchingTheme && showThemeOrContent == 'theme' &&
         <>
