@@ -49,13 +49,8 @@ export default function Artists({navigation}) {
       const artistTemp = { ...artist };
       artistTemp.items = data;
       const libraryStackNavigation = navigation.dangerouslyGetParent();
-      console.log(artistTemp);
-      libraryStackNavigation.navigate('Details', artistTemp);
+      libraryStackNavigation.navigate('Details', {data: artistTemp, isAuthor: true });
     }).catch(e => console.error(e));
-  }
-
-  const onMediaPress = (media) => {
-    setCurrentPlaylist([media]);
   }
 
   return (
