@@ -4,10 +4,9 @@ export const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 15px;
   height: 70px;
-  width: 100%;
-  margin: 15px 0 0;
+  width: 90%;
+  margin: 15px 25px 0;
 `;
 
 export const ImageContainer = styled.View`

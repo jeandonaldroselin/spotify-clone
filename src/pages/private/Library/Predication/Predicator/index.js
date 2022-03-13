@@ -7,17 +7,12 @@ import { PlayList } from '../Predications/styles';
 import { Container, Predicator, PredicatorBox, PredicatorImage, PredicatorList, PredicatorName } from "./styles";
 import SkeletonLoader from "expo-skeleton-loader";
 
-export default function Artists() {
+export default function Artists({navigation}) {
   const [currentPredicator, setCurrentPredicator] = useState(null);
   const [predicators, setPredicators] = useState([]);
   const [predicatorsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
-  const backHandler = BackHandler.addEventListener("hardwareBackPress",
-  () => {
-    setCurrentPredicator(null);
-    return true;
-  });
   useEffect(() => {
 
     function loadPredicators() {
@@ -36,7 +31,6 @@ export default function Artists() {
       })
     }
     loadPredicators();
-    return () => backHandler.remove();
   }, []);
 
   const onPredicatorPress = (predicator) => {
@@ -54,13 +48,11 @@ export default function Artists() {
       const data = response.data.data?.item || response.data.item;
       const predicatorTemp = { ...predicator };
       predicatorTemp.items = data;
-      setCurrentPredicator(predicatorTemp);
+      const libraryStackNavigation = navigation.dangerouslyGetParent();
+      libraryStackNavigation.navigate('Details', {data: predicatorTemp, isAuthor: true });
     }).catch(e => console.error(e));
   }
 
-  const onMediaPress = (media) => {
-    setCurrentPlaylist([media]);
-  }
 
   return (
     <>

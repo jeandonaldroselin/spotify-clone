@@ -47,7 +47,8 @@ export default function Albums({navigation}) {
       item.author = album.author;
     });
     const libraryStackNavigation = navigation.dangerouslyGetParent();
-    libraryStackNavigation.navigate('CoffretDetails', [album]);
+    console.log('album', album)
+    libraryStackNavigation.navigate('Details', {data: album, isAuthor:false});
   }
   return (
     <Container>

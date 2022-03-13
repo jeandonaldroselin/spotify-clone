@@ -7,17 +7,12 @@ import { PlayList } from '../../Predication/Predications/styles';
 import { ArtistList, Artist, ArtistBox, ArtistImage, ArtistName, Container } from './styles';
 import SkeletonLoader from "expo-skeleton-loader";
 
-export default function Artists() {
+export default function Artists({navigation}) {
   const [currentArtist, setCurrentArtist] = useState(null);
   const [artists, setArtists] = useState([]);
   const [artistsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
   const { setCurrentPlaylist } = useContext(PlayerContext);
-  const backHandler = BackHandler.addEventListener("hardwareBackPress",
-  () => {
-    setCurrentArtist(null);
-    return true;
-  });
   useEffect(() => {
 
     function loadArtists() {
@@ -36,7 +31,6 @@ export default function Artists() {
       })
     }
     loadArtists();
-    return () => backHandler.remove();
   }, []);
 
   const onArtistPress = (artist) => {
@@ -54,12 +48,9 @@ export default function Artists() {
       const data = response.data.data?.item || response.data.item;
       const artistTemp = { ...artist };
       artistTemp.items = data;
-      setCurrentArtist(artistTemp);
+      const libraryStackNavigation = navigation.dangerouslyGetParent();
+      libraryStackNavigation.navigate('Details', {data: artistTemp, isAuthor: true });
     }).catch(e => console.error(e));
-  }
-
-  const onMediaPress = (media) => {
-    setCurrentPlaylist([media]);
   }
 
   return (
@@ -90,15 +81,6 @@ export default function Artists() {
             </Artist>
           </ArtistBox>
         ))}
-
-      {!currentArtist &&
-        <PlayList>
-          {currentArtist?.items
-            && currentArtist.items.map(item => {
-              <Program key={item.id} program={item} onPress={() => onMediaPress(item)} />
-            })}
-        </PlayList>
-      }
     </Container>
     :
     <SkeletonLoader style={{
