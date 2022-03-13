@@ -29,7 +29,7 @@ export default function Details({navigation}) {
   <Container>
     <TouchableOpacity onPress={() => goBack()}>
       <Arrow>
-        <AntDesign name="arrowleft" size={30} color="black" />
+        <AntDesign name="arrowleft" size={30} color="white" />
        </Arrow>
       </TouchableOpacity>
 
@@ -52,7 +52,7 @@ export default function Details({navigation}) {
 <Container>
 <TouchableOpacity onPress={() => goBack()}>
       <Arrow>
-        <AntDesign name="arrowleft" size={30} color="black" />
+        <AntDesign name="arrowleft" size={30} color="white" />
        </Arrow>
       </TouchableOpacity>
 <ImageContainerAuthor>
