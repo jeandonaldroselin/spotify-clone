@@ -7,7 +7,6 @@ import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import { AntDesign } from '@expo/vector-icons';
 export default function Details({navigation}) {
-  console.log(navigation.state.params)
   const data = navigation.state.params.data;
   const medias = data.items;
   const isAuthor = navigation.state.params.isAuthor;
@@ -16,8 +15,9 @@ export default function Details({navigation}) {
     goBack();
   });
   const onMediaPress = (media) => {
-    const mediaIndex = items.indexOf(media);
-    setCurrentPlaylist(data.items, media.track - 1);
+    if (media.playUrl.length > 0) {
+      setCurrentPlaylist([media]);
+    }
   };
 
   function goBack() {
