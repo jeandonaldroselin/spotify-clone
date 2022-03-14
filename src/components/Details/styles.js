@@ -19,7 +19,7 @@ export const ImageContainer = styled.View`
   width: 88%;
   margin-left: auto;
   margin-right: auto;
-  margin-top:20px;
+  margin-top:-15px
   background-color: #272829;
   border-radius:5px;
 `;
@@ -58,30 +58,30 @@ export const SubTitle = styled.Text.attrs({
 `;
 
 export const Arrow = styled.Text.attrs({})`
-  margin-top:20px
-  margin-left:10px
+  padding:35px 10px
 `;
 
 // Style page auteur
 export const ImageContainerAuthor = styled.View`
-  height: 43%;
-  width: 85%;
+  height: 40%;
+  width: 83%;
   margin-left: auto;
   margin-right: auto;
+  margin-top:-30px
   align-items: center;
   justify-content: center;
   border-radius:160px;
 `;
 
 export const ImageAuthor = styled.Image`
-  height: 89%;
+  height: 100%;
   width: 90%;
   border-radius:160px
 `;
 
 export const TitleContainerAuthor = styled.View`
   margin-left: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   margin-top:-10px
 `;
 

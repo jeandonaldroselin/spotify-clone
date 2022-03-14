@@ -12,7 +12,6 @@ export default function Artists({navigation}) {
   const [artists, setArtists] = useState([]);
   const [artistsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
-  const { setCurrentPlaylist } = useContext(PlayerContext);
   useEffect(() => {
 
     function loadArtists() {

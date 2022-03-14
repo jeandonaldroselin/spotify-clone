@@ -12,7 +12,6 @@ export default function Albums({navigation}) {
   const [currentAlbum, setCurrentAlbum] = useState(null);
   const [newAlbumsFake, setNewAlbumsFake] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [isLoading, setLoading] = useState(true);
-  const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
   () => {
     return true;
