@@ -35,7 +35,7 @@ export default function Episode({ chapter, onPress, onPlayPress }) {
         </TitleContainer>
       </Header>
       <Footer>
-        <Description>{chapter.description || 'Aucune description...'}</Description>
+        {chapter.description && <Description>{chapter.description}</Description>}
         <Time>
           {chapter.time}
         </Time>
