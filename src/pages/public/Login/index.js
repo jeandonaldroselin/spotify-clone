@@ -30,6 +30,9 @@ export default function Login({ navigation }) {
   // Form errors
   const [isEmailRequired, setIsEmailRequired] = useState(false);
   const [isPasswordRequired, setIsPasswordRequired] = useState(false);
+  const [invalidIdentifiers, setInvalidIdentifiers] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [errorUnknow, setErrorUnknow] = useState(false);
 
   const onConnectButtonPress = () => {
     const isEmailEmpty = isFieldEmpty(emailText);
@@ -53,6 +56,18 @@ export default function Login({ navigation }) {
           setIsAuthenticated(true);
           navigation.navigate('App');
         });
+      }).catch(e => {
+        switch (e.response.status) {
+          case 401:
+            setInvalidIdentifiers(true);
+            break;
+          case 422:
+            setIsEmailValid(e.response.data?.errors?.email?.length > 0);
+            break;
+          default:
+            setErrorUnknow(true);
+            break;
+        }
       })
     }
   }
@@ -60,11 +75,14 @@ export default function Login({ navigation }) {
   const onEmailFieldChange = (value) => {
     setIsEmailRequired(isFieldEmpty(value));
     setEmailText(value);
+    setInvalidIdentifiers(false);
+    setIsEmailValid(false);
   }
 
   const onPasswordFieldChange = (value) => {
     setIsPasswordRequired(isFieldEmpty(value));
     setPasswordText(value);
+    setInvalidIdentifiers(false);
   }
 
   const isFieldEmpty = (field) => {
@@ -78,11 +96,14 @@ export default function Login({ navigation }) {
           source={require('../../../../assets/logo-charisma.png')}
         />
         <Container>
+          {invalidIdentifiers && (<ErrorMessage>Email ou mot de passe incorrect, veuillez corriger et réessayer.</ErrorMessage>)}
+          {errorUnknow && (<ErrorMessage>Une erreur est survenue, veuillez réessayer plus tard.</ErrorMessage>)}
           <InputContainer>
             <Input placeholder="Email..."
               onChangeText={onEmailFieldChange}
             />
             {isEmailRequired && (<ErrorMessage>Ce champ est obligatoire</ErrorMessage>)}
+            {isEmailValid && (<ErrorMessage>Ce champ doit être une adresse email valide.</ErrorMessage>)}
           </InputContainer>
           <InputContainer>
             <Input placeholder="Mot de passe..."
