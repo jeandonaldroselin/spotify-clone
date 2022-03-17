@@ -41,7 +41,8 @@ export default function Artists({navigation}) {
       "endReleaseDate": (new Date()).toISOString().split('T')[0],
       "page": 1,
       "resultPerPage": 30,
-      "sortBy": "releaseDate"
+      "sortBy": "fullname",
+      "sortDirection": "ASC"
     };
     api.post('/media/find', JSON.stringify(body)).then((response) => {
       const data = response.data.data?.item || response.data.item;

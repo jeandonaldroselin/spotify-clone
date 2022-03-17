@@ -91,7 +91,8 @@ export default function Search() {
       "endReleaseDate": (new Date()).toISOString().split('T')[0],
       "page": 1,
       "resultPerPage": 10,
-      "sortBy": "title"
+      "sortBy": "title",
+      "sortDirection": "ASC"
     }
     if (!!content) {
       setCriteria(content);

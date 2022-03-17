@@ -23,8 +23,9 @@ export default function Albums({navigation}) {
         "startReleaseDate": "1950-01-15",
         "endReleaseDate": (new Date()).toISOString().split('T')[0],
         "page": 1,
-        "resultPerPage": 20,
-        "sortBy": "releaseDate"
+        "resultPerPage": 30,
+        "sortBy": "title",
+        "sortDirection": "ASC"
       }
       api.post('/media/album/find', JSON.stringify(body)).then((response) => {
         setTimeout(function(){

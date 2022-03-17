@@ -29,7 +29,8 @@ export default function Episodios({navigation}) {
         "endReleaseDate": (new Date()).toISOString().split('T')[0],
         "page": 1,
         "resultPerPage": 20,
-        "sortBy": "releaseDate"
+        "sortBy": "title",
+        "sortDirection": "ASC"
       }
       api.post('/media/boxset/find', JSON.stringify(body)).then((response) => {
         setTimeout(function() {
