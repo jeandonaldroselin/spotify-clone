@@ -109,5 +109,5 @@ export default function Artists({navigation}) {
 }
 
 Artists.navigationOptions = {
-  tabBarLabel: 'Prédicateur',
+  tabBarLabel: 'Prédicateurs',
 };
