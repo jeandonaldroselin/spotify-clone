@@ -19,7 +19,7 @@ export const ImageContainer = styled.View`
   width: 88%;
   margin-left: auto;
   margin-right: auto;
-  margin-top:10px;
+  margin-top:-15px
   background-color: #272829;
   border-radius:5px;
 `;
@@ -58,8 +58,7 @@ export const SubTitle = styled.Text.attrs({
 `;
 
 export const Arrow = styled.Text.attrs({})`
-
-  padding:30px 10px
+  padding:35px 10px
 `;
 
 // Style page auteur
@@ -68,6 +67,7 @@ export const ImageContainerAuthor = styled.View`
   width: 83%;
   margin-left: auto;
   margin-right: auto;
+  margin-top:-30px
   align-items: center;
   justify-content: center;
   border-radius:160px;
