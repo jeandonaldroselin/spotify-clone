@@ -38,7 +38,7 @@ export default function Predications() {
   }, []);
 
   const onMediaPress = (media) => {
-    setCurrentPlaylist([media]);
+    setCurrentPlaylist({ items: [media] });
   }
 
   return (

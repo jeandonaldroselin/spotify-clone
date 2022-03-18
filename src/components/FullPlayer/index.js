@@ -83,7 +83,7 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
   const onStartPress = async () => {
     setIsPlaying(true);
     setInprogress(true);
-    const path = currentPlaylist[currentMediaPlaylistId].playUrl;
+    const path = currentPlaylist.items[currentMediaPlaylistId].playUrl;
     try {
       if (sound?.sound) {
         const status = await sound.sound.getStatusAsync();
@@ -129,12 +129,12 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
   };
 
   const onForward = async () => {
-    if (currentMediaPlaylistId >= currentPlaylist.length - 1) {
+    if (currentMediaPlaylistId >= currentPlaylist.items?.length - 1) {
       return;
     }
 
     let current_index = currentMediaPlaylistId + 1;
-    if (current_index === currentPlaylist.length) {
+    if (current_index === currentPlaylist.items?.length) {
       setCurrentMediaPlaylistId(0);
     } else {
       setCurrentMediaPlaylistId(current_index);
@@ -151,7 +151,7 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
 
     let current_index = currentMediaPlaylistId;
     if (current_index === 0) {
-      setCurrentMediaPlaylistId(currentPlaylist.items.length - 1);
+      setCurrentMediaPlaylistId(currentPlaylist.items?.length - 1);
     } else {
       setCurrentMediaPlaylistId(current_index - 1);
     }
@@ -177,17 +177,17 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
       <Background>
         <InnerContainer>
           <Header>
-            <Name>{currentPlaylist[currentMediaPlaylistId].title}</Name>
+            <Name>{currentPlaylist.items[currentMediaPlaylistId]?.title}</Name>
             <Button onPress={onChevronDownPress}>
               <Icon name="chevron-down" color="white" size={24} />
             </Button>
           </Header>
-          <PodImage source={{ uri: currentPlaylist[currentMediaPlaylistId].previewImage }} />
+          <PodImage source={{ uri: currentPlaylist.items[currentMediaPlaylistId]?.previewImage }} />
           <Metadata>
             <PlayerView>
               <TextTicker duration={10000} onPress={() => onTitlePress(currentPlaylist)}
-                style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[currentMediaPlaylistId].title}</TextTicker>
-              <PodAuthor>{currentPlaylist[currentMediaPlaylistId].author?.fullName}</PodAuthor>
+                style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist.items[currentMediaPlaylistId]?.title}</TextTicker>
+              <PodAuthor>{currentPlaylist.items[currentMediaPlaylistId]?.author?.fullName}</PodAuthor>
             </PlayerView>
           </Metadata>
 
@@ -223,7 +223,7 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
             <AntDesign onPress={() => !isPlaying ? onStartPress() : onPausePress()} name={!isPlaying ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
-              color={currentMediaPlaylistId < currentPlaylist.length - 1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
+              color={currentMediaPlaylistId < currentPlaylist.items?.length - 1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}
               size={28}
               onPress={onForward}
             />

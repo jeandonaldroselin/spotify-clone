@@ -47,7 +47,7 @@ export default function Explorer() {
 
   const onItemPress = (media) => {
     if (media.playUrl.length > 0) {
-      setCurrentPlaylist([media]);
+      setCurrentPlaylist({ items: [media] });
     }
   }
 

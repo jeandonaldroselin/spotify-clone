@@ -34,18 +34,15 @@ export default function Player({ navigation }) {
 
   const goToDetails = (playlist) => {
     minimisePlayer();
-    console.log('go to details', playlist)
     navigation.navigate('Details', { data: buildPlaylistObjectForDetails(playlist), isAuthor: false });
   }
 
   const buildPlaylistObjectForDetails = (playlist) => {
-    // TODO RECUPERER LE VRAI ALBUM QUAND 
-    // ON SET DANS LE PLAYER POUR EVITER DE CONSTRUIRE ICI
-    const media = playlist[0];
+    const media = playlist.items[0];
     return {
+      ...playlist,
       previewImage: media?.previewImage,
-      author: media.author,
-      items: playlist
+      author: media.author
     }
   }
 

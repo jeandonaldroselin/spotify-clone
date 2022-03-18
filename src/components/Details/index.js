@@ -16,7 +16,7 @@ export default function Details({navigation}) {
   });
   const onMediaPress = (media) => {
     if (media.playUrl.length > 0) {
-      setCurrentPlaylist([media]);
+      setCurrentPlaylist(data, medias.indexOf(media));
     }
   };
 
