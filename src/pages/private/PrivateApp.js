@@ -246,7 +246,7 @@ function PrivateApp(props) {
         <>
             <StatusBar barStyle="light-content" backgroundColor="#111" />
             <BottomTabBar {...props} />
-            {currentPlaylist?.length > 0 && <Player />}
+            {currentPlaylist?.length > 0 && <Player navigation={props.navigation}/>}
         </>
     )
 }

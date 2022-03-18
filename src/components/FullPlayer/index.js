@@ -41,7 +41,7 @@ import Slider from "@react-native-community/slider";
 //let dirs = RNFetchBlob.fs.dirs.DocumentDir;
 const dirs = FileSystem.documentDirectory;
 
-export default function FullPlayer({ onPress }) {
+export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
   const [duration, setDuration] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [percent, setPercent] = useState(0);
@@ -178,14 +178,14 @@ export default function FullPlayer({ onPress }) {
         <InnerContainer>
           <Header>
             <Name>{currentPlaylist[currentMediaPlaylistId].title}</Name>
-            <Button {...{ onPress }}>
+            <Button onPress={onChevronDownPress}>
               <Icon name="chevron-down" color="white" size={24} />
             </Button>
           </Header>
           <PodImage source={{ uri: currentPlaylist[currentMediaPlaylistId].previewImage }} />
           <Metadata>
             <PlayerView>
-              <TextTicker duration={10000}
+              <TextTicker duration={10000} onPress={() => onTitlePress(currentPlaylist)}
                 style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}>{currentPlaylist[currentMediaPlaylistId].title}</TextTicker>
               <PodAuthor>{currentPlaylist[currentMediaPlaylistId].author?.fullName}</PodAuthor>
             </PlayerView>
