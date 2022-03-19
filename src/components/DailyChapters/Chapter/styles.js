@@ -51,7 +51,6 @@ export const Description = styled.Text.attrs({
   font-weight: 500;
   font-size: 12px;
   margin: 15px 0;
-  width: 70%;
 `;
 
 export const Footer = styled.View`
@@ -65,6 +64,8 @@ export const Time = styled.Text`
   margin-left: 10px;
   font-size: 10px;
   text-transform: uppercase;
+  flex:1;
+  text-align: right
 `;
 
 export const IconRight = styled.View`
