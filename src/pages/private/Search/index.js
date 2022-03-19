@@ -80,7 +80,7 @@ export default function Search() {
   }
 
   const onMediaPress = (media) => {
-    setCurrentPlaylist([media]);
+    setCurrentPlaylist({ items: [media] });
   }
 
   const searchMedia = (content, themeId) => {

@@ -10,17 +10,17 @@ import { BackHandler } from 'react-native';
 import { PlayerContext } from '~/context/player.context';
 import SkeletonLoader from "expo-skeleton-loader";
 
-export default function Episodios({navigation}) {
+export default function Episodios({ navigation }) {
   const [currentCoffret, setCurrentCoffret] = useState(null);
   const [coffrets, setCoffrets] = useState([]);
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const [coffretsPlaceholder] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoading, setLoading] = useState(true);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",
-  () => {
-    setCurrentCoffret(null);
-    return true;
-  });
+    () => {
+      setCurrentCoffret(null);
+      return true;
+    });
   useEffect(() => {
 
     function loadCoffrets() {
@@ -33,7 +33,7 @@ export default function Episodios({navigation}) {
         "sortDirection": "ASC"
       }
       api.post('/media/boxset/find', JSON.stringify(body)).then((response) => {
-        setTimeout(function() {
+        setTimeout(function () {
           const data = response.data.data?.item || response.data.item;
           setCoffrets(data);
           setLoading(false);
@@ -45,72 +45,62 @@ export default function Episodios({navigation}) {
   }, []);
 
   const onCoffretPress = (coffret) => {
-   coffret.items.map(item => {
+    coffret.items.map(item => {
       item.previewImage = coffret.image;
       item.author = coffret.author;
     });
     const libraryStackNavigation = navigation.dangerouslyGetParent();
-    libraryStackNavigation.navigate('Details', {data: coffret, isAuthor:false});
-  }
-
-  const onCoffretItemPress = (media) => {
-    setCurrentPlaylist(currentCoffret.items, media.track - 1);
+    libraryStackNavigation.navigate('Details', { data: coffret, isAuthor: false });
   }
 
   return (
     <>
-    {
-      !isLoading ?
-      <Container>
-          <ChaptersList>
-            {!currentCoffret &&
-              coffrets.map(coffret => (
-                <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
-                  <Fragment>
-                    <Chapter
-                      chapter={{
-                        time: coffret.duration,
-                        title: coffret.title,
-                        image: coffret.image,
-                        author: coffret.author?.fullName,
-                        description: coffret.description,
-                      }} />
-                  </Fragment>
-                </TouchableOpacity>
-              ))}
-            {currentCoffret &&
-              <Fragment key={currentCoffret.id}>
-                <Title>{currentCoffret.title}</Title>
-                <DailyChapters dailyChapters={currentCoffret} onPress={onCoffretItemPress} />
-              </Fragment>}
-          </ChaptersList>
-      </Container>
-      :
-      <SkeletonLoader style={{
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        paddingTop: 20,
-        paddingHorizontal: 0,
-        backgroundColor: '#121212'
-      }}>
-        {coffretsPlaceholder.map(item => (
+      {
+        !isLoading ?
+          <Container>
+            <ChaptersList>
+              {coffrets.map(coffret => (
+                  <TouchableOpacity key={coffret.id} onPress={() => onCoffretPress(coffret)}>
+                    <Fragment>
+                      <Chapter
+                        chapter={{
+                          time: coffret.duration,
+                          title: coffret.title,
+                          image: coffret.image,
+                          author: coffret.author?.fullName,
+                          description: coffret.description,
+                        }} />
+                    </Fragment>
+                  </TouchableOpacity>
+                ))}
+            </ChaptersList>
+          </Container>
+          :
+          <SkeletonLoader style={{
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            paddingTop: 20,
+            paddingHorizontal: 0,
+            backgroundColor: '#121212'
+          }}>
+            {coffretsPlaceholder.map(item => (
               <SkeletonLoader.Container key={item} style={{
-                  display: 'flex',
-                  width: '100%',
-                  alignItems: 'center',
-                  height: 120,
-                  marginBottom: 30
+                display: 'flex',
+                width: '100%',
+                alignItems: 'center',
+                height: 120,
+                marginBottom: 30
               }}>
-                  <SkeletonLoader.Item style={{ 
-                    width: 370,
-                    height: 120,
-                    marginBottom: 10,
-                    borderRadius: 3
-                  }}/>
+                <SkeletonLoader.Item style={{
+                  width: 370,
+                  height: 120,
+                  marginBottom: 10,
+                  borderRadius: 3
+                }} />
               </SkeletonLoader.Container>
-        ))}
-      </SkeletonLoader>
-    }
+            ))}
+          </SkeletonLoader>
+      }
     </>
   );
 }

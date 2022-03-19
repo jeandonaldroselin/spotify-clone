@@ -25,12 +25,12 @@ export default function MiniPlayer() {
         <Image
           source={{
             uri:
-              currentPlaylist[currentMediaPlaylistId].previewImage,
+              currentPlaylist.items[currentMediaPlaylistId]?.previewImage,
           }}
         />
         <NameContainer>
-          <TextTicker duration={10000} style={{ color: 'white', fontSize: 11 }}>{currentPlaylist[currentMediaPlaylistId].title}</TextTicker>
-          <Name>{currentPlaylist[currentMediaPlaylistId]?.author?.fullName}</Name>
+          <TextTicker duration={10000} style={{ color: 'white', fontSize: 11 }}>{currentPlaylist.items[currentMediaPlaylistId]?.title}</TextTicker>
+          <Name>{currentPlaylist.items[currentMediaPlaylistId]?.author?.fullName}</Name>
         </NameContainer>
       </Left>
       <Right>
