@@ -39,7 +39,6 @@ export default function Details({navigation}) {
  <TitleContainer>
     <Title>{data.title}</Title>
     <SubTitle>{data.author?.fullName || 'Auteur inconnu'}</SubTitle>
-    <SubTitle>{data.duration }</SubTitle>
   </TitleContainer> 
  <PlayList>
   {medias &&
@@ -61,7 +60,6 @@ export default function Details({navigation}) {
 <TitleContainerAuthor>
   <TitleAuthor>{ data.items[0]?.album.name}</TitleAuthor>
   <SubTitleAuthor>{data.fullName || 'Auteur inconnu'}</SubTitleAuthor>
-  <SubTitleAuthor>{data.duration }</SubTitleAuthor>
 </TitleContainerAuthor> 
 <PlayList>
 {medias &&
