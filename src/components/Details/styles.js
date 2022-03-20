@@ -15,8 +15,8 @@ export const PlayList = styled.ScrollView.attrs({
 // Style page album/coffret
 
 export const ImageContainer = styled.View`
-  height: 40%;
-  width: 88%;
+  height: 35%;
+  width: 85%;
   margin-left: auto;
   margin-right: auto;
   margin-top:-15px
@@ -63,8 +63,8 @@ export const Arrow = styled.Text.attrs({})`
 
 // Style page auteur
 export const ImageContainerAuthor = styled.View`
-  height: 40%;
-  width: 83%;
+  height: 35%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top:-30px
@@ -82,7 +82,7 @@ export const ImageAuthor = styled.Image`
 export const TitleContainerAuthor = styled.View`
   margin-left: 25px;
   margin-bottom: 8px;
-  margin-top:-10px
+  margin-top:10px
 `;
 
 export const TitleAuthor = styled.Text.attrs({
