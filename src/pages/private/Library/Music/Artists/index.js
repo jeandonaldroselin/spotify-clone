@@ -19,7 +19,8 @@ export default function Artists({navigation}) {
         "section": ["music"],
         "page": 1,
         "resultPerPage": 20,
-        "sortBy": "fullname"
+        "sortBy": "fullName",
+        "sortDirection": "ASC"
       }
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
         setTimeout(function(){
@@ -41,7 +42,7 @@ export default function Artists({navigation}) {
       "endReleaseDate": (new Date()).toISOString().split('T')[0],
       "page": 1,
       "resultPerPage": 30,
-      "sortBy": "fullname",
+      "sortBy": "fullName",
       "sortDirection": "ASC"
     };
     api.post('/media/find', JSON.stringify(body)).then((response) => {
