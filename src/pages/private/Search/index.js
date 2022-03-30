@@ -47,7 +47,7 @@ export default function Search() {
       let body = {
         "page": 1,
         "resultPerPage": 20,
-        "sortBy": "fullname"
+        "sortBy": "fullName"
       };
       setIsSearchingTheme(true);
       api.post('/media/theme/find', JSON.stringify(body)).then((response) => {

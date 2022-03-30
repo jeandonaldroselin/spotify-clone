@@ -19,7 +19,7 @@ export default function Artists({navigation}) {
         "section": ["predication"],
         "page": 1,
         "resultPerPage": 20,
-        "sortBy": "fullname",
+        "sortBy": "fullName",
         "sortDirection": "ASC"
       }
       api.post('/media/author/find', JSON.stringify(body)).then((response) => {
