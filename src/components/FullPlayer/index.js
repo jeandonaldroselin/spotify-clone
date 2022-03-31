@@ -46,13 +46,14 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [percent, setPercent] = useState(0);
   const [inprogress, setInprogress] = useState(false);
+  const [isLaunching, setIsLaunching] = useState(false);
   const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying, isPlaying, setSound, sound } = useContext(PlayerContext);
 
   useEffect(async () => {
     if (sound !== undefined) {
-      await onStopPress();
+      await onStopPress(false);
     }
-    await onStartPress();
+    await onStartPress(false);
   }, [currentPlaylist, currentMediaPlaylistId])
 
   const changeTime = async (_percent) => {
@@ -74,13 +75,21 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
     let percent = Math.floor(
       (status.positionMillis / status.durationMillis) * 100,
     );
-    
+
     setPercent(percent);
     setTimeElapsed(status.positionMillis);
     setDuration(status.durationMillis);
   };
 
-  const onStartPress = async () => {
+  const onStartPress = async (checkSpamming) => {
+    if (checkSpamming) {
+      if (isSpamming()) {
+        return new Promise((resolve) => {
+          resolve(true);
+        });
+      }
+      preventSpam(500);
+    }
     setIsPlaying(true);
     setInprogress(true);
     const path = currentPlaylist.items[currentMediaPlaylistId].playUrl;
@@ -118,17 +127,40 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
     }
   };
 
-  const onPausePress = async (e) => {
+  const onPausePress = (checkSpamming) => {
+    if (checkSpamming) {
+      if (isSpamming()) {
+        return new Promise((resolve) => {
+          resolve(true);
+        })
+      }
+      preventSpam(500);
+    }
     setIsPlaying(false);
-    await sound.sound.pauseAsync();
+    return sound.sound.pauseAsync();
   };
 
-  const onStopPress = async (e) => {
+  const isSpamming = () => {
+    return isLaunching;
+  }
+
+  const preventSpam = (delay) => {
+    setIsLaunching(true);
+    setTimeout(() => {
+      setIsLaunching(false);
+    }, delay);
+  }
+
+  const onStopPress = (checkSpamming) => {
     setIsPlaying(false);
-    await sound.sound.stopAsync();
+    return sound.sound.stopAsync();
   };
 
-  const onForward = async () => {
+  const onForward = () => {
+    if (isSpamming()) {
+      return;
+    }
+    preventSpam(1500);
     if (currentMediaPlaylistId >= currentPlaylist.items?.length - 1) {
       return;
     }
@@ -139,12 +171,13 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
     } else {
       setCurrentMediaPlaylistId(current_index);
     }
-    onStopPress().then(async () => {
-      await onStartPress();
-    });
   };
 
-  const onBackward = async () => {
+  const onBackward = () => {
+    if (isSpamming()) {
+      return;
+    }
+    preventSpam(1500);
     if (currentMediaPlaylistId === 0) {
       return;
     }
@@ -155,9 +188,6 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
     } else {
       setCurrentMediaPlaylistId(current_index - 1);
     }
-    onStopPress().then(async () => {
-      await onStartPress();
-    });
   };
 
   const msToTime = (duration) => {
@@ -220,7 +250,7 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
               size={28}
               onPress={onBackward}
             />
-            <AntDesign onPress={() => !isPlaying ? onStartPress() : onPausePress()} name={!isPlaying ? 'play' : 'pause'} color="white" size={54} />
+            <AntDesign onPress={() => !isPlaying ? onStartPress(true) : onPausePress(true)} name={!isPlaying ? 'play' : 'pause'} color="white" size={54} />
             <AntDesign
               name="stepforward"
               color={currentMediaPlaylistId < currentPlaylist.items?.length - 1 ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'}

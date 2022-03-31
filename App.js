@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LogBox } from 'react-native';
 import Routes from '~/routes';
 import { AuthenticationContext } from '~/context/authentication.context';
@@ -23,6 +23,13 @@ export default function App() {
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [sound, setSound] = useState(undefined);
+
+  // useEffect(async () => {
+  //   if (sound !== undefined) {
+  //     alert('stop')
+  //   }
+  //   alert('start')
+  // }, [currentPlaylist, currentMediaPlaylistId])
 
   const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0) => {
     setCurrentPlaylist(playlist);
