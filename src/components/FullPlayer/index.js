@@ -42,153 +42,20 @@ import Slider from "@react-native-community/slider";
 const dirs = FileSystem.documentDirectory;
 
 export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
-  const [duration, setDuration] = useState(0);
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [percent, setPercent] = useState(0);
-  const [inprogress, setInprogress] = useState(false);
-  const [isLaunching, setIsLaunching] = useState(false);
-  const { currentPlaylist, currentMediaPlaylistId, setCurrentMediaPlaylistId, setIsPlaying, isPlaying, setSound, sound } = useContext(PlayerContext);
-
-  useEffect(async () => {
-    if (sound !== undefined) {
-      await onStopPress(false);
-    }
-    await onStartPress(false);
-  }, [currentPlaylist, currentMediaPlaylistId])
-
-  const changeTime = async (_percent) => {
-    if (!sound) {
-      return false;
-    }
-    const seektime = (_percent / 100) * duration;
-    await sound.sound.setPositionAsync(seektime)
-  };
-
-  const _onPlaybackStatusUpdate = (status) => {
-    if (!status?.positionMillis || !status?.durationMillis) {
-      return;
-    }
-
-    if (status.positionMillis === status.durationMillis) {
-      sound?.sound.stopAsync();
-    }
-    let percent = Math.floor(
-      (status.positionMillis / status.durationMillis) * 100,
-    );
-
-    setPercent(percent);
-    setTimeElapsed(status.positionMillis);
-    setDuration(status.durationMillis);
-  };
-
-  const onStartPress = async (checkSpamming) => {
-    if (checkSpamming) {
-      if (isSpamming()) {
-        return new Promise((resolve) => {
-          resolve(true);
-        });
-      }
-      preventSpam(500);
-    }
-    setIsPlaying(true);
-    setInprogress(true);
-    const path = currentPlaylist.items[currentMediaPlaylistId].playUrl;
-    try {
-      if (sound?.sound) {
-        const status = await sound.sound.getStatusAsync();
-        if (path.includes(status.uri)) { // Here we know the sound is just paused
-          await sound.sound.playAsync();
-          return;
-        }
-      }
-
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: false,
-        staysActiveInBackground: true,
-        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-        playThroughEarpieceAndroid: false
-      });
-
-      if (sound?.sound) {
-        await sound.sound.unloadAsync();
-      }
-      const localSound = await Audio.Sound.createAsync({ uri: path });
-      
-      localSound.sound.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate);
-      setSound(localSound);
-
-      await Promise.all([localSound.sound.playAsync(), localSound.sound.setVolumeAsync(1.0)]);
-    }
-    catch (e) {
-      console.error(e)
-    }
-  };
-
-  const onPausePress = (checkSpamming) => {
-    if (checkSpamming) {
-      if (isSpamming()) {
-        return new Promise((resolve) => {
-          resolve(true);
-        })
-      }
-      preventSpam(500);
-    }
-    setIsPlaying(false);
-    return sound.sound.pauseAsync();
-  };
-
-  const isSpamming = () => {
-    return isLaunching;
-  }
-
-  const preventSpam = (delay) => {
-    setIsLaunching(true);
-    setTimeout(() => {
-      setIsLaunching(false);
-    }, delay);
-  }
-
-  const onStopPress = (checkSpamming) => {
-    setIsPlaying(false);
-    return sound.sound.stopAsync();
-  };
-
-  const onForward = () => {
-    if (isSpamming()) {
-      return;
-    }
-    preventSpam(1500);
-    if (currentMediaPlaylistId >= currentPlaylist.items?.length - 1) {
-      return;
-    }
-
-    let current_index = currentMediaPlaylistId + 1;
-    if (current_index === currentPlaylist.items?.length) {
-      setCurrentMediaPlaylistId(0);
-    } else {
-      setCurrentMediaPlaylistId(current_index);
-    }
-  };
-
-  const onBackward = () => {
-    if (isSpamming()) {
-      return;
-    }
-    preventSpam(1500);
-    if (currentMediaPlaylistId === 0) {
-      return;
-    }
-
-    let current_index = currentMediaPlaylistId;
-    if (current_index === 0) {
-      setCurrentMediaPlaylistId(currentPlaylist.items?.length - 1);
-    } else {
-      setCurrentMediaPlaylistId(current_index - 1);
-    }
-  };
+  const {
+    currentPlaylist,
+    currentMediaPlaylistId,
+    isPlaying,
+    onStartPress,
+    onPausePress,
+    onBackward,
+    onForward,
+    duration,
+    timeElapsed,
+    percent,
+    inProgress,
+    changeTime
+  } = useContext(PlayerContext);
 
   const msToTime = (duration) => {
     var seconds = Math.floor((duration / 1000) % 60),
@@ -232,12 +99,12 @@ export default function FullPlayer({ onChevronDownPress, onTitlePress }) {
             />
             <View style={styles.inprogress}>
               <Text style={[styles.textLight, styles.timeStamp]}>
-                {!inprogress
+                {!inProgress
                   ? timeElapsed
                   : msToTime(Math.floor(timeElapsed))}
               </Text>
               <Text style={[styles.textLight, styles.timeStamp]}>
-                {!inprogress
+                {!inProgress
                   ? duration
                   : msToTime(Math.floor(duration))}
               </Text>
