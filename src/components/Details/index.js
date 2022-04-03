@@ -2,18 +2,19 @@ import React, { useContext} from 'react';
 
 import { Container, PlayList ,Arrow, ImageContainer,Image, TitleContainer,Title,SubTitle,ImageContainerAuthor, ImageAuthor, TitleContainerAuthor,SubTitleAuthor,TitleAuthor} from './styles';
 
-import { BackHandler , Text, TouchableOpacity} from 'react-native';
+import { BackHandler , TouchableOpacity} from 'react-native';
 import Program from '~/components/Program';
 import { PlayerContext } from '~/context/player.context';
 import { AntDesign } from '@expo/vector-icons';
 export default function Details({navigation}) {
   const data = navigation.state.params.data;
   const medias = data.items;
-  const isAuthor = navigation.state.params.isAuthor;
+  const isAlbumOrCoffret = !navigation.state.params.isAuthor;
   const { setCurrentPlaylist } = useContext(PlayerContext);
   const backHandler = BackHandler.addEventListener("hardwareBackPress",() => {
     goBack();
   });
+  console.log('---------------------', data)
   const onMediaPress = (media) => {
     if (media.playUrl.length > 0) {
       setCurrentPlaylist(data, medias.indexOf(media));
@@ -24,9 +25,10 @@ export default function Details({navigation}) {
     navigation.pop();
   }
   return (
-    !isAuthor ?
+    isAlbumOrCoffret ?
 
-  <Container>
+<Container>
+
     <TouchableOpacity onPress={() => goBack()}>
       <Arrow>
         <AntDesign name="arrowleft" size={30} color="white" />
@@ -38,7 +40,8 @@ export default function Details({navigation}) {
   </ImageContainer>
  <TitleContainer>
     <Title>{data.title}</Title>
-    <SubTitle>{data.author?.fullName || 'Auteur inconnu'}</SubTitle>
+    <SubTitle>{data.author.fullname || 'Auteur inconnu'}</SubTitle>
+    
   </TitleContainer> 
  <PlayList>
   {medias &&
@@ -47,7 +50,7 @@ export default function Details({navigation}) {
     ))} 
 </PlayList>  
 </Container>
-:
+: 
 <Container>
 <TouchableOpacity onPress={() => goBack()}>
       <Arrow>
@@ -58,8 +61,8 @@ export default function Details({navigation}) {
   <ImageAuthor source={{ uri: data.previewImage || data.image }} />
 </ImageContainerAuthor>
 <TitleContainerAuthor>
-  <TitleAuthor>{ data.items[0]?.album.name}</TitleAuthor>
-  <SubTitleAuthor>{data.fullName || 'Auteur inconnu'}</SubTitleAuthor>
+  <TitleAuthor>{ data.items[0]?.album.title}</TitleAuthor>
+  <SubTitleAuthor>{data.fullname || 'Auteur inconnu'}</SubTitleAuthor>
 </TitleContainerAuthor> 
 <PlayList>
 {medias &&
@@ -68,5 +71,6 @@ export default function Details({navigation}) {
   ))} 
 </PlayList>  
 </Container>
+
   );
 }

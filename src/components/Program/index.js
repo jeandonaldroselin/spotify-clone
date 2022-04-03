@@ -65,7 +65,7 @@ export default function Program({ program, onPress, isPlaceholder }) {
         <TextContainer>
           <Title>{program.title}</Title>
           <SubTitle>
-            {program.releaseDate} - {program.author?.fullName || "Auteur inconnu"}
+            {program.releaseDate} - {program.author?.fullname || "Auteur inconnu"}
           </SubTitle>
         </TextContainer>
       </Container>

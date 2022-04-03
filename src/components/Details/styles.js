@@ -15,7 +15,7 @@ export const PlayList = styled.ScrollView.attrs({
 // Style page album/coffret
 
 export const ImageContainer = styled.View`
-  height: 35%;
+  height: 43%;
   width: 85%;
   margin-left: auto;
   margin-right: auto;
