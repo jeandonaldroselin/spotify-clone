@@ -14,7 +14,7 @@ const { height } = Dimensions.get('window');
 const TABBAR_HEIGHT = getBottomSpace() + 50;
 const MINIMIZED_PLAYER_HEIGHT = 50;
 const TOP = 0;
-const BOTTOM = height - TABBAR_HEIGHT - MINIMIZED_PLAYER_HEIGHT;
+const BOTTOM = - (TABBAR_HEIGHT + MINIMIZED_PLAYER_HEIGHT -2);
 const BOTTOM_ABSOLUTE = height;
 const config = {
   damping: 15,
@@ -100,7 +100,7 @@ export default function Player({ navigation }) {
             style={[
               {
                 position: 'absolute',
-                top: -(MINIMIZED_PLAYER_HEIGHT + TABBAR_HEIGHT - 2),
+                top: BOTTOM,
                 left: 0,
                 right: 0,
                 height: MINIMIZED_PLAYER_HEIGHT,
