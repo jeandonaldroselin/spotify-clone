@@ -61,8 +61,8 @@ export default function Details({navigation}) {
   <ImageAuthor source={{ uri: data.previewImage || data.image }} />
 </ImageContainerAuthor>
 <TitleContainerAuthor>
-  <TitleAuthor>{ data.items[0]?.album.title}</TitleAuthor>
-  <SubTitleAuthor>{data.fullname || 'Auteur inconnu'}</SubTitleAuthor>
+  <TitleAuthor>{data.fullname || 'Auteur inconnu'} </TitleAuthor>
+ {/* <SubTitleAuthor>{ data.items[0]?.album.title}</SubTitleAuthor> */}
 </TitleContainerAuthor> 
 <PlayList>
 {medias &&
