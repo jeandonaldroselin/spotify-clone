@@ -93,7 +93,7 @@ export default PrivateStack = createBottomTabNavigator(
                                             fontWeight: 'bold',
                                         },
                                         tabStyle: {
-                                            width: 90,
+                                            width: 104,
                                             padding: 0,
                                             margin: 0,
                                             textAlign: 'Left',
