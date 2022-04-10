@@ -67,7 +67,7 @@ export default function Account({ navigation }) {
           <Item value='Assistance' />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Linking.openURL('https://www.editions-charisma.fr/content/10-conditions-generales-de-vente')}>
+        <TouchableOpacity onPress={() => Linking.openURL('https://www.editions-charisma.fr/content/13-politique-de-confidentialite-des-donnees')}>
           <Item value='Consulter la Politique de confidentialité' />
         </TouchableOpacity>
 
