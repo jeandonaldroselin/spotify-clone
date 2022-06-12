@@ -23,11 +23,11 @@
       "**/*"
     ],
     "android": {
-      "package": "com.charisma.editions-charisma",
+      "package": "com.charisma.editions",
       "versionCode": 1
     },
     "ios": {
-      "bundleIdentifier": "com.charisma.editions-charisma",
+      "bundleIdentifier": "com.charisma.editions",
       "buildNumber": "1.0.0",
       "supportsTablet": true,
       "infoPlist": {
