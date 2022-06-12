@@ -27,6 +27,8 @@
       "versionCode": 1
     },
     "ios": {
+      "bundleIdentifier": "com.charisma.editions-charisma",
+      "buildNumber": "1.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
