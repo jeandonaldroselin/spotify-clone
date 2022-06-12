@@ -22,6 +22,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.charisma.editions-charisma",
+      "versionCode": 1
+    },
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
