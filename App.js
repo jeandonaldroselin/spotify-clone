@@ -6,6 +6,7 @@ import { AuthenticationContext } from '~/context/authentication.context';
 import { PlayerContext } from '~/context/player.context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import NavigationService from '~/services/NavigationService';
+import api from '~/services/api';
 
 LogBox.ignoreLogs([
   'Unrecognized WebSocket',
@@ -68,13 +69,14 @@ export default function App() {
     await sound.sound.setPositionAsync(seektime)
   };
 
-  const setCurrentPlaylistAndMedia = (playlist, startMediaId = 0, checkSpamming = true) => {
+  const setCurrentPlaylistAndMedia = async (playlist, startMediaId = 0, checkSpamming = true) => {
     if (checkSpamming) {
       if (isSpamming()) {
         return;
       }
       preventSpam(1500);
     }
+    const { data } = await api.get('/media/log/' + playlist.items[startMediaId].id);
     setCurrentMediaPlaylistId(startMediaId);
     setCurrentPlaylist({ ...playlist });
   }
